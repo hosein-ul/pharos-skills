@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharos Skills — Brand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f7f7f5;
+    --bg-dark: #0c0a14;
+    --bg-mid: #15121f;
+    --ink: #0c0a14;
+    --ink-soft: #4a4458;
+    --ink-mute: #8a8499;
+    --line: #ece9e1;
+    --line-dark: #2a2438;
+    --purple: #6B4FFF;
+    --purple-deep: #5538DD;
+    --teal: #00C2A8;
+    --pink: #FF5A8E;
+    --amber: #FFB938;
+    --green: #22c55e;
+    --red: #ef4444;
+    --grad-hero: linear-gradient(135deg, #6B4FFF 0%, #9168C0 40%, #FF5A8E 80%, #FFB938 100%);
+    --grad-card: linear-gradient(180deg, #6B4FFF 0%, #5538DD 100%);
+    --grad-teal: linear-gradient(180deg, #00C2A8 0%, #008f7d 100%);
+    --sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--purple-deep); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 1140px; margin: 0 auto; padding: 0 28px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .container {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+  .brand-mark { width: 28px; height: 28px; }
+  .nav-links { display: flex; gap: 32px; font-size: 14px; font-weight: 500; }
+  .nav-links a { color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--ink); text-decoration: none; }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: #fff;
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+  }
+  .nav-cta:hover { background: var(--purple-deep); color: #fff; text-decoration: none; }
+
+  /* hero */
+  .hero {
+    position: relative;
+    padding: 80px 0 100px;
+    background:
+      radial-gradient(ellipse 70% 50% at 20% 0%, rgba(107,79,255,0.10), transparent 70%),
+      radial-gradient(ellipse 60% 50% at 100% 30%, rgba(255,90,142,0.07), transparent 70%);
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px 6px 6px;
+    background: white; border: 1px solid var(--line);
+    border-radius: 100px; font-size: 13px; font-weight: 500;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .hero-eyebrow .dot {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--grad-hero); display: inline-block;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 700; letter-spacing: -0.035em; line-height: 0.98;
+    margin-bottom: 28px;
+    max-width: 980px;
+  }
+  .hero h1 .grad {
+    background: var(--grad-hero);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .hero .lede {
+    font-size: 20px; color: var(--ink-soft);
+    max-width: 640px; line-height: 1.5;
+    margin-bottom: 36px;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 22px; border-radius: 10px;
+    font-size: 15px; font-weight: 500;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--ink); color: white; box-shadow: 0 8px 24px rgba(12,10,20,0.18); }
+  .btn.primary:hover { background: var(--purple-deep); }
+  .btn.secondary { background: white; color: var(--ink); border: 1px solid var(--line); }
+  .btn.secondary:hover { border-color: var(--ink); text-decoration: none; }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    margin-top: 80px;
+    padding-top: 36px; border-top: 1px solid var(--line);
+  }
+  .stat-num {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 44px; letter-spacing: -0.03em; line-height: 1;
+    background: var(--grad-hero);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 13px; color: var(--ink-mute); font-weight: 500; }
+
+  /* sections */
+  section { padding: 100px 0; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--purple-deep); font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .section-eyebrow::before {
+    content: ''; width: 24px; height: 2px; background: var(--purple-deep);
+  }
+  h2 {
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;
+    margin-bottom: 18px; max-width: 720px;
+  }
+  .section-lede {
+    font-size: 18px; color: var(--ink-soft);
+    max-width: 620px; margin-bottom: 56px;
+  }
+
+  /* skill cards */
+  .skill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .skill {
+    border-radius: 24px;
+    padding: 36px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    min-height: 460px;
+    display: flex; flex-direction: column;
+  }
+  .skill.purple { background: var(--grad-card); }
+  .skill.teal { background: var(--grad-teal); }
+  .skill::before {
+    content: ''; position: absolute;
+    top: -50px; right: -50px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .skill::after {
+    content: ''; position: absolute;
+    bottom: -80px; left: -40px;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .skill > * { position: relative; z-index: 1; }
+  .skill-num {
+    font-family: var(--mono); font-size: 13px;
+    opacity: 0.75; margin-bottom: 10px;
+  }
+  .skill h3 {
+    font-size: 28px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .skill p { font-size: 15px; opacity: 0.9; margin-bottom: 20px; }
+  .skill-features { list-style: none; padding: 0; flex: 1; }
+  .skill-features li {
+    font-size: 14px; padding: 8px 0;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .skill-features li::before {
+    content: '✓'; flex-shrink: 0;
+    font-weight: 700;
+  }
+  .skill-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 24px;
+    color: white; font-weight: 500; font-size: 14px;
+  }
+  .skill-link:hover { text-decoration: underline; color: white; }
+
+  /* install matrix */
+  .install-section { background: var(--bg-soft); }
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .agent {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    transition: all 0.2s;
+  }
+  .agent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+    border-color: var(--purple);
+  }
+  .agent-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .agent-logo {
+    width: 44px; height: 44px;
+    background: var(--bg-soft);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 7px;
+    flex-shrink: 0;
+  }
+  .agent-logo svg, .agent-logo img { width: 100%; height: 100%; object-fit: contain; }
+  .agent-name {
+    font-weight: 600; font-size: 16px;
+    flex: 1;
+  }
+  .agent-badge {
+    font-size: 11px; padding: 3px 8px; border-radius: 6px;
+    background: rgba(107,79,255,0.1); color: var(--purple-deep);
+    font-weight: 500;
+  }
+  .agent-badge.partner { background: rgba(0,194,168,0.1); color: var(--teal); }
+  .agent-badge.context { background: var(--bg-soft); color: var(--ink-mute); }
+  .agent-cmd {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--bg-dark);
+    color: #e8e8e8;
+    padding: 12px 14px;
+    border-radius: 8px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.5;
+  }
+  .agent-cmd .c { color: #6b7280; }
+  .agent-cmd .v { color: #c4b5fd; }
+  .agent-note { font-size: 13px; color: var(--ink-mute); margin-top: 10px; }
+
+  /* onboarding stepper */
+  .stepper {
+    position: relative;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .stepper::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 12%; right: 12%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--purple) 0%, var(--teal) 100%);
+    opacity: 0.3;
+    z-index: 0;
+  }
+  .step {
+    position: relative;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    z-index: 1;
+  }
+  .step-circle {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--grad-hero);
+    color: white; font-weight: 700; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    margin: -48px auto 16px;
+    box-shadow: 0 8px 20px rgba(107,79,255,0.3);
+  }
+  .step h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .step p { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 12px; }
+  .step .agent-cmd { font-size: 11px; }
+
+  /* footer */
+  footer {
+    background: var(--bg-dark);
+    color: white;
+    padding: 80px 0 40px;
+  }
+  footer h4 {
+    font-size: 12px; font-weight: 600;
+    color: #8a8499; margin-bottom: 16px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  footer a { color: #d4d2db; display: block; padding: 4px 0; font-size: 14px; }
+  footer a:hover { color: white; text-decoration: none; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+  .footer-brand-text { font-size: 14px; color: #8a8499; margin-top: 16px; max-width: 280px; }
+  .footer-bottom {
+    border-top: 1px solid var(--line-dark);
+    padding-top: 24px;
+    display: flex; justify-content: space-between;
+    font-size: 13px; color: #6b6b7a;
+  }
+
+  /* design switcher */
+  .switcher {
+    position: fixed; bottom: 20px; right: 20px; z-index: 60;
+    background: white; border: 1px solid var(--line);
+    border-radius: 12px; padding: 6px;
+    display: flex; gap: 4px;
+    font-size: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+  }
+  .switcher a { padding: 8px 12px; border-radius: 8px; color: var(--ink-soft); font-weight: 500; }
+  .switcher a:hover { background: var(--bg-soft); text-decoration: none; }
+  .switcher a.active { background: var(--ink); color: white; }
+
+  @media (max-width: 880px) {
+    .skill-grid { grid-template-columns: 1fr; }
+    .agent-grid { grid-template-columns: 1fr; }
+    .stepper { grid-template-columns: 1fr; }
+    .stepper::before { display: none; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo-pharos" viewBox="0 0 32 32">
+      <path fill="#6B4FFF" d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z"/>
+      <path fill="#FFFFFF" d="M12 9 H18 a4 4 0 0 1 0 8 H14 V23 H12 Z M14 11 V15 H18 a2 2 0 0 0 0 -4 Z"/>
+    </symbol>
+    <symbol id="logo-anthropic" viewBox="0 0 32 32"><path fill="#D97757" d="M9.2 25 L15.5 7 h4.2 L26 25 h-3.8 L20.6 21 h-7.2 L11.8 25 z M14.2 18 h5.6 L17 11.3 z"/></symbol>
+    <symbol id="logo-openai" viewBox="0 0 32 32"><path fill="#10A37F" d="M27 13.5a7 7 0 0 0-8.4-9.1 7 7 0 0 0-12 2.4 7 7 0 0 0-4.6 10.7 7 7 0 0 0 8.4 9.1 7 7 0 0 0 12-2.4 7 7 0 0 0 4.6-10.7zM16 27.3a5.2 5.2 0 0 1-3.3-1.2l.2-.1 5.5-3.2c.3-.2.4-.5.4-.8v-7.7l2.3 1.3v6.5a5.2 5.2 0 0 1-5.1 5.2zM4.8 22.4a5.2 5.2 0 0 1-.6-3.5l.2.1 5.5 3.2c.3.2.6.2.9 0l6.7-3.9v2.7l-5.5 3.2a5.2 5.2 0 0 1-7.2-1.8zM3.4 11.2a5.2 5.2 0 0 1 2.7-2.3v6.6c0 .3.2.6.4.8l6.7 3.9-2.3 1.3-5.5-3.2a5.2 5.2 0 0 1-2-7.1zm19 4.4-6.7-3.9 2.3-1.3 5.5 3.2a5.2 5.2 0 0 1-.8 9.4v-6.6c0-.3-.1-.6-.3-.8zm2.3-3.5-.2-.1-5.5-3.2c-.3-.2-.6-.2-.9 0l-6.7 3.9V10l5.5-3.2a5.2 5.2 0 0 1 7.8 5.3zm-14.5 4.8-2.3-1.3v-6.5a5.2 5.2 0 0 1 8.5-4l-.2.1-5.5 3.2c-.3.2-.4.5-.4.8zm1.2-2.7L13.4 12l3 1.7v3.4l-3 1.7-3-1.7z"/></symbol>
+    <symbol id="logo-cursor" viewBox="0 0 32 32"><path fill="#000" d="M5 5 L16 11 V29 L5 23 Z" opacity="0.95"/><path fill="#666" d="M16 11 L27 5 V23 L16 29 Z"/><path fill="#999" d="M5 5 L27 5 L16 11 Z"/></symbol>
+    <symbol id="logo-gemini" viewBox="0 0 32 32"><defs><linearGradient id="gemb" x1="0" y1="0" x2="32" y2="32"><stop offset="0" stop-color="#4796E3"/><stop offset="0.5" stop-color="#9168C0"/><stop offset="1" stop-color="#BB5A92"/></linearGradient></defs><path fill="url(#gemb)" d="M16 2 c0 7 5 12 12 14 -7 2 -12 7 -12 14 0 -7 -5 -12 -12 -14 7 -2 12 -7 12 -14z"/></symbol>
+    <symbol id="logo-copilot" viewBox="0 0 32 32"><path fill="#000" d="M28 14.5c0-1-.4-2-1.1-2.7l-.1-.1c0-3.6-2.4-5.7-5.5-5.7-1.8 0-3.2.6-4.3 1.5-.8.7-1.5 1.5-2.1 2.3-.6-.8-1.3-1.6-2.1-2.3-1-1-2.5-1.5-4.3-1.5C5.5 6 3 8.1 3 11.7l-.1.1A4 4 0 0 0 2 14.5v3.5c0 4 4 7 8 7h12c4 0 8-3 8-7v-3.5zM5 12.5C5 9.7 6.6 8 9.5 8c1.4 0 2.4.4 3.1 1.1.8.8 1.4 1.8 1.9 2.8l.5 1.1H9c-1.5 0-2.7.3-3.5.7-.2-.4-.5-.8-.5-1.2zm22 5.5c0 2.7-2.8 5-6 5H10c-3.2 0-6-2.3-6-5v-2c0-1.4 1.1-2.5 2.5-2.5h19c1.4 0 2.5 1.1 2.5 2.5zm-.5-4.6c-.8-.4-2-.9-3.5-.9h-6l.5-1.1c.5-1 1.1-2 1.9-2.8.7-.7 1.7-1.1 3.1-1.1 2.9 0 4.5 1.7 4.5 4.5 0 .4-.3.8-.5 1.2zM10 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></symbol>
+    <symbol id="logo-windsurf" viewBox="0 0 32 32"><path fill="#09b6a2" d="M3 14 q3 -4 6 -2 q4 3 7 -1 q4 -4 7 -1 q3 2 6 0 v3 q-3 2 -6 0 q-3 -3 -7 1 q-4 4 -8 1 q-3 -2 -5 -1 z"/><path fill="#09b6a2" opacity="0.5" d="M3 22 q3 -4 6 -2 q4 3 7 -1 q4 -4 7 -1 q3 2 6 0 v3 q-3 2 -6 0 q-3 -3 -7 1 q-4 4 -8 1 q-3 -2 -5 -1 z"/></symbol>
+    <symbol id="logo-cline" viewBox="0 0 32 32"><path fill="none" stroke="#7c3aed" stroke-width="3" stroke-linecap="round" d="M25 9 a11 11 0 1 0 0 14"/><circle cx="16" cy="16" r="3.5" fill="#7c3aed"/></symbol>
+    <symbol id="logo-continue" viewBox="0 0 32 32"><path fill="#00C2A8" d="M5 5 L17 16 L5 27 V20 L11 16 L5 12 Z"/><rect x="20" y="5" width="6" height="22" fill="#00C2A8"/></symbol>
+    <symbol id="logo-aider" viewBox="0 0 32 32"><path fill="#22c55e" d="M16 3 L28 27 H23 L20.5 22 H11.5 L9 27 H4 Z M14 18 H18 L16 12 Z"/></symbol>
+    <symbol id="logo-anvita" viewBox="0 0 32 32"><circle cx="7" cy="7" r="3" fill="#6B4FFF"/><circle cx="25" cy="16" r="3" fill="#00C2A8"/><circle cx="7" cy="25" r="3" fill="#6B4FFF"/><path stroke="#888" stroke-width="2" fill="none" stroke-linecap="round" d="M10 8 L22 14 M10 24 L22 18"/></symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="container">
+    <div class="brand">
+      <svg class="brand-mark"><use href="#logo-pharos"/></svg>
+      Pharos Skills
+    </div>
+    <div class="nav-links">
+      <a href="#skills">The skills</a>
+      <a href="#install">Install</a>
+      <a href="#onboarding">Onboarding</a>
+      <a href="#hackathon">Carnival</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/hosein-ul/pharos-skills" target="_blank">GitHub →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-eyebrow"><span class="dot"></span> Pharos AI Agent Carnival · Phase 1 submission</div>
+    <h1>Safer transactions.<br>Smarter yield.<br><span class="grad">Every agent.</span></h1>
+    <p class="lede">A pre-execution safety guardrail and a risk-adjusted RWA yield router — one repo, every modern AI agent stack, one command to install.</p>
+    <div class="hero-ctas">
+      <a class="btn primary" href="#install">Install in your agent →</a>
+      <a class="btn secondary" href="https://github.com/hosein-ul/pharos-skills" target="_blank">Read the source</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Production skills</div>
+      </div>
+      <div>
+        <div class="stat-num">11</div>
+        <div class="stat-label">AI agents supported</div>
+      </div>
+      <div>
+        <div class="stat-num">$7.7M</div>
+        <div class="stat-label">Live TVL indexed</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Read-only by default</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow">The bundle</div>
+    <h2>Two skills that compose into a workflow.</h2>
+    <p class="section-lede">The yield router decides <strong>where</strong> idle capital should go. The tx guardrail verifies <strong>the call is safe</strong> before it's signed. Together, they cover the full lifecycle of a Pharos transaction.</p>
+
+    <div class="skill-grid">
+      <div class="skill purple">
+        <div class="skill-num">SKILL · 01</div>
+        <h3>pharos-tx-guardrail</h3>
+        <p>Pre-execution safety checkpoint. Runs before every <code>cast send</code>. Returns a risk score 0–100 with PROCEED / WARN / BLOCK.</p>
+        <ul class="skill-features">
+          <li>6 read-only checks — simulation, contract existence, selector decode, calldata pattern, balance ratio, gas estimate</li>
+          <li>Hard-block on unlimited approvals (MAX_UINT256) and missing contract code</li>
+          <li>Dangerous-selector DB covers ownership transfer, upgrade, set-admin patterns</li>
+          <li>~120 ms per call · zero on-chain writes · zero gas</li>
+        </ul>
+        <a class="skill-link" href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">Read SKILL.md →</a>
+      </div>
+
+      <div class="skill teal">
+        <div class="skill-num">SKILL · 02</div>
+        <h3>pharos-rwa-yield-router</h3>
+        <p>Read-only yield scanner across Pharos's RWA stack. Live APY, risk-adjusted ranking, capital-tier recommendation.</p>
+        <ul class="skill-features">
+          <li>9 protocols tracked — R25 Axil, Zona, Morpho Blue, TermMax, AquaFlux, Faroo + 3 more</li>
+          <li>Asset-class risk multipliers (0.50 → 0.95) per protocol category</li>
+          <li>Filters by user tolerance, min deposit, lockup window, capital size</li>
+          <li>Honest status — flags protocols deployed but not yet active</li>
+        </ul>
+        <a class="skill-link" href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">Read SKILL.md →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install" class="install-section">
+  <div class="container">
+    <div class="section-eyebrow">Install</div>
+    <h2>One repo. Every agent.</h2>
+    <p class="section-lede">Native skill-engine support on Pharos and Claude Code. Drop-in context for every other major agent stack.</p>
+
+    <div class="agent-grid">
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-pharos"/></svg></div>
+          <div class="agent-name">Pharos Skill Engine</div>
+          <span class="agent-badge">Official runtime</span>
+        </div>
+        <div class="agent-cmd"><span class="c"># clone into the skills directory</span>
+git clone https://github.com/hosein-ul/pharos-skills <span class="v">~/.pharos/skills/pharos-skills</span></div>
+        <p class="agent-note">Auto-detects both SKILL.md entry points and registers them as separate capabilities.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-anthropic"/></svg></div>
+          <div class="agent-name">Claude Code</div>
+          <span class="agent-badge">Native skills</span>
+        </div>
+        <div class="agent-cmd">git clone https://github.com/hosein-ul/pharos-skills /tmp/ps && \
+  ln -s /tmp/ps/pharos-tx-guardrail     ~/.claude/skills/pharos-tx-guardrail && \
+  ln -s /tmp/ps/pharos-rwa-yield-router ~/.claude/skills/pharos-rwa-yield-router</div>
+        <p class="agent-note">Triggers fire automatically on any Pharos-related prompt.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-anvita"/></svg></div>
+          <div class="agent-name">Anvita Flow</div>
+          <span class="agent-badge partner">Pharos partner</span>
+        </div>
+        <div class="agent-cmd"><span class="c"># in Skill Hub, paste:</span>
+https://github.com/hosein-ul/pharos-skills</div>
+        <p class="agent-note">Anvita Flow ingests Pharos Skill Engine packages directly from a repo URL.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-cursor"/></svg></div>
+          <div class="agent-name">Cursor</div>
+          <span class="agent-badge context">Project rules</span>
+        </div>
+        <div class="agent-cmd">mkdir -p .cursor/rules && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-tx-guardrail/SKILL.md \
+       -o .cursor/rules/pharos-tx-guardrail.mdc && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-rwa-yield-router/SKILL.md \
+       -o .cursor/rules/pharos-rwa-yield-router.mdc</div>
+        <p class="agent-note">Both SKILL.md files become auto-attached project rules.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-windsurf"/></svg></div>
+          <div class="agent-name">Windsurf</div>
+          <span class="agent-badge context">Workspace rules</span>
+        </div>
+        <div class="agent-cmd">git clone https://github.com/hosein-ul/pharos-skills .windsurf/skills && \
+  cat .windsurf/skills/pharos-tx-guardrail/SKILL.md \
+      .windsurf/skills/pharos-rwa-yield-router/SKILL.md &gt;&gt; .windsurfrules</div>
+        <p class="agent-note">Cascade picks up both skill entry points automatically.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-cline"/></svg></div>
+          <div class="agent-name">Cline</div>
+          <span class="agent-badge context">.clinerules</span>
+        </div>
+        <div class="agent-cmd">mkdir -p .clinerules && \
+  git clone https://github.com/hosein-ul/pharos-skills .clinerules/pharos-skills</div>
+        <p class="agent-note">Cline loads everything in <code>.clinerules/</code> as persistent workspace context.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-continue"/></svg></div>
+          <div class="agent-name">Continue.dev</div>
+          <span class="agent-badge context">Custom commands</span>
+        </div>
+        <div class="agent-cmd">git clone https://github.com/hosein-ul/pharos-skills ~/.continue/skills/pharos
+<span class="c"># add to ~/.continue/config.json:</span>
+"customCommands": [
+  { "name": "pharos-guard",  "prompt": "@~/.continue/skills/pharos/pharos-tx-guardrail/SKILL.md" },
+  { "name": "pharos-yield",  "prompt": "@~/.continue/skills/pharos/pharos-rwa-yield-router/SKILL.md" }
+]</div>
+        <p class="agent-note">Exposes <code>/pharos-guard</code> and <code>/pharos-yield</code> slash commands.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-aider"/></svg></div>
+          <div class="agent-name">Aider</div>
+          <span class="agent-badge context">--read flag</span>
+        </div>
+        <div class="agent-cmd">git clone https://github.com/hosein-ul/pharos-skills ~/pharos-skills
+aider --read ~/pharos-skills/pharos-tx-guardrail/SKILL.md \
+      --read ~/pharos-skills/pharos-rwa-yield-router/SKILL.md</div>
+        <p class="agent-note">Pin them via <code>.aider.conf.yml</code> for an entire project session.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-openai"/></svg></div>
+          <div class="agent-name">ChatGPT (Custom GPT)</div>
+          <span class="agent-badge context">File upload</span>
+        </div>
+        <div class="agent-cmd"><span class="c"># 1. Create a new Custom GPT</span>
+<span class="c"># 2. Knowledge → upload both SKILL.md + references/</span>
+<span class="c"># 3. Instructions → "On any Pharos question, consult uploaded SKILL.md first."</span></div>
+        <p class="agent-note">Or paste raw GitHub URLs into the chat — GPT-5 with browsing follows them.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-gemini"/></svg></div>
+          <div class="agent-name">Gemini CLI</div>
+          <span class="agent-badge context">Extensions</span>
+        </div>
+        <div class="agent-cmd">git clone https://github.com/hosein-ul/pharos-skills <span class="v">~/.gemini/extensions/pharos-skills</span></div>
+        <p class="agent-note">Gemini CLI auto-loads anything in <code>~/.gemini/extensions/</code>.</p>
+      </div>
+
+      <div class="agent">
+        <div class="agent-head">
+          <div class="agent-logo"><svg><use href="#logo-copilot"/></svg></div>
+          <div class="agent-name">GitHub Copilot</div>
+          <span class="agent-badge context">.github instructions</span>
+        </div>
+        <div class="agent-cmd">mkdir -p .github && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-tx-guardrail/SKILL.md \
+       &gt; .github/copilot-instructions.md && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-rwa-yield-router/SKILL.md \
+       &gt;&gt; .github/copilot-instructions.md</div>
+        <p class="agent-note">Copilot Chat reads <code>.github/copilot-instructions.md</code> as workspace context every prompt.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="onboarding">
+  <div class="container">
+    <div class="section-eyebrow">Onboarding</div>
+    <h2>From zero to first scan in four minutes.</h2>
+    <p class="section-lede">No build step. No compiler. The skill is markdown + JSON that your agent reads at runtime. You only need Foundry's <code>cast</code> on your PATH.</p>
+
+    <div class="stepper">
+      <div class="step">
+        <div class="step-circle">1</div>
+        <h3>Install Foundry</h3>
+        <p>Both skills shell out to <code>cast</code> for read-only RPC.</p>
+        <div class="agent-cmd">curl -L https://foundry.paradigm.xyz | bash
+foundryup
+cast --version</div>
+      </div>
+      <div class="step">
+        <div class="step-circle">2</div>
+        <h3>Clone the bundle</h3>
+        <p>One repo, both skills. Path depends on your agent.</p>
+        <div class="agent-cmd">git clone \
+  https://github.com/hosein-ul/pharos-skills \
+  ~/pharos-skills</div>
+      </div>
+      <div class="step">
+        <div class="step-circle">3</div>
+        <h3>Verify a live read</h3>
+        <p>Confirm RPC + oracle + cast all work end-to-end.</p>
+        <div class="agent-cmd">cast call 0x9356C87a... \
+  "latestAnswer()(int256)" \
+  --rpc-url https://rpc.pharos.xyz</div>
+      </div>
+      <div class="step">
+        <div class="step-circle">4</div>
+        <h3>Run a guarded tx</h3>
+        <p>Ask your agent something Pharos-related. Watch the guardrail fire.</p>
+        <div class="agent-cmd">› risk: 5/100
+› action: SAFE
+› PROCEED ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="hackathon">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="color:white">
+          <svg class="brand-mark"><use href="#logo-pharos"/></svg>
+          Pharos Skills
+        </div>
+        <p class="footer-brand-text">Production-ready safety + yield skills for the Pharos Network. Built for the AI Agent Carnival, Phase 1.</p>
+      </div>
+      <div>
+        <h4>Skills</h4>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">tx-guardrail</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">rwa-yield-router</a>
+      </div>
+      <div>
+        <h4>Pharos</h4>
+        <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
+        <a href="https://atlantic.pharosscan.xyz" target="_blank">Explorer</a>
+        <a href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Hackathon</a>
+      </div>
+      <div>
+        <h4>Author</h4>
+        <a href="https://github.com/hosein-ul" target="_blank">hosein-ul</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/issues" target="_blank">Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 · MIT License</div>
+      <div>Built for Pharos AI Agent Carnival — Phase 1</div>
+    </div>
+  </div>
+</footer>
+
+<div class="switcher">
+  <a href="design-a.html">A · Terminal</a>
+  <a href="design-b.html" class="active">B · Brand</a>
+  <a href="design-c.html">C · Neon</a>
+  <a href="../index.html">← All</a>
+</div>
+
+</body>
+</html>

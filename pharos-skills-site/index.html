@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharos Skills — Pick a Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0d;
+    --bg-2: #131318;
+    --bg-3: #1c1c24;
+    --border: #2a2a34;
+    --border-bright: #3a3a48;
+    --text: #f0eef8;
+    --text-dim: #a39db8;
+    --text-mute: #6b6485;
+    --purple: #8b5cf6;
+    --purple-bright: #a78bfa;
+    --pink: #ec4899;
+    --teal: #14b8a6;
+    --sans: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 15% 0%, rgba(139,92,246,0.12), transparent),
+      radial-gradient(ellipse 40% 50% at 100% 50%, rgba(236,72,153,0.08), transparent),
+      radial-gradient(ellipse 50% 40% at 50% 100%, rgba(20,184,166,0.06), transparent);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  a { color: var(--purple-bright); text-decoration: none; }
+  a:hover { color: var(--purple); }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  nav {
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,13,0.7);
+    backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 50;
+  }
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+  .brand-mark { width: 26px; height: 26px; filter: drop-shadow(0 0 10px rgba(139,92,246,0.5)); }
+  .nav-links a { color: var(--text-dim); font-size: 14px; margin-left: 24px; font-weight: 500; }
+  .nav-links a:hover { color: var(--text); }
+
+  header.hero { padding: 80px 0 40px; text-align: center; }
+  .eyebrow {
+    display: inline-block;
+    font-family: var(--mono);
+    color: var(--purple-bright); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.2em;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  h1 .grad {
+    background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 40%, #ec4899 100%);
+    background-clip: text; -webkit-background-clip: text; color: transparent;
+  }
+  header .lede {
+    font-size: 18px; color: var(--text-dim);
+    max-width: 720px; margin: 0 auto 40px;
+  }
+  .header-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 100px;
+    background: var(--bg-2); border: 1px solid var(--border);
+    font-size: 12px; color: var(--text-dim);
+    font-family: var(--mono);
+  }
+  .tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); }
+  .tag.teal .dot { background: var(--teal); }
+  .tag.pink .dot { background: var(--pink); }
+
+  section.designs { padding: 60px 0 100px; }
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .card {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.25s;
+    display: flex; flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: var(--purple);
+    box-shadow: 0 24px 60px rgba(139,92,246,0.2);
+  }
+  .card-preview {
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .card-preview iframe {
+    width: 200%; height: 200%;
+    border: 0;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .card-body { padding: 26px 26px 28px; flex: 1; display: flex; flex-direction: column; }
+  .card-tag {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--purple-bright); letter-spacing: 0.15em;
+    margin-bottom: 8px; text-transform: uppercase;
+  }
+  .card h2 {
+    font-size: 24px; font-weight: 700;
+    letter-spacing: -0.015em; margin-bottom: 10px;
+  }
+  .card p { color: var(--text-dim); font-size: 14px; margin-bottom: 18px; flex: 1; }
+  .features {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 22px;
+  }
+  .feat {
+    font-family: var(--mono); font-size: 11px;
+    padding: 3px 8px; border-radius: 6px;
+    background: rgba(139,92,246,0.1); color: var(--purple-bright);
+    border: 1px solid rgba(139,92,246,0.2);
+  }
+  .feat.teal { background: rgba(20,184,166,0.1); color: var(--teal); border-color: rgba(20,184,166,0.2); }
+  .feat.pink { background: rgba(236,72,153,0.1); color: var(--pink); border-color: rgba(236,72,153,0.2); }
+  .card-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 11px 18px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+    color: white; font-weight: 600; font-size: 14px;
+    box-shadow: 0 4px 16px rgba(139,92,246,0.25);
+    transition: transform 0.15s;
+  }
+  .card-cta:hover { transform: translateY(-1px); color: white; }
+  .card-actions { display: flex; gap: 10px; }
+  .card-actions a:last-child {
+    background: transparent;
+    border: 1px solid var(--border-bright);
+    color: var(--text-dim);
+    box-shadow: none;
+    padding: 11px 16px;
+  }
+  .card-actions a:last-child:hover { color: var(--text); border-color: var(--purple); }
+
+  /* repo banner */
+  .repo-banner {
+    margin-top: 80px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 36px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .repo-banner .ic {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(139,92,246,0.35);
+    flex-shrink: 0;
+  }
+  .repo-banner .ic svg { width: 28px; height: 28px; }
+  .repo-banner .info { flex: 1; min-width: 260px; }
+  .repo-banner h3 { font-size: 20px; margin-bottom: 6px; font-weight: 700; letter-spacing: -0.015em; }
+  .repo-banner p { color: var(--text-dim); font-size: 14px; }
+  .repo-banner code {
+    font-family: var(--mono); font-size: 13px;
+    background: var(--bg-3); padding: 10px 14px;
+    border-radius: 10px; border: 1px solid var(--border);
+    color: var(--text);
+    display: inline-block;
+  }
+  .repo-banner code .c { color: var(--text-mute); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    margin-top: 80px;
+    color: var(--text-mute);
+    font-family: var(--mono); font-size: 12px;
+  }
+  footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .card-preview { height: 320px; }
+    h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo-pharos" viewBox="0 0 32 32">
+      <path fill="#6B4FFF" d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z"/>
+      <path fill="#FFFFFF" d="M12 9 H18 a4 4 0 0 1 0 8 H14 V23 H12 Z M14 11 V15 H18 a2 2 0 0 0 0 -4 Z"/>
+    </symbol>
+    <symbol id="logo-github" viewBox="0 0 24 24"><path fill="white" d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2C5.7 21.5 5 19.5 5 19.5c-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.3.1 2 1.3 2 1.3 1.2 2 3 1.4 3.8 1.1.1-.9.5-1.4.8-1.7-2.7-.3-5.5-1.4-5.5-6 0-1.3.5-2.4 1.3-3.3-.1-.4-.6-1.6.1-3.2 0 0 1-.3 3.3 1.3a11 11 0 0 1 6 0c2.3-1.6 3.3-1.3 3.3-1.3.7 1.6.2 2.9.1 3.2.8.9 1.3 2 1.3 3.3 0 4.6-2.8 5.7-5.5 6 .5.4.9 1.1.9 2.3v3.4c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="container">
+    <div class="brand"><svg class="brand-mark"><use href="#logo-pharos"/></svg> Pharos Skills</div>
+    <div class="nav-links">
+      <a href="https://github.com/hosein-ul/pharos-skills" target="_blank">GitHub ↗</a>
+      <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">▎ Pick a design</div>
+    <h1>Three site variants.<br><span class="grad">Pick the one you want.</span></h1>
+    <p class="lede">Same content — landing page, both skills, install instructions for 11 different AI agents, onboarding flow. Three completely different visual aesthetics.</p>
+    <div class="header-tags">
+      <span class="tag"><span class="dot"></span> Pharos AI Agent Carnival · Phase 1</span>
+      <span class="tag teal"><span class="dot"></span> 11 agent integrations</span>
+      <span class="tag pink"><span class="dot"></span> 2 production skills</span>
+    </div>
+  </div>
+</header>
+
+<section class="designs">
+  <div class="container">
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-preview">
+          <iframe src="designs/design-a.html" loading="lazy" title="Design A preview"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">— DESIGN A</div>
+          <h2>Terminal · Minimal</h2>
+          <p>Mono-first, dark, surgical. ASCII-art hero, code-block cards, accordion install matrix. Built for developers who feel at home in a terminal.</p>
+          <div class="features">
+            <span class="feat">monospace</span>
+            <span class="feat">accordion</span>
+            <span class="feat">ascii hero</span>
+            <span class="feat">narrow column</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-cta" href="designs/design-a.html" style="flex:1">Preview design A →</a>
+            <a href="designs/design-a.html" target="_blank">↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-preview">
+          <iframe src="designs/design-b.html" loading="lazy" title="Design B preview"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">— DESIGN B</div>
+          <h2>Brand · Marketing</h2>
+          <p>Bold gradient hero, white background, big numbers, card-based install grid, horizontal stepper. Polished startup-landing energy.</p>
+          <div class="features">
+            <span class="feat teal">gradient hero</span>
+            <span class="feat teal">light theme</span>
+            <span class="feat teal">card grid</span>
+            <span class="feat teal">horizontal steps</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-cta" href="designs/design-b.html" style="flex:1">Preview design B →</a>
+            <a href="designs/design-b.html" target="_blank">↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-preview">
+          <iframe src="designs/design-c.html" loading="lazy" title="Design C preview"></iframe>
+        </div>
+        <div class="card-body">
+          <div class="card-tag">— DESIGN C</div>
+          <h2>Neon · Glass</h2>
+          <p>Animated mesh background, glassmorphism cards, neon glow on accents, tab-based install picker, vertical timeline onboarding. Cyberpunk vibe.</p>
+          <div class="features">
+            <span class="feat pink">animated bg</span>
+            <span class="feat pink">glassmorphism</span>
+            <span class="feat pink">tab picker</span>
+            <span class="feat pink">vertical timeline</span>
+          </div>
+          <div class="card-actions">
+            <a class="card-cta" href="designs/design-c.html" style="flex:1">Preview design C →</a>
+            <a href="designs/design-c.html" target="_blank">↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="repo-banner">
+      <div class="ic"><svg><use href="#logo-github"/></svg></div>
+      <div class="info">
+        <h3>Both skills now live in one monorepo</h3>
+        <p>pharos-tx-guardrail + pharos-rwa-yield-router consolidated under <a href="https://github.com/hosein-ul/pharos-skills" target="_blank">hosein-ul/pharos-skills</a>. Each design's install instructions point here.</p>
+      </div>
+      <code><span class="c">$</span> git clone https://github.com/hosein-ul/pharos-skills</code>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div># pharos skills · pick a design · 2026-06-14</div>
+    <div>Built for the Pharos AI Agent Carnival — Phase 1</div>
+  </div>
+</footer>
+
+</body>
+</html>

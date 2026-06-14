@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharos Skills — Neon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07060d;
+    --bg-2: #0e0b1a;
+    --bg-3: #15102a;
+    --glass: rgba(20,15,40,0.45);
+    --glass-bright: rgba(40,30,70,0.55);
+    --border: rgba(139,92,246,0.18);
+    --border-bright: rgba(139,92,246,0.4);
+    --text: #f0eef8;
+    --text-dim: #a39db8;
+    --text-mute: #6b6485;
+    --purple: #8b5cf6;
+    --purple-bright: #a78bfa;
+    --purple-deep: #5b21b6;
+    --pink: #ec4899;
+    --teal: #14b8a6;
+    --cyan: #22d3ee;
+    --green: #4ade80;
+    --yellow: #facc15;
+    --red: #f87171;
+    --neon-shadow: 0 0 24px rgba(139,92,246,0.5);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  /* animated mesh bg */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 50% 40% at 15% 15%, rgba(139,92,246,0.25), transparent),
+      radial-gradient(ellipse 40% 50% at 85% 30%, rgba(236,72,153,0.18), transparent),
+      radial-gradient(ellipse 60% 50% at 50% 90%, rgba(20,184,166,0.12), transparent);
+    animation: meshShift 22s ease-in-out infinite;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 80%);
+  }
+  @keyframes meshShift {
+    0%, 100% { transform: scale(1) translate(0,0); opacity: 1; }
+    50% { transform: scale(1.15) translate(-2%, 2%); opacity: 0.85; }
+  }
+  a { color: var(--purple-bright); text-decoration: none; transition: color 0.15s; }
+  a:hover { color: var(--purple); }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(7,6,13,0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .container {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
+  .brand-mark {
+    width: 30px; height: 30px;
+    filter: drop-shadow(0 0 12px rgba(139,92,246,0.6));
+  }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; }
+  .nav-links a { color: var(--text-dim); font-weight: 500; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+    color: white; padding: 9px 18px; border-radius: 100px;
+    font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(139,92,246,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+    transition: all 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-1px); color: white; box-shadow: 0 8px 24px rgba(139,92,246,0.5), inset 0 1px 0 rgba(255,255,255,0.2); }
+
+  /* hero */
+  .hero { padding: 100px 0 100px; text-align: center; position: relative; }
+  .hero-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 16px 6px 6px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-bright);
+    border-radius: 100px; font-size: 13px; font-weight: 500;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    box-shadow: 0 0 30px rgba(139,92,246,0.15);
+  }
+  .hero-pill .pill-tag {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white; padding: 3px 10px; border-radius: 100px;
+    font-size: 11px; font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(52px, 8vw, 104px);
+    font-weight: 700; letter-spacing: -0.04em; line-height: 0.95;
+    margin-bottom: 28px;
+    max-width: 1000px; margin-left: auto; margin-right: auto;
+  }
+  .hero h1 .glow {
+    background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 30%, #ec4899 70%, #fbbf24 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 40px rgba(139,92,246,0.4));
+  }
+  .hero .lede {
+    font-size: 19px; color: var(--text-dim);
+    max-width: 640px; margin: 0 auto 40px;
+  }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 24px; border-radius: 100px;
+    font-size: 14.5px; font-weight: 600;
+    transition: all 0.2s;
+  }
+  .btn.primary {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
+    color: white;
+    box-shadow: 0 8px 32px rgba(139,92,246,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(139,92,246,0.55), inset 0 1px 0 rgba(255,255,255,0.2); color: white; }
+  .btn.ghost {
+    background: var(--glass); color: var(--text);
+    border: 1px solid var(--border-bright);
+    backdrop-filter: blur(20px);
+  }
+  .btn.ghost:hover { background: var(--glass-bright); border-color: var(--purple); color: var(--text); }
+
+  .hero-floats {
+    margin-top: 80px;
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  }
+  .float-stat {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 24px;
+    min-width: 160px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+    text-align: left;
+  }
+  .float-stat .num {
+    font-family: var(--mono); font-weight: 600;
+    font-size: 26px; color: var(--purple-bright);
+    text-shadow: 0 0 24px rgba(139,92,246,0.5);
+  }
+  .float-stat .lbl { font-size: 12px; color: var(--text-mute); margin-top: 4px; font-weight: 500; }
+
+  /* sections */
+  section { padding: 100px 0; position: relative; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    color: var(--purple-bright);
+    text-transform: uppercase; letter-spacing: 0.2em;
+    margin-bottom: 18px;
+  }
+  .section-eyebrow::before {
+    content: '◢'; color: var(--pink);
+    filter: drop-shadow(0 0 8px var(--pink));
+  }
+  h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700; letter-spacing: -0.025em; line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  .section-lede {
+    font-size: 17px; color: var(--text-dim);
+    max-width: 620px; margin-bottom: 56px;
+  }
+
+  /* skill — split layout */
+  .skill-split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .skill {
+    position: relative;
+    background: var(--glass);
+    backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--border-bright);
+    border-radius: 24px;
+    padding: 36px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .skill::before {
+    content: ''; position: absolute;
+    top: -1px; left: 20%; right: 20%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    box-shadow: 0 0 16px var(--purple);
+  }
+  .skill::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.4), transparent 30%, transparent 70%, rgba(236,72,153,0.3));
+    border-radius: 24px;
+    z-index: -1;
+    opacity: 0.6;
+  }
+  .skill-num {
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    color: var(--purple-bright); letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .skill h3 {
+    font-size: 30px; font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .skill h3 .nm {
+    background: linear-gradient(135deg, var(--purple-bright), var(--pink));
+    background-clip: text; -webkit-background-clip: text;
+    color: transparent;
+  }
+  .skill p.summary { color: var(--text-dim); font-size: 15px; margin-bottom: 24px; }
+  .skill-runs {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    font-family: var(--mono); font-size: 12px;
+    color: #d4d2db; line-height: 1.7;
+    overflow-x: auto;
+  }
+  .skill-runs .lbl { color: var(--purple-bright); }
+  .skill-runs .ok { color: var(--green); text-shadow: 0 0 12px rgba(74,222,128,0.5); }
+  .skill-runs .warn { color: var(--yellow); text-shadow: 0 0 12px rgba(250,204,21,0.5); }
+  .skill-runs .err { color: var(--red); text-shadow: 0 0 12px rgba(248,113,113,0.5); }
+  .skill-runs .v { color: var(--cyan); }
+  .skill-stats {
+    display: flex; gap: 18px; margin-top: 22px; flex-wrap: wrap;
+    font-size: 12px; color: var(--text-mute); font-family: var(--mono);
+  }
+  .skill-stats .k { color: var(--text); font-weight: 500; }
+
+  /* install — tabs */
+  .install-card {
+    background: var(--glass);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border-bright);
+    border-radius: 24px;
+    padding: 8px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  }
+  .install-tabs {
+    display: flex; flex-wrap: wrap; gap: 4px;
+    padding: 14px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+  .tab {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 14px; border-radius: 10px;
+    background: transparent; border: 1px solid transparent;
+    cursor: pointer;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    color: var(--text-dim);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab:hover { background: rgba(139,92,246,0.08); color: var(--text); }
+  .tab.active {
+    background: rgba(139,92,246,0.18);
+    border-color: var(--border-bright);
+    color: var(--text);
+    box-shadow: inset 0 0 16px rgba(139,92,246,0.15);
+  }
+  .tab-logo { width: 18px; height: 18px; }
+  .tab-panel { display: none; padding: 28px 32px 32px; }
+  .tab-panel.active { display: block; animation: panelFade 0.25s ease; }
+  @keyframes panelFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .panel-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+  .panel-logo {
+    width: 40px; height: 40px;
+    background: var(--bg-3);
+    border-radius: 10px; padding: 7px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 24px rgba(139,92,246,0.2);
+  }
+  .panel-logo svg, .panel-logo img { width: 100%; height: 100%; object-fit: contain; }
+  .panel-title { font-size: 20px; font-weight: 700; }
+  .panel-tag {
+    margin-left: auto;
+    font-family: var(--mono); font-size: 11px;
+    padding: 4px 10px; border-radius: 100px;
+    background: rgba(139,92,246,0.15);
+    color: var(--purple-bright);
+    border: 1px solid var(--border);
+  }
+  .panel-tag.partner { color: var(--teal); background: rgba(20,184,166,0.12); }
+  .panel-tag.ctx { color: var(--text-dim); }
+  .panel-desc { color: var(--text-dim); font-size: 14.5px; margin: 10px 0 18px; }
+  .cmd {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-family: var(--mono); font-size: 13px;
+    color: #e6e3f0; line-height: 1.65;
+    overflow-x: auto;
+    white-space: pre;
+    position: relative;
+  }
+  .cmd::after {
+    content: '⌘ copy'; position: absolute; top: 10px; right: 12px;
+    font-size: 10px; color: var(--text-mute);
+    padding: 2px 8px; border-radius: 4px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid var(--border);
+  }
+  .cmd .c { color: #6b6485; }
+  .cmd .v { color: var(--cyan); }
+  .cmd .s { color: #fbbf77; }
+
+  /* onboarding — vertical timeline */
+  .timeline { position: relative; padding-left: 60px; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 23px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--purple), var(--pink), var(--teal));
+    box-shadow: 0 0 12px var(--purple);
+  }
+  .tl-step {
+    position: relative;
+    padding: 16px 0 56px;
+  }
+  .tl-step::before {
+    content: ''; position: absolute;
+    left: -48px; top: 22px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow:
+      0 0 0 4px var(--bg),
+      0 0 0 6px var(--purple),
+      0 0 24px var(--purple);
+  }
+  .tl-step:nth-child(2)::before { background: var(--pink); box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--pink), 0 0 24px var(--pink); }
+  .tl-step:nth-child(3)::before { background: var(--cyan); box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--cyan), 0 0 24px var(--cyan); }
+  .tl-step:nth-child(4)::before { background: var(--teal); box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--teal), 0 0 24px var(--teal); }
+  .tl-meta { font-family: var(--mono); font-size: 11px; color: var(--purple-bright); letter-spacing: 0.15em; margin-bottom: 6px; }
+  .tl-step h3 { font-size: 22px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+  .tl-step p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 14px; max-width: 600px; }
+  .tl-step .cmd { max-width: 720px; }
+
+  /* footer */
+  footer {
+    padding: 80px 0 50px;
+    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, transparent, rgba(91,33,182,0.06));
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    margin-bottom: 50px;
+  }
+  .footer-grid h4 {
+    font-size: 12px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.15em;
+    margin-bottom: 14px; font-weight: 600;
+  }
+  .footer-grid a { display: block; color: var(--text-dim); font-size: 14px; padding: 4px 0; }
+  .footer-grid a:hover { color: var(--purple-bright); }
+  .footer-tagline { color: var(--text-mute); font-size: 14px; max-width: 280px; margin-top: 14px; }
+  .footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-family: var(--mono); font-size: 11px; color: var(--text-mute);
+    letter-spacing: 0.05em;
+  }
+
+  /* switcher */
+  .switcher {
+    position: fixed; bottom: 24px; right: 24px; z-index: 60;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-bright);
+    border-radius: 100px; padding: 6px;
+    display: flex; gap: 4px;
+    font-size: 11.5px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+  .switcher a {
+    padding: 8px 14px; border-radius: 100px;
+    color: var(--text-dim); font-weight: 600;
+    font-family: var(--mono); letter-spacing: 0.03em;
+  }
+  .switcher a:hover { color: var(--text); }
+  .switcher a.active {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white;
+    box-shadow: 0 4px 16px rgba(139,92,246,0.4);
+  }
+
+  @media (max-width: 880px) {
+    .skill-split { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .timeline { padding-left: 40px; }
+    .timeline::before { left: 11px; }
+    .tl-step::before { left: -36px; }
+    .hero-floats { gap: 12px; }
+    .float-stat { min-width: 140px; padding: 14px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo-pharos" viewBox="0 0 32 32"><path fill="#6B4FFF" d="M16 2 L28 9 V23 L16 30 L4 23 V9 Z"/><path fill="#FFFFFF" d="M12 9 H18 a4 4 0 0 1 0 8 H14 V23 H12 Z M14 11 V15 H18 a2 2 0 0 0 0 -4 Z"/></symbol>
+    <symbol id="logo-anthropic" viewBox="0 0 32 32"><path fill="#D97757" d="M9.2 25 L15.5 7 h4.2 L26 25 h-3.8 L20.6 21 h-7.2 L11.8 25 z M14.2 18 h5.6 L17 11.3 z"/></symbol>
+    <symbol id="logo-openai" viewBox="0 0 32 32"><path fill="#10A37F" d="M27 13.5a7 7 0 0 0-8.4-9.1 7 7 0 0 0-12 2.4 7 7 0 0 0-4.6 10.7 7 7 0 0 0 8.4 9.1 7 7 0 0 0 12-2.4 7 7 0 0 0 4.6-10.7zM16 27.3a5.2 5.2 0 0 1-3.3-1.2l.2-.1 5.5-3.2c.3-.2.4-.5.4-.8v-7.7l2.3 1.3v6.5a5.2 5.2 0 0 1-5.1 5.2zM4.8 22.4a5.2 5.2 0 0 1-.6-3.5l.2.1 5.5 3.2c.3.2.6.2.9 0l6.7-3.9v2.7l-5.5 3.2a5.2 5.2 0 0 1-7.2-1.8zM3.4 11.2a5.2 5.2 0 0 1 2.7-2.3v6.6c0 .3.2.6.4.8l6.7 3.9-2.3 1.3-5.5-3.2a5.2 5.2 0 0 1-2-7.1zm19 4.4-6.7-3.9 2.3-1.3 5.5 3.2a5.2 5.2 0 0 1-.8 9.4v-6.6c0-.3-.1-.6-.3-.8zm2.3-3.5-.2-.1-5.5-3.2c-.3-.2-.6-.2-.9 0l-6.7 3.9V10l5.5-3.2a5.2 5.2 0 0 1 7.8 5.3zm-14.5 4.8-2.3-1.3v-6.5a5.2 5.2 0 0 1 8.5-4l-.2.1-5.5 3.2c-.3.2-.4.5-.4.8zm1.2-2.7L13.4 12l3 1.7v3.4l-3 1.7-3-1.7z"/></symbol>
+    <symbol id="logo-cursor" viewBox="0 0 32 32"><path fill="#fff" d="M5 5 L16 11 V29 L5 23 Z" opacity="0.95"/><path fill="#bbb" d="M16 11 L27 5 V23 L16 29 Z"/><path fill="#888" d="M5 5 L27 5 L16 11 Z"/></symbol>
+    <symbol id="logo-gemini" viewBox="0 0 32 32"><defs><linearGradient id="gemc" x1="0" y1="0" x2="32" y2="32"><stop offset="0" stop-color="#4796E3"/><stop offset="0.5" stop-color="#9168C0"/><stop offset="1" stop-color="#BB5A92"/></linearGradient></defs><path fill="url(#gemc)" d="M16 2 c0 7 5 12 12 14 -7 2 -12 7 -12 14 0 -7 -5 -12 -12 -14 7 -2 12 -7 12 -14z"/></symbol>
+    <symbol id="logo-copilot" viewBox="0 0 32 32"><path fill="#fff" d="M28 14.5c0-1-.4-2-1.1-2.7l-.1-.1c0-3.6-2.4-5.7-5.5-5.7-1.8 0-3.2.6-4.3 1.5-.8.7-1.5 1.5-2.1 2.3-.6-.8-1.3-1.6-2.1-2.3-1-1-2.5-1.5-4.3-1.5C5.5 6 3 8.1 3 11.7l-.1.1A4 4 0 0 0 2 14.5v3.5c0 4 4 7 8 7h12c4 0 8-3 8-7v-3.5zM5 12.5C5 9.7 6.6 8 9.5 8c1.4 0 2.4.4 3.1 1.1.8.8 1.4 1.8 1.9 2.8l.5 1.1H9c-1.5 0-2.7.3-3.5.7-.2-.4-.5-.8-.5-1.2zm22 5.5c0 2.7-2.8 5-6 5H10c-3.2 0-6-2.3-6-5v-2c0-1.4 1.1-2.5 2.5-2.5h19c1.4 0 2.5 1.1 2.5 2.5zm-.5-4.6c-.8-.4-2-.9-3.5-.9h-6l.5-1.1c.5-1 1.1-2 1.9-2.8.7-.7 1.7-1.1 3.1-1.1 2.9 0 4.5 1.7 4.5 4.5 0 .4-.3.8-.5 1.2zM10 18a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></symbol>
+    <symbol id="logo-windsurf" viewBox="0 0 32 32"><path fill="#09b6a2" d="M3 14 q3 -4 6 -2 q4 3 7 -1 q4 -4 7 -1 q3 2 6 0 v3 q-3 2 -6 0 q-3 -3 -7 1 q-4 4 -8 1 q-3 -2 -5 -1 z"/><path fill="#09b6a2" opacity="0.5" d="M3 22 q3 -4 6 -2 q4 3 7 -1 q4 -4 7 -1 q3 2 6 0 v3 q-3 2 -6 0 q-3 -3 -7 1 q-4 4 -8 1 q-3 -2 -5 -1 z"/></symbol>
+    <symbol id="logo-cline" viewBox="0 0 32 32"><path fill="none" stroke="#a78bfa" stroke-width="3" stroke-linecap="round" d="M25 9 a11 11 0 1 0 0 14"/><circle cx="16" cy="16" r="3.5" fill="#a78bfa"/></symbol>
+    <symbol id="logo-continue" viewBox="0 0 32 32"><path fill="#00C2A8" d="M5 5 L17 16 L5 27 V20 L11 16 L5 12 Z"/><rect x="20" y="5" width="6" height="22" fill="#00C2A8"/></symbol>
+    <symbol id="logo-aider" viewBox="0 0 32 32"><path fill="#4ade80" d="M16 3 L28 27 H23 L20.5 22 H11.5 L9 27 H4 Z M14 18 H18 L16 12 Z"/></symbol>
+    <symbol id="logo-anvita" viewBox="0 0 32 32"><circle cx="7" cy="7" r="3" fill="#a78bfa"/><circle cx="25" cy="16" r="3" fill="#22d3ee"/><circle cx="7" cy="25" r="3" fill="#a78bfa"/><path stroke="#888" stroke-width="2" fill="none" stroke-linecap="round" d="M10 8 L22 14 M10 24 L22 18"/></symbol>
+  </defs>
+</svg>
+
+<nav>
+  <div class="container">
+    <div class="brand">
+      <svg class="brand-mark"><use href="#logo-pharos"/></svg>
+      Pharos Skills
+    </div>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#install">Install</a>
+      <a href="#onboarding">Onboarding</a>
+      <a href="https://github.com/hosein-ul/pharos-skills" target="_blank">GitHub ↗</a>
+    </div>
+    <a href="#install" class="nav-cta">Get started →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-pill"><span class="pill-tag">Carnival · Phase 1</span> Two skills, one bundle, every agent</div>
+    <h1>The safety layer<br>for <span class="glow">Pharos agents.</span></h1>
+    <p class="lede">A risk-scoring guardrail that fires before every <code>cast send</code> and a yield router that ranks Pharos's RWA stack by risk-adjusted APY. Drop into any AI agent in one command.</p>
+    <div class="hero-ctas">
+      <a class="btn primary" href="#install">Install now →</a>
+      <a class="btn ghost" href="https://github.com/hosein-ul/pharos-skills" target="_blank">View on GitHub</a>
+    </div>
+
+    <div class="hero-floats">
+      <div class="float-stat"><div class="num">2</div><div class="lbl">Production skills</div></div>
+      <div class="float-stat"><div class="num">11</div><div class="lbl">Agent integrations</div></div>
+      <div class="float-stat"><div class="num">$7.7M</div><div class="lbl">Live TVL indexed</div></div>
+      <div class="float-stat"><div class="num">0</div><div class="lbl">On-chain writes</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-eyebrow">The bundle</div>
+    <h2>Two skills.<br>One workflow.</h2>
+    <p class="section-lede">The yield router decides <strong>where</strong> idle capital goes. The tx guardrail makes sure the call to put it there is <strong>safe</strong> before it's signed.</p>
+
+    <div class="skill-split">
+      <div class="skill">
+        <div class="skill-num">— SKILL · 01</div>
+        <h3><span class="nm">pharos-tx-guardrail</span></h3>
+        <p class="summary">Pre-execution checkpoint. Six read-only checks → risk score 0–100 → PROCEED / WARN / BLOCK.</p>
+        <div class="skill-runs">
+<span class="lbl">→</span> simulation .............. <span class="ok">PASS</span>
+<span class="lbl">→</span> contract_exists ......... <span class="ok">PASS</span>  <span class="v">USDC, 1798 bytes</span>
+<span class="lbl">→</span> selector ................ <span class="v">approve(address,uint256)</span>
+<span class="lbl">→</span> unlimited_approval ...... <span class="err">FAIL</span>  MAX_UINT256 detected
+<span class="lbl">→</span> value_check ............. <span class="ok">PASS</span>
+<span class="lbl">→</span> gas_estimate ............ <span class="ok">PASS</span>  71,897 gas
+<span class="lbl">→</span> <span class="err">RISK 70/100 — HIGH — BLOCK</span>
+        </div>
+        <div class="skill-stats">
+          <span><span class="k">6</span> checks</span>
+          <span><span class="k">0</span> writes</span>
+          <span><span class="k">~120ms</span> per call</span>
+          <span><span class="k">v0.2.0</span></span>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-num">— SKILL · 02</div>
+        <h3><span class="nm">pharos-rwa-yield-router</span></h3>
+        <p class="summary">Read-only yield scanner across Pharos RWA stack. Live APY, risk-adjusted ranking.</p>
+        <div class="skill-runs">
+<span class="lbl">→</span> scanning 9 protocols on mainnet 1672 ...
+<span class="lbl">→</span> <span class="ok">#1</span> R25 Axil 7-day      8.5%  × 0.60 = <span class="ok">5.10%</span>  $892K
+<span class="lbl">→</span> <span class="ok">#2</span> R25 Axil 6-month   11.2%  × 0.60 = <span class="ok">6.72%</span>  $6.83M
+<span class="lbl">→</span> <span class="ok">#3</span> Zona USDC supply    3.6%  × 0.80 = <span class="ok">2.88%</span>  $620K
+<span class="lbl">→</span> <span class="warn">⏳</span> Morpho Blue · TermMax · AquaFlux · Faroo
+<span class="lbl">→</span> best @ $5K balanced: <span class="ok">R25 Axil 7-day → ~$34.93/30d</span>
+        </div>
+        <div class="skill-stats">
+          <span><span class="k">9</span> protocols</span>
+          <span><span class="k">0</span> writes</span>
+          <span><span class="k">$7.7M+</span> TVL</span>
+          <span><span class="k">v0.3.0</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <div class="section-eyebrow">Install</div>
+    <h2>Pick your agent.</h2>
+    <p class="section-lede">Native skill-engine support on three runtimes. Drop-in context for every other major agent stack — Cursor, Windsurf, Cline, Continue, Aider, ChatGPT, Gemini, Copilot.</p>
+
+    <div class="install-card">
+      <div class="install-tabs" id="tabs">
+        <button class="tab active" data-target="t-pharos"><svg class="tab-logo"><use href="#logo-pharos"/></svg> Pharos Engine</button>
+        <button class="tab" data-target="t-claude"><svg class="tab-logo"><use href="#logo-anthropic"/></svg> Claude Code</button>
+        <button class="tab" data-target="t-anvita"><svg class="tab-logo"><use href="#logo-anvita"/></svg> Anvita Flow</button>
+        <button class="tab" data-target="t-cursor"><svg class="tab-logo"><use href="#logo-cursor"/></svg> Cursor</button>
+        <button class="tab" data-target="t-windsurf"><svg class="tab-logo"><use href="#logo-windsurf"/></svg> Windsurf</button>
+        <button class="tab" data-target="t-cline"><svg class="tab-logo"><use href="#logo-cline"/></svg> Cline</button>
+        <button class="tab" data-target="t-continue"><svg class="tab-logo"><use href="#logo-continue"/></svg> Continue</button>
+        <button class="tab" data-target="t-aider"><svg class="tab-logo"><use href="#logo-aider"/></svg> Aider</button>
+        <button class="tab" data-target="t-chatgpt"><svg class="tab-logo"><use href="#logo-openai"/></svg> ChatGPT</button>
+        <button class="tab" data-target="t-gemini"><svg class="tab-logo"><use href="#logo-gemini"/></svg> Gemini</button>
+        <button class="tab" data-target="t-copilot"><svg class="tab-logo"><use href="#logo-copilot"/></svg> Copilot</button>
+      </div>
+
+      <div class="tab-panel active" id="t-pharos">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-pharos"/></svg></div><div class="panel-title">Pharos Skill Engine</div><span class="panel-tag">Official runtime</span></div>
+        <p class="panel-desc">The Skill Engine auto-detects both <code>SKILL.md</code> entry points and registers the guardrail + yield router as independent capabilities.</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills <span class="v">~/.pharos/skills/pharos-skills</span></div>
+      </div>
+
+      <div class="tab-panel" id="t-claude">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-anthropic"/></svg></div><div class="panel-title">Claude Code</div><span class="panel-tag">Native skills</span></div>
+        <p class="panel-desc">Claude Code loads each <code>SKILL.md</code> frontmatter and auto-triggers on Pharos-related prompts.</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills /tmp/ps && \
+  ln -s /tmp/ps/pharos-tx-guardrail     ~/.claude/skills/pharos-tx-guardrail && \
+  ln -s /tmp/ps/pharos-rwa-yield-router ~/.claude/skills/pharos-rwa-yield-router</div>
+      </div>
+
+      <div class="tab-panel" id="t-anvita">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-anvita"/></svg></div><div class="panel-title">Anvita Flow</div><span class="panel-tag partner">Pharos partner</span></div>
+        <p class="panel-desc">Anvita's Skill Hub ingests Pharos Skill Engine packages directly from a repo URL.</p>
+        <div class="cmd"><span class="c"># In Skill Hub, paste:</span>
+https://github.com/hosein-ul/pharos-skills</div>
+      </div>
+
+      <div class="tab-panel" id="t-cursor">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-cursor"/></svg></div><div class="panel-title">Cursor</div><span class="panel-tag ctx">Project rules</span></div>
+        <p class="panel-desc">Drops both <code>SKILL.md</code> files in as auto-attached project rules under <code>.cursor/rules/</code>.</p>
+        <div class="cmd">mkdir -p .cursor/rules && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-tx-guardrail/SKILL.md \
+       -o .cursor/rules/pharos-tx-guardrail.mdc && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-rwa-yield-router/SKILL.md \
+       -o .cursor/rules/pharos-rwa-yield-router.mdc</div>
+      </div>
+
+      <div class="tab-panel" id="t-windsurf">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-windsurf"/></svg></div><div class="panel-title">Windsurf</div><span class="panel-tag ctx">Workspace rules</span></div>
+        <p class="panel-desc">Appends both skill entry points to <code>.windsurfrules</code>. Cascade picks them up automatically.</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills .windsurf/skills && \
+  cat .windsurf/skills/pharos-tx-guardrail/SKILL.md \
+      .windsurf/skills/pharos-rwa-yield-router/SKILL.md &gt;&gt; .windsurfrules</div>
+      </div>
+
+      <div class="tab-panel" id="t-cline">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-cline"/></svg></div><div class="panel-title">Cline</div><span class="panel-tag ctx">.clinerules</span></div>
+        <p class="panel-desc">Cline reads everything in <code>.clinerules/</code> as persistent workspace context.</p>
+        <div class="cmd">mkdir -p .clinerules && \
+  git clone https://github.com/hosein-ul/pharos-skills .clinerules/pharos-skills</div>
+      </div>
+
+      <div class="tab-panel" id="t-continue">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-continue"/></svg></div><div class="panel-title">Continue.dev</div><span class="panel-tag ctx">Custom commands</span></div>
+        <p class="panel-desc">Exposes <code>/pharos-guard</code> and <code>/pharos-yield</code> slash commands.</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills ~/.continue/skills/pharos
+<span class="c"># in ~/.continue/config.json:</span>
+"customCommands": [
+  { "name": "pharos-guard", "prompt": "@~/.continue/skills/pharos/pharos-tx-guardrail/SKILL.md" },
+  { "name": "pharos-yield", "prompt": "@~/.continue/skills/pharos/pharos-rwa-yield-router/SKILL.md" }
+]</div>
+      </div>
+
+      <div class="tab-panel" id="t-aider">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-aider"/></svg></div><div class="panel-title">Aider</div><span class="panel-tag ctx">--read flag</span></div>
+        <p class="panel-desc">Pin them via <code>.aider.conf.yml</code> for the whole project session, or pass <code>--read</code> at launch.</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills ~/pharos-skills
+aider --read ~/pharos-skills/pharos-tx-guardrail/SKILL.md \
+      --read ~/pharos-skills/pharos-rwa-yield-router/SKILL.md</div>
+      </div>
+
+      <div class="tab-panel" id="t-chatgpt">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-openai"/></svg></div><div class="panel-title">ChatGPT (Custom GPT)</div><span class="panel-tag ctx">File upload</span></div>
+        <p class="panel-desc">Upload both SKILL.md plus the <code>references/</code> folder as knowledge. Tell the GPT to consult them first on Pharos queries.</p>
+        <div class="cmd"><span class="c"># 1. New Custom GPT in ChatGPT</span>
+<span class="c"># 2. Knowledge → upload SKILL.md files + references/</span>
+<span class="c"># 3. Instructions:</span>
+"On any Pharos-related question, consult the uploaded SKILL.md files first."</div>
+      </div>
+
+      <div class="tab-panel" id="t-gemini">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-gemini"/></svg></div><div class="panel-title">Gemini CLI</div><span class="panel-tag ctx">Extensions</span></div>
+        <p class="panel-desc">Gemini CLI auto-loads everything in <code>~/.gemini/extensions/</code>.</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills <span class="v">~/.gemini/extensions/pharos-skills</span></div>
+      </div>
+
+      <div class="tab-panel" id="t-copilot">
+        <div class="panel-head"><div class="panel-logo"><svg><use href="#logo-copilot"/></svg></div><div class="panel-title">GitHub Copilot</div><span class="panel-tag ctx">.github instructions</span></div>
+        <p class="panel-desc">Copilot Chat reads <code>.github/copilot-instructions.md</code> as workspace context every prompt.</p>
+        <div class="cmd">mkdir -p .github && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-tx-guardrail/SKILL.md \
+       &gt; .github/copilot-instructions.md && \
+  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-rwa-yield-router/SKILL.md \
+       &gt;&gt; .github/copilot-instructions.md</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="onboarding">
+  <div class="container">
+    <div class="section-eyebrow">Onboarding</div>
+    <h2>Zero to first scan<br>in four minutes.</h2>
+    <p class="section-lede">No build step. No compiler. The skill is markdown + JSON read by your agent at runtime. You only need Foundry's <code>cast</code> on your PATH.</p>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-meta">STEP 01 · ONE MINUTE</div>
+        <h3>Install Foundry</h3>
+        <p>Both skills shell out to <code>cast</code> for read-only RPC calls. One-line install on Linux / macOS / WSL.</p>
+        <div class="cmd">curl -L https://foundry.paradigm.xyz | bash && foundryup
+cast --version
+<span class="c"># cast Version: 0.2.0</span></div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-meta">STEP 02 · 30 SECONDS</div>
+        <h3>Clone the bundle</h3>
+        <p>One repo, both skills. Pick the destination path that matches your agent (see the install matrix above).</p>
+        <div class="cmd">git clone https://github.com/hosein-ul/pharos-skills ~/pharos-skills</div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-meta">STEP 03 · 30 SECONDS</div>
+        <h3>Verify a live read</h3>
+        <p>Sanity-check the Chainlink PROS/USD price feed on Pharos mainnet — confirms RPC, oracle address, and your local <code>cast</code> install all work.</p>
+        <div class="cmd">cast call 0x9356C87a48F913d11C87a0d4b8cD16CD04624BF3 \
+  <span class="s">"latestAnswer()(int256)"</span> --rpc-url https://rpc.pharos.xyz
+<span class="c"># 1240000000000000000  → $1.24 PROS</span></div>
+      </div>
+
+      <div class="tl-step">
+        <div class="tl-meta">STEP 04 · TWO MINUTES</div>
+        <h3>Run your first guarded transaction</h3>
+        <p>Prompt your agent with something Pharos-related: <em>"approve 500 USDC to my Zona pool"</em> — and watch the guardrail fire <em>before</em> the agent signs.</p>
+        <div class="cmd"><span class="c">› detected: cast send approve(...)</span>
+› check #1 simulation .......... PASS
+› check #2 contract_exists ..... PASS  USDC, 1798 bytes
+› check #3 selector ............ approve(address,uint256)
+› check #4 unlimited_approval .. PASS  exact amount
+› check #5 value_check ......... PASS
+› check #6 gas_estimate ........ PASS  71,897 gas
+› <span class="v">RISK 5/100 — SAFE — PROCEED ✓</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"><svg class="brand-mark"><use href="#logo-pharos"/></svg> Pharos Skills</div>
+        <p class="footer-tagline">Production-ready safety + yield skills for the Pharos Network. Built for the AI Agent Carnival — Phase 1.</p>
+      </div>
+      <div>
+        <h4>Skills</h4>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">tx-guardrail</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">rwa-yield-router</a>
+      </div>
+      <div>
+        <h4>Pharos</h4>
+        <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
+        <a href="https://atlantic.pharosscan.xyz" target="_blank">Explorer</a>
+        <a href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Hackathon</a>
+      </div>
+      <div>
+        <h4>Author</h4>
+        <a href="https://github.com/hosein-ul" target="_blank">hosein-ul</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/issues" target="_blank">Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 · MIT License</div>
+      <div>Pharos AI Agent Carnival — Phase 1 · 2026-06-14</div>
+    </div>
+  </div>
+</footer>
+
+<div class="switcher">
+  <a href="design-a.html">A · Terminal</a>
+  <a href="design-b.html">B · Brand</a>
+  <a href="design-c.html" class="active">C · Neon</a>
+  <a href="../index.html">← All</a>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('active'));
+    panels.forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.target).classList.add('active');
+  }));
+</script>
+
+</body>
+</html>
