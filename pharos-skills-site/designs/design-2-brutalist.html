@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHAROS / SKILLS — BRUTALIST</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f5f1e8;
+    --ink: #0a0a0a;
+    --ink-soft: #2a2a2a;
+    --yellow: #ffe600;
+    --orange: #ff5b1f;
+    --red: #ff003c;
+    --rule: 4px solid var(--ink);
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
+  a:hover { background: var(--yellow); }
+
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    background: var(--ink); color: var(--paper);
+    padding: 14px 0;
+    border-bottom: var(--rule);
+    position: sticky; top: 0; z-index: 60;
+  }
+  nav .container { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase; }
+  .brand-mark {
+    width: 36px; height: 36px;
+    background: var(--yellow);
+    border: 2px solid var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    padding: 5px;
+  }
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  .nav-links { display: flex; gap: 22px; font-family: 'Space Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .nav-links a { color: var(--paper); text-decoration: none; }
+  .nav-links a:hover { background: var(--yellow); color: var(--ink); padding: 2px 4px; }
+  .nav-cta {
+    background: var(--yellow); color: var(--ink);
+    padding: 10px 16px; border: 2px solid var(--paper);
+    font-family: 'Archivo Black', sans-serif; font-size: 13px;
+    text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .nav-cta:hover { background: var(--red); color: var(--paper); border-color: var(--paper); }
+
+  /* HERO */
+  .hero {
+    border-bottom: var(--rule);
+    padding: 60px 0 60px;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(10,10,10,0.04) 14px, rgba(10,10,10,0.04) 15px);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 40px;
+    align-items: end;
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(56px, 10vw, 132px);
+    line-height: 0.92; letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+  .hero h1 .slash { color: var(--orange); }
+  .hero h1 .hl {
+    background: var(--yellow);
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 0 0.1em;
+  }
+  .hero-side {
+    border: var(--rule);
+    background: var(--paper);
+    padding: 24px;
+    transform: rotate(-1deg);
+    box-shadow: 10px 10px 0 var(--ink);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--ink); color: var(--yellow);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; padding: 4px 10px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .hero-side p {
+    font-size: 16px; margin-bottom: 14px;
+  }
+  .hero-side .stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-top: 18px;
+    border-top: 2px solid var(--ink); padding-top: 14px;
+    font-family: 'Space Mono', monospace; font-size: 13px;
+  }
+  .hero-side .stats b { font-family: 'Archivo Black', sans-serif; font-size: 24px; display: block; }
+
+  .hero-marquee {
+    margin-top: 50px;
+    border-top: var(--rule); border-bottom: var(--rule);
+    background: var(--ink); color: var(--paper);
+    padding: 12px 0;
+    font-family: 'Archivo Black', sans-serif; font-size: 16px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    overflow: hidden; white-space: nowrap;
+  }
+  .marquee-track {
+    display: inline-block;
+    animation: scroll 24s linear infinite;
+  }
+  .marquee-track span { padding: 0 28px; }
+  .marquee-track .y { color: var(--yellow); }
+  .marquee-track .r { color: var(--red); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTION */
+  section { padding: 70px 0; border-bottom: var(--rule); }
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+    margin-bottom: 40px; flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.9; letter-spacing: -0.03em;
+    text-transform: uppercase;
+    max-width: 700px;
+  }
+  .section-head h2 .hl { background: var(--yellow); padding: 0 0.1em; }
+  .section-tag {
+    background: var(--ink); color: var(--paper);
+    padding: 10px 16px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    border: var(--rule);
+  }
+
+  /* SKILLS */
+  .skills-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: var(--rule); }
+  .skill-block {
+    padding: 32px;
+    border-right: 4px solid var(--ink);
+    background: var(--paper);
+  }
+  .skill-block:last-child { border-right: none; background: var(--yellow); }
+  .skill-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 88px; line-height: 0.8;
+    margin-bottom: 14px;
+    -webkit-text-stroke: 2px var(--ink); color: transparent;
+  }
+  .skill-block:last-child .skill-num { -webkit-text-stroke: 2px var(--ink); }
+  .skill-block h3 {
+    font-family: 'Space Mono', monospace; font-weight: 700;
+    font-size: 26px; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .skill-block p { font-size: 16px; margin-bottom: 18px; max-width: 460px; }
+  .skill-block .run {
+    background: var(--ink); color: var(--paper);
+    padding: 16px;
+    font-family: 'Space Mono', monospace; font-size: 12.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    border: 3px solid var(--ink);
+    margin: 18px 0;
+    box-shadow: 6px 6px 0 var(--yellow);
+  }
+  .skill-block:last-child .run { box-shadow: 6px 6px 0 var(--ink); background: var(--ink); }
+  .skill-block .run .y { color: var(--yellow); }
+  .skill-block .run .r { color: var(--red); }
+  .skill-block .run .g { color: #4ade80; }
+  .skill-block .meta {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-top: 3px solid var(--ink); padding-top: 14px;
+  }
+  .skill-block .meta b { background: var(--ink); color: var(--paper); padding: 1px 6px; }
+
+  /* AGENTS */
+  #agents-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: var(--rule); }
+  .agent-cell {
+    border-right: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    padding: 24px;
+    background: var(--paper);
+    position: relative;
+  }
+  .agent-cell:nth-child(2n) { border-right: none; }
+  .agent-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .agent-cell:nth-child(3n+1) { background: var(--paper); }
+  .agent-cell:nth-child(4n+2) { background: #ffe600; }
+  .agent-cell:nth-child(5n+3) { background: #ff5b1f; color: var(--paper); }
+  .agent-cell:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); z-index: 5; }
+  .agent-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .agent-logo-cell {
+    width: 56px; height: 56px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    padding: 7px; flex-shrink: 0;
+  }
+  .agent-logo-cell img { width: 100%; height: 100%; object-fit: contain; }
+  .agent-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; text-transform: uppercase; letter-spacing: -0.01em;
+    flex: 1;
+  }
+  .agent-badge {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 4px 8px; border: 2px solid var(--ink);
+    background: var(--paper); color: var(--ink);
+    display: inline-block; margin-bottom: 10px;
+  }
+  .agent-cell:nth-child(5n+3) .agent-badge { background: var(--ink); color: var(--paper); border-color: var(--paper); }
+  .agent-cmd {
+    background: var(--ink); color: var(--paper);
+    padding: 14px;
+    font-family: 'Space Mono', monospace; font-size: 11.5px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .agent-note {
+    font-size: 13.5px; margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ONBOARDING */
+  .steps-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: var(--rule); margin-bottom: 0;
+  }
+  .step-cell {
+    padding: 24px;
+    border-right: 3px solid var(--ink);
+    position: relative;
+  }
+  .step-cell:last-child { border-right: none; }
+  .step-cell:nth-child(1) { background: var(--yellow); }
+  .step-cell:nth-child(2) { background: var(--paper); }
+  .step-cell:nth-child(3) { background: var(--orange); color: var(--paper); }
+  .step-cell:nth-child(4) { background: var(--ink); color: var(--paper); }
+  .step-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 72px; line-height: 0.85;
+    margin-bottom: 10px;
+  }
+  .step-cell h3 {
+    font-family: 'Space Mono', monospace; font-weight: 700;
+    font-size: 18px; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .step-cell p { font-size: 14.5px; margin-bottom: 14px; }
+  .step-cell .cmd {
+    background: rgba(0,0,0,0.85); color: var(--paper);
+    padding: 12px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    line-height: 1.6; white-space: pre-wrap; overflow-x: auto;
+    border: 2px solid var(--ink);
+  }
+  .step-cell:nth-child(4) .cmd { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+  footer {
+    background: var(--ink); color: var(--paper);
+    padding: 50px 0;
+  }
+  footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  footer h4 { font-family: 'Archivo Black', sans-serif; font-size: 16px; margin-bottom: 14px; text-transform: uppercase; color: var(--yellow); }
+  footer a { color: var(--paper); display: block; font-family: 'Space Mono', monospace; font-size: 13px; padding: 3px 0; }
+  footer a:hover { background: var(--yellow); color: var(--ink); }
+  .colophon {
+    border-top: 3px solid var(--paper);
+    padding-top: 20px; margin-top: 30px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+
+  .switcher {
+    position: fixed; bottom: 18px; right: 18px; z-index: 100;
+    background: var(--yellow);
+    padding: 4px;
+    border: 3px solid var(--ink);
+    display: flex; gap: 0;
+    font-family: 'Archivo Black', sans-serif; font-size: 12px;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .switcher a { padding: 7px 11px; color: var(--ink); text-decoration: none; border-right: 2px solid var(--ink); }
+  .switcher a:last-child { border-right: none; }
+  .switcher a:hover { background: var(--ink); color: var(--yellow); }
+  .switcher a.active { background: var(--ink); color: var(--yellow); }
+
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .skills-row, #agents-grid, .steps-strip { grid-template-columns: 1fr; }
+    .skill-block, .agent-cell, .step-cell { border-right: none; border-bottom: 3px solid var(--ink); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="brand">
+      <div class="brand-mark"><img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos"></div>
+      PHAROS / SKILLS
+    </div>
+    <div class="nav-links">
+      <a href="#skills">SKILLS</a>
+      <a href="#install">INSTALL</a>
+      <a href="#onboarding">ONBOARD</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/hosein-ul/pharos-skills" target="_blank">GITHUB →</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <h1>SAFER<span class="slash">/</span><br>SMARTER<span class="slash">/</span><br><span class="hl">PHAROS.</span></h1>
+      <aside class="hero-side">
+        <span class="hero-tag">★ Phase 1 · Carnival</span>
+        <p><b>Two skills.</b> One repo. Every modern AI agent. Pre-execution safety guardrail + risk-adjusted RWA yield router.</p>
+        <div class="stats">
+          <div><b>2</b> SKILLS</div>
+          <div><b>11</b> AGENTS</div>
+          <div><b>$7.7M</b> TVL</div>
+          <div><b>v0.3</b> RELEASE</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>★ TWO SKILLS</span><span class="y">★ ELEVEN AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span><span>★ TWO SKILLS</span><span class="y">★ ELEVEN AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span>
+    </div>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-head">
+      <h2>THE <span class="hl">BUNDLE.</span></h2>
+      <div class="section-tag">SECTION · 01</div>
+    </div>
+
+    <div class="skills-row">
+      <div class="skill-block">
+        <div class="skill-num">01</div>
+        <h3>PHAROS-TX-GUARDRAIL</h3>
+        <p>Six read-only checks. Risk score 0–100. PROCEED / WARN / BLOCK. Runs before every <code>cast send</code>.</p>
+        <div class="run">→ simulation ........... <span class="g">PASS</span>
+→ contract_exists ..... <span class="g">PASS</span>  USDC, 1798 bytes
+→ selector ............ approve(address,uint256)
+→ unlimited_approval .. <span class="r">FAIL</span>  MAX_UINT256
+→ value_check ......... <span class="g">PASS</span>
+→ gas_estimate ........ <span class="g">PASS</span>  71,897 gas
+→ <span class="y">RISK 70/100</span> — <span class="r">HIGH</span> — <span class="r">BLOCK</span></div>
+        <div class="meta">
+          <span><b>6</b> CHECKS</span>
+          <span><b>0</b> WRITES</span>
+          <span><b>120ms</b> CALL</span>
+          <span><b>v0.2</b></span>
+        </div>
+      </div>
+
+      <div class="skill-block">
+        <div class="skill-num">02</div>
+        <h3>PHAROS-RWA-YIELD-ROUTER</h3>
+        <p>Read-only yield scanner. Live APY across 9 protocols. Asset-class risk multipliers 0.50 → 0.95. Ranked recommendation.</p>
+        <div class="run">→ scanning 9 protocols ...
+→ #1 R25 Axil 7-day     8.5%  × 0.60 = <span class="g">5.10%</span>
+→ #2 R25 Axil 6-month  11.2%  × 0.60 = <span class="g">6.72%</span>
+→ #3 Zona USDC supply   3.6%  × 0.80 = <span class="g">2.88%</span>
+→ <span class="r">⏳</span> Morpho · TermMax · AquaFlux · Faroo
+→ <span class="y">best @ $5K → R25 7d → ~$34.93/30d</span></div>
+        <div class="meta">
+          <span><b>9</b> PROTOCOLS</span>
+          <span><b>0</b> WRITES</span>
+          <span><b>$7.7M</b> TVL</span>
+          <span><b>v0.3</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <div class="section-head">
+      <h2>INSTALL <span class="hl">EVERYWHERE.</span></h2>
+      <div class="section-tag">SECTION · 02</div>
+    </div>
+
+    <div id="agents-grid"></div>
+  </div>
+</section>
+
+<section id="onboarding">
+  <div class="container">
+    <div class="section-head">
+      <h2>FOUR <span class="hl">MINUTES.</span></h2>
+      <div class="section-tag">SECTION · 03</div>
+    </div>
+
+    <div class="steps-strip">
+      <div class="step-cell">
+        <div class="step-num">1</div>
+        <h3>INSTALL FOUNDRY</h3>
+        <p>Both skills shell out to <code>cast</code> for RPC.</p>
+        <div class="cmd">curl -L https://foundry.paradigm.xyz | bash
+foundryup
+cast --version</div>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">2</div>
+        <h3>CLONE THE BUNDLE</h3>
+        <p>One repo, both skills.</p>
+        <div class="cmd">git clone \
+  https://github.com/hosein-ul/pharos-skills \
+  ~/pharos-skills</div>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">3</div>
+        <h3>VERIFY A READ</h3>
+        <p>PROS/USD via Chainlink, mainnet 1672.</p>
+        <div class="cmd">cast call 0x9356C87a48... \
+  "latestAnswer()(int256)" \
+  --rpc-url https://rpc.pharos.xyz</div>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">4</div>
+        <h3>RUN A GUARDED TX</h3>
+        <p>Prompt your agent. Watch the guardrail fire.</p>
+        <div class="cmd">› RISK 5/100
+› SAFE
+› PROCEED ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="flex-direction:column;align-items:stretch">
+    <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
+      <div>
+        <h4>SKILLS</h4>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">tx-guardrail</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">yield-router</a>
+      </div>
+      <div>
+        <h4>PHAROS</h4>
+        <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
+        <a href="https://atlantic.pharosscan.xyz" target="_blank">Explorer</a>
+        <a href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Carnival</a>
+      </div>
+      <div>
+        <h4>AUTHOR</h4>
+        <a href="https://github.com/hosein-ul" target="_blank">@hosein-ul</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/issues" target="_blank">Issues</a>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>SET IN ARCHIVO BLACK + SPACE GROTESK + SPACE MONO</span>
+      <span>© 2026 · MIT · CARNIVAL PHASE 1</span>
+    </div>
+  </div>
+</footer>
+
+<div class="switcher">
+  <a href="design-1-editorial.html">01</a>
+  <a href="design-2-brutalist.html" class="active">02</a>
+  <a href="design-3-pastel.html">03</a>
+  <a href="design-4-swiss.html">04</a>
+  <a href="design-5-matrix.html">05</a>
+  <a href="design-6-magazine.html">06</a>
+  <a href="../index.html">★</a>
+</div>
+
+<script src="../assets/agents.js"></script>
+<script>
+  renderAgents('agents-grid', (a) => `
+    <div class="agent-cell">
+      <div class="agent-head">
+        <div class="agent-logo-cell"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
+        <div class="agent-name">${a.name}</div>
+      </div>
+      <span class="agent-badge">${a.badge}</span>
+      <pre class="agent-cmd">${a.cmd}</pre>
+      <p class="agent-note">${a.note}</p>
+    </div>
+  `);
+</script>
+
+</body>
+</html>

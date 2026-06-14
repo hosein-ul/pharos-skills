@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharos Skills · Soft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Nunito:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fff7ee;
+    --peach: #ffe7d5;
+    --peach-deep: #ffcfb1;
+    --rose: #ffd9e2;
+    --rose-deep: #f7a9b8;
+    --mint: #cfeadf;
+    --sky: #cfe4f4;
+    --butter: #fff1bc;
+    --ink: #4a2f29;
+    --ink-soft: #7a5b53;
+    --ink-fade: #b89a91;
+    --accent: #e8704e;
+    --accent-soft: #f4a07f;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Nunito', system-ui, sans-serif;
+    font-size: 16px; line-height: 1.65; font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(circle at 15% 10%, var(--peach) 0%, transparent 35%),
+      radial-gradient(circle at 88% 22%, var(--rose) 0%, transparent 32%),
+      radial-gradient(circle at 50% 92%, var(--mint) 0%, transparent 38%),
+      radial-gradient(circle at 90% 80%, var(--butter) 0%, transparent 30%);
+    opacity: 0.6;
+  }
+  a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  a:hover { color: var(--ink); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+  /* nav */
+  nav {
+    background: rgba(255,247,238,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(74,47,41,0.08);
+    position: sticky; top: 0; z-index: 60;
+  }
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: 'DM Serif Display', serif; font-size: 22px; letter-spacing: -0.01em; }
+  .brand-pill {
+    width: 44px; height: 44px;
+    background: white;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 7px;
+    box-shadow: 0 6px 16px rgba(232,112,78,0.18);
+  }
+  .brand-pill img { width: 100%; height: 100%; object-fit: contain; }
+  .nav-links { display: flex; gap: 28px; font-size: 14px; font-weight: 600; }
+  .nav-links a { color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--ink); color: white;
+    padding: 10px 20px; border-radius: 100px;
+    font-weight: 700; font-size: 14px;
+    box-shadow: 0 6px 16px rgba(74,47,41,0.2);
+  }
+  .nav-cta:hover { background: var(--accent); color: white; }
+
+  /* hero */
+  .hero { padding: 90px 0 80px; position: relative; }
+  .hero-inner { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: center; }
+  .hello-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: white;
+    padding: 8px 16px 8px 8px;
+    border-radius: 100px;
+    font-size: 13px; font-weight: 600;
+    color: var(--ink-soft); margin-bottom: 24px;
+    box-shadow: 0 6px 20px rgba(74,47,41,0.06);
+  }
+  .hello-tag .ball {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--rose-deep) 100%);
+    box-shadow: 0 2px 8px rgba(232,112,78,0.3);
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 88px);
+    line-height: 1.02; letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--accent); }
+  .hero h1 .wave {
+    display: inline-block; position: relative;
+  }
+  .hero h1 .wave::after {
+    content: ''; position: absolute;
+    left: 0; right: 0; bottom: 0.05em; height: 14px;
+    background: var(--butter);
+    border-radius: 8px;
+    z-index: -1;
+  }
+  .hero .lede { font-size: 19px; color: var(--ink-soft); max-width: 500px; margin-bottom: 32px; line-height: 1.55; }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 100px;
+    font-weight: 700; font-size: 15px;
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.primary {
+    background: var(--ink); color: white;
+    box-shadow: 0 10px 28px rgba(74,47,41,0.22);
+  }
+  .btn.primary:hover { background: var(--accent); color: white; box-shadow: 0 14px 36px rgba(232,112,78,0.35); }
+  .btn.ghost {
+    background: white; color: var(--ink);
+    box-shadow: 0 6px 20px rgba(74,47,41,0.06);
+  }
+  .btn.ghost:hover { color: var(--ink); }
+
+  /* hero illustration */
+  .hero-art {
+    position: relative; height: 380px;
+  }
+  .blob {
+    position: absolute; border-radius: 50% 60% 55% 45% / 55% 50% 60% 50%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+  }
+  .blob.a { width: 280px; height: 280px; top: 10px; left: 30px; background: linear-gradient(135deg, var(--peach), var(--peach-deep)); animation: float1 10s ease-in-out infinite; }
+  .blob.b { width: 200px; height: 200px; top: 100px; right: 20px; background: linear-gradient(135deg, var(--rose), var(--rose-deep)); animation: float2 12s ease-in-out infinite; }
+  .blob.c { width: 140px; height: 140px; bottom: 20px; left: 130px; background: linear-gradient(135deg, var(--mint), #a8d8c4); animation: float3 9s ease-in-out infinite; }
+  @keyframes float1 { 0%,100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(10px,-12px) rotate(8deg); } }
+  @keyframes float2 { 0%,100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(-15px,10px) rotate(-6deg); } }
+  @keyframes float3 { 0%,100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(8px,8px) rotate(12deg); } }
+  .blob-tag {
+    position: absolute; background: white;
+    padding: 10px 16px; border-radius: 18px;
+    font-size: 13px; font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .blob-tag.t1 { top: 30px; right: 40px; }
+  .blob-tag.t1 b { color: var(--accent); }
+  .blob-tag.t2 { bottom: 60px; right: 80px; }
+  .blob-tag.t2 b { color: #5ab089; }
+  .blob-tag.t3 { top: 220px; left: 0; }
+  .blob-tag.t3 b { color: var(--rose-deep); }
+  .blob-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+
+  /* stats */
+  .stats-strip {
+    margin-top: 60px;
+    background: white;
+    border-radius: 28px;
+    padding: 26px 32px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    box-shadow: 0 12px 40px rgba(74,47,41,0.06);
+  }
+  .stat { text-align: center; }
+  .stat-n {
+    font-family: 'DM Serif Display', serif;
+    font-size: 44px; color: var(--accent); line-height: 1;
+  }
+  .stat-l { font-size: 13px; color: var(--ink-soft); margin-top: 4px; font-weight: 600; }
+
+  /* sections */
+  section { padding: 100px 0; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--accent); font-family: 'DM Mono', monospace;
+    font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    margin-bottom: 16px;
+  }
+  .eyebrow::before { content: '✿'; font-size: 16px; }
+  h2 {
+    font-family: 'DM Serif Display', serif; font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 16px; max-width: 700px;
+  }
+  h2 em { color: var(--accent); }
+  .section-lede {
+    font-size: 18px; color: var(--ink-soft);
+    max-width: 600px; margin-bottom: 60px;
+  }
+
+  /* skills */
+  .skills-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .skill-card {
+    background: white;
+    border-radius: 32px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 50px rgba(74,47,41,0.06);
+    transition: transform 0.2s;
+  }
+  .skill-card:hover { transform: translateY(-4px); }
+  .skill-card.a { background: linear-gradient(135deg, var(--peach) 0%, white 60%); }
+  .skill-card.b { background: linear-gradient(135deg, var(--mint) 0%, white 60%); }
+  .skill-emoji {
+    width: 64px; height: 64px;
+    background: white;
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 20px rgba(74,47,41,0.08);
+    margin-bottom: 18px;
+  }
+  .skill-card h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px; font-weight: 500;
+    margin-bottom: 12px; letter-spacing: -0.01em; color: var(--ink);
+  }
+  .skill-card p.s-lede { color: var(--ink-soft); margin-bottom: 18px; font-size: 15.5px; }
+  .skill-card .run {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    padding: 16px 18px;
+    font-family: 'DM Mono', monospace; font-size: 12.5px;
+    color: var(--ink); line-height: 1.7;
+    white-space: pre-wrap;
+    border: 1px dashed rgba(74,47,41,0.18);
+  }
+  .skill-card .run .a { color: var(--accent); }
+  .skill-card .run .g { color: #4a9d6b; }
+  .skill-card .run .w { color: #c79100; }
+  .skill-card .meta {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 18px;
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .skill-card .meta span { background: white; padding: 5px 10px; border-radius: 100px; }
+  .skill-card .meta b { color: var(--accent); }
+
+  /* agents */
+  #agents-soft {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .agent-soft {
+    background: white;
+    border-radius: 24px;
+    padding: 22px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 10px 30px rgba(74,47,41,0.05);
+  }
+  .agent-soft:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(232,112,78,0.12); }
+  .agent-soft .head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .agent-soft .logo-c {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    padding: 7px; flex-shrink: 0;
+  }
+  .agent-soft .logo-c img { width: 100%; height: 100%; object-fit: contain; }
+  .agent-soft .nm {
+    font-family: 'DM Serif Display', serif; font-size: 18px;
+    line-height: 1.15; flex: 1;
+  }
+  .agent-soft .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    padding: 4px 10px; border-radius: 100px;
+    background: var(--peach); color: var(--accent);
+    margin-bottom: 12px; font-weight: 600;
+  }
+  .agent-soft .badge.partner { background: var(--mint); color: #4a9d6b; }
+  .agent-soft .badge.ctx { background: var(--cream); color: var(--ink-soft); }
+  .agent-soft .cmd {
+    background: var(--cream);
+    border-radius: 12px; padding: 12px 14px;
+    font-family: 'DM Mono', monospace; font-size: 11.5px;
+    line-height: 1.65;
+    color: var(--ink); white-space: pre-wrap;
+    overflow-x: auto; max-height: 140px; overflow-y: auto;
+  }
+  .agent-soft .note { font-size: 13px; color: var(--ink-soft); margin-top: 10px; line-height: 1.45; }
+
+  /* onboarding */
+  .onb {
+    background: white;
+    border-radius: 36px;
+    padding: 52px;
+    box-shadow: 0 20px 60px rgba(74,47,41,0.06);
+  }
+  .onb-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .onb-step { position: relative; }
+  .onb-step .circle {
+    width: 64px; height: 64px;
+    background: linear-gradient(135deg, var(--peach), var(--rose));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--ink);
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(232,112,78,0.18);
+  }
+  .onb-step:nth-child(2) .circle { background: linear-gradient(135deg, var(--mint), var(--sky)); }
+  .onb-step:nth-child(3) .circle { background: linear-gradient(135deg, var(--butter), var(--peach)); }
+  .onb-step:nth-child(4) .circle { background: linear-gradient(135deg, var(--rose), var(--rose-deep)); }
+  .onb-step h3 { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 8px; }
+  .onb-step p { font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; }
+  .onb-step .cmd {
+    background: var(--cream);
+    border-radius: 12px; padding: 12px;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    line-height: 1.6; color: var(--ink); white-space: pre-wrap;
+    overflow-x: auto;
+  }
+
+  footer {
+    padding: 70px 0 40px;
+    background: linear-gradient(180deg, transparent 0%, var(--peach) 100%);
+  }
+  footer .grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    margin-bottom: 40px;
+  }
+  footer h4 { font-family: 'DM Mono', monospace; font-size: 13px; margin-bottom: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; }
+  footer a { display: block; padding: 4px 0; color: var(--ink-soft); font-size: 14px; }
+  footer a:hover { color: var(--accent); }
+  .footer-text { color: var(--ink-soft); margin-top: 14px; font-size: 14px; max-width: 320px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(74,47,41,0.1);
+    padding-top: 20px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    color: var(--ink-soft); font-size: 13px;
+  }
+
+  .switcher {
+    position: fixed; bottom: 22px; right: 22px; z-index: 60;
+    background: white; padding: 6px;
+    border-radius: 100px;
+    display: flex; gap: 2px;
+    font-size: 12px; font-weight: 700;
+    box-shadow: 0 12px 36px rgba(74,47,41,0.15);
+  }
+  .switcher a { padding: 8px 12px; color: var(--ink-soft); border-radius: 100px; text-decoration: none; }
+  .switcher a:hover { background: var(--cream); }
+  .switcher a.active { background: linear-gradient(135deg, var(--accent), var(--rose-deep)); color: white; }
+
+  @media (max-width: 880px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-art { height: 280px; }
+    .skills-pair, .stats-strip { grid-template-columns: 1fr 1fr; gap: 16px; }
+    #agents-soft { grid-template-columns: 1fr; }
+    .onb-row { grid-template-columns: 1fr; }
+    footer .grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="brand">
+      <div class="brand-pill"><img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos"></div>
+      Pharos Skills
+    </div>
+    <div class="nav-links">
+      <a href="#skills">The skills</a>
+      <a href="#install">Install</a>
+      <a href="#onboarding">Onboarding</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/hosein-ul/pharos-skills" target="_blank">View on GitHub</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <span class="hello-tag"><span class="ball"></span> Hello — Carnival Phase 1 submission</span>
+        <h1>Pharos transactions, <em>but cozy</em>. Yield decisions, <span class="wave">grounded</span>.</h1>
+        <p class="lede">A friendly safety guardrail that whispers before every <code>cast send</code>, and a thoughtful yield router that ranks Pharos RWA protocols by what your gut already knows: risk first, APY second.</p>
+        <div class="ctas">
+          <a class="btn primary" href="#install">Pick your agent →</a>
+          <a class="btn ghost" href="https://github.com/hosein-ul/pharos-skills" target="_blank">See the source</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="blob a"></div>
+        <div class="blob b"></div>
+        <div class="blob c"></div>
+        <div class="blob-tag t1"><span class="dot" style="background:var(--accent)"></span> <b>SAFE</b> · risk 5/100</div>
+        <div class="blob-tag t2"><span class="dot" style="background:#5ab089"></span> <b>R25 7d</b> @ 5.10%</div>
+        <div class="blob-tag t3"><span class="dot" style="background:var(--rose-deep)"></span> <b>BLOCK</b> · MAX_UINT256</div>
+      </div>
+    </div>
+
+    <div class="stats-strip">
+      <div class="stat"><div class="stat-n">2</div><div class="stat-l">Skills bundled</div></div>
+      <div class="stat"><div class="stat-n">11</div><div class="stat-l">AI agents</div></div>
+      <div class="stat"><div class="stat-n">$7.7M</div><div class="stat-l">Live TVL</div></div>
+      <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Read-only</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="skills">
+  <div class="container">
+    <div class="eyebrow">The bundle</div>
+    <h2>Two skills, <em>quietly cooperating.</em></h2>
+    <p class="section-lede">The yield router decides where idle capital should go. The tx guardrail makes sure the call to put it there is safe. Together — a full lifecycle, no surprises.</p>
+
+    <div class="skills-pair">
+      <div class="skill-card a">
+        <div class="skill-emoji">🛡️</div>
+        <h3>pharos-tx-guardrail</h3>
+        <p class="s-lede">Six read-only checks before every <code>cast send</code>. Risk score 0–100. PROCEED, WARN, or BLOCK.</p>
+        <div class="run">
+<span class="a">→</span> simulation .......... <span class="g">PASS</span>
+<span class="a">→</span> contract_exists ..... <span class="g">PASS</span>  USDC, 1798 bytes
+<span class="a">→</span> selector ............ approve(...)
+<span class="a">→</span> unlimited_approval .. <span class="w">FAIL</span>  MAX_UINT256
+<span class="a">→</span> RISK 70/100 — HIGH — BLOCK</div>
+        <div class="meta">
+          <span><b>6</b> checks</span>
+          <span><b>0</b> writes</span>
+          <span><b>~120ms</b> per call</span>
+          <span><b>v0.2.0</b></span>
+        </div>
+      </div>
+
+      <div class="skill-card b">
+        <div class="skill-emoji">🌱</div>
+        <h3>pharos-rwa-yield-router</h3>
+        <p class="s-lede">Reads live APY across 9 Pharos RWA protocols, applies risk multipliers (0.50–0.95), returns a ranked recommendation.</p>
+        <div class="run">
+<span class="a">→</span> scanning 9 protocols ...
+<span class="a">→</span> <span class="g">#1</span> R25 Axil 7-day    × 0.60 = 5.10%  $892K
+<span class="a">→</span> <span class="g">#2</span> R25 Axil 6-month  × 0.60 = 6.72%  $6.83M
+<span class="a">→</span> <span class="g">#3</span> Zona USDC supply  × 0.80 = 2.88%  $620K
+<span class="a">→</span> best @ $5K → ~$34.93 / 30 days</div>
+        <div class="meta">
+          <span><b>9</b> protocols</span>
+          <span><b>0</b> writes</span>
+          <span><b>$7.7M+</b> TVL</span>
+          <span><b>v0.3.0</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <div class="eyebrow">Install</div>
+    <h2>Eleven agents, <em>warmly welcomed.</em></h2>
+    <p class="section-lede">Native skill engine on three runtimes. Drop-in context for every other major agent stack.</p>
+
+    <div id="agents-soft"></div>
+  </div>
+</section>
+
+<section id="onboarding">
+  <div class="container">
+    <div class="eyebrow">Onboarding</div>
+    <h2>From zero to first scan, <em>in four soft minutes.</em></h2>
+    <p class="section-lede">No build step. No compiler. Just markdown your agent reads at runtime.</p>
+
+    <div class="onb">
+      <div class="onb-row">
+        <div class="onb-step">
+          <div class="circle">i</div>
+          <h3>Install Foundry</h3>
+          <p>Both skills shell out to <code>cast</code> for read-only RPC.</p>
+          <div class="cmd">curl -L https://foundry.paradigm.xyz | bash
+foundryup</div>
+        </div>
+        <div class="onb-step">
+          <div class="circle">ii</div>
+          <h3>Clone the bundle</h3>
+          <p>One repo, both skills.</p>
+          <div class="cmd">git clone \
+  hosein-ul/pharos-skills \
+  ~/pharos-skills</div>
+        </div>
+        <div class="onb-step">
+          <div class="circle">iii</div>
+          <h3>Verify a read</h3>
+          <p>PROS/USD via Chainlink.</p>
+          <div class="cmd">cast call 0x9356C87a... \
+  "latestAnswer()(int256)" \
+  --rpc-url https://rpc.pharos.xyz</div>
+        </div>
+        <div class="onb-step">
+          <div class="circle">iv</div>
+          <h3>Run guarded tx</h3>
+          <p>Prompt your agent. Watch it think.</p>
+          <div class="cmd">› RISK 5/100
+› SAFE
+› PROCEED ✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="grid">
+      <div>
+        <div class="brand"><div class="brand-pill"><img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos"></div> Pharos Skills</div>
+        <p class="footer-text">A pair of friendly Pharos skills for the AI Agent Carnival, Phase 1. Made with care.</p>
+      </div>
+      <div>
+        <h4>Skills</h4>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">tx-guardrail</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">yield-router</a>
+      </div>
+      <div>
+        <h4>Pharos</h4>
+        <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
+        <a href="https://atlantic.pharosscan.xyz" target="_blank">Explorer</a>
+        <a href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Carnival</a>
+      </div>
+      <div>
+        <h4>Author</h4>
+        <a href="https://github.com/hosein-ul" target="_blank">@hosein-ul</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/issues" target="_blank">Issues</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 · MIT License</span>
+      <span>Made for the Pharos AI Agent Carnival — Phase 1</span>
+    </div>
+  </div>
+</footer>
+
+<div class="switcher">
+  <a href="design-1-editorial.html">01</a>
+  <a href="design-2-brutalist.html">02</a>
+  <a href="design-3-pastel.html" class="active">03</a>
+  <a href="design-4-swiss.html">04</a>
+  <a href="design-5-matrix.html">05</a>
+  <a href="design-6-magazine.html">06</a>
+  <a href="../index.html">✿</a>
+</div>
+
+<script src="../assets/agents.js"></script>
+<script>
+  renderAgents('agents-soft', (a) => `
+    <div class="agent-soft">
+      <div class="head">
+        <div class="logo-c"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
+        <div class="nm">${a.name}</div>
+      </div>
+      <span class="badge ${a.badgeKind}">${a.badge}</span>
+      <pre class="cmd">${a.cmd}</pre>
+      <p class="note">${a.note}</p>
+    </div>
+  `);
+</script>
+
+</body>
+</html>
