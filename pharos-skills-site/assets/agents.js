@@ -1,11 +1,10 @@
-// Verified official logo URLs (sources documented 2026-06-14).
-// - cdn.simpleicons.org → verified brand-icon library
-// - vendor CDN URLs → scraped from each vendor's own marketing site
-// - Wikipedia commons → CC-licensed brand mark
-// - Google s2 favicon service → falls back to each domain's own favicon
+// Official logo URLs — all verified 2026-06-14
+// cdn.simpleicons.org → brand icon library
+// vendor CDNs / Wikipedia → official sources
 
-window.PHAROS_LOGO_H  = "https://cdn.prod.website-files.com/67dbfb55a03319f79c3c7c12/689c97bdd110fcee4f9612cd_logo_colored_h.png";
-window.PHAROS_LOGO_SQ = "https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128";
+window.PHAROS_LOGO = "https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128";
+window.INSTALL_URL = "https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh";
+window.REPO_URL    = "https://github.com/hosein-ul/pharos-skills";
 
 window.AGENTS = [
   {
@@ -14,7 +13,8 @@ window.AGENTS = [
     badge: "Official runtime",
     badgeKind: "official",
     logo: "https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128",
-    cmd: "git clone https://github.com/hosein-ul/pharos-skills ~/.pharos/skills/pharos-skills",
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for pharos",
+    detail: "git clone https://github.com/hosein-ul/pharos-skills ~/.pharos/skills/pharos-skills",
     note: "Skill Engine auto-detects both SKILL.md entry points and registers the guardrail + yield router as separate capabilities."
   },
   {
@@ -23,7 +23,8 @@ window.AGENTS = [
     badge: "Native skills",
     badgeKind: "official",
     logo: "https://cdn.simpleicons.org/anthropic",
-    cmd: "git clone https://github.com/hosein-ul/pharos-skills /tmp/ps && \\\n  ln -s /tmp/ps/pharos-tx-guardrail     ~/.claude/skills/pharos-tx-guardrail && \\\n  ln -s /tmp/ps/pharos-rwa-yield-router ~/.claude/skills/pharos-rwa-yield-router",
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for claude",
+    detail: "git clone https://github.com/hosein-ul/pharos-skills ~/.claude/skills/pharos-skills",
     note: "Claude Code reads each SKILL.md frontmatter and auto-triggers on Pharos-related prompts."
   },
   {
@@ -32,8 +33,10 @@ window.AGENTS = [
     badge: "Pharos partner",
     badgeKind: "partner",
     logo: "https://www.google.com/s2/favicons?domain=flow.anvita.xyz&sz=128",
-    cmd: "# In Skill Hub, paste this URL:\nhttps://github.com/hosein-ul/pharos-skills",
-    note: "Anvita Flow ingests Pharos Skill Engine packages directly from a repo URL."
+    oneliner: "https://github.com/hosein-ul/pharos-skills",
+    detail: "# Paste this URL in Anvita Flow Skill Hub\nhttps://github.com/hosein-ul/pharos-skills",
+    note: "Paste the repo URL in Anvita Flow's Skill Hub — it ingests Pharos Skill Engine packages directly.",
+    isUrl: true
   },
   {
     key: "cursor",
@@ -41,8 +44,9 @@ window.AGENTS = [
     badge: "Project rules",
     badgeKind: "ctx",
     logo: "https://cdn.simpleicons.org/cursor/000000",
-    cmd: "mkdir -p .cursor/rules && \\\n  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-tx-guardrail/SKILL.md \\\n       -o .cursor/rules/pharos-tx-guardrail.mdc && \\\n  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-rwa-yield-router/SKILL.md \\\n       -o .cursor/rules/pharos-rwa-yield-router.mdc",
-    note: "Both SKILL.md files become auto-attached project rules in Cursor."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for cursor",
+    detail: "# Drops both SKILL.md files into .cursor/rules/ as .mdc auto-attached rules",
+    note: "Drops both SKILL.md files into .cursor/rules/ as auto-attached project rules."
   },
   {
     key: "windsurf",
@@ -50,8 +54,9 @@ window.AGENTS = [
     badge: "Workspace rules",
     badgeKind: "ctx",
     logo: "https://cdn.simpleicons.org/windsurf",
-    cmd: "git clone https://github.com/hosein-ul/pharos-skills .windsurf/skills && \\\n  cat .windsurf/skills/pharos-tx-guardrail/SKILL.md \\\n      .windsurf/skills/pharos-rwa-yield-router/SKILL.md >> .windsurfrules",
-    note: "Cascade picks up both skill entry points automatically."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for windsurf",
+    detail: "# Clones into .windsurf/skills/ and appends both SKILL.md to .windsurfrules",
+    note: "Clones into .windsurf/skills/ and appends both SKILL.md to .windsurfrules — Cascade picks them up automatically."
   },
   {
     key: "cline",
@@ -59,8 +64,9 @@ window.AGENTS = [
     badge: ".clinerules",
     badgeKind: "ctx",
     logo: "https://cdn.simpleicons.org/cline",
-    cmd: "mkdir -p .clinerules && \\\n  git clone https://github.com/hosein-ul/pharos-skills .clinerules/pharos-skills",
-    note: "Cline reads everything in .clinerules/ as persistent workspace context."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for cline",
+    detail: "# Clones repo into .clinerules/pharos-skills — Cline reads it as persistent workspace context",
+    note: "Clones the repo into .clinerules/pharos-skills — Cline reads everything in .clinerules/ as persistent context."
   },
   {
     key: "continue",
@@ -68,26 +74,29 @@ window.AGENTS = [
     badge: "Custom commands",
     badgeKind: "ctx",
     logo: "https://www.continue.dev/images/continue-logo-light.png",
-    cmd: "git clone https://github.com/hosein-ul/pharos-skills ~/.continue/skills/pharos\n# then in ~/.continue/config.json:\n\"customCommands\": [\n  { \"name\": \"pharos-guard\", \"prompt\": \"@~/.continue/skills/pharos/pharos-tx-guardrail/SKILL.md\" },\n  { \"name\": \"pharos-yield\", \"prompt\": \"@~/.continue/skills/pharos/pharos-rwa-yield-router/SKILL.md\" }\n]",
-    note: "Exposes /pharos-guard and /pharos-yield slash commands."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for continue",
+    detail: "# Clones + patches ~/.continue/config.json with /pharos-guard and /pharos-yield commands",
+    note: "Clones skills + auto-patches ~/.continue/config.json to expose /pharos-guard and /pharos-yield slash commands."
   },
   {
     key: "aider",
     name: "Aider",
-    badge: "--read flag",
+    badge: ".aider.conf.yml",
     badgeKind: "ctx",
     logo: "https://aider.chat/assets/icons/android-chrome-192x192.png",
-    cmd: "git clone https://github.com/hosein-ul/pharos-skills ~/pharos-skills\naider --read ~/pharos-skills/pharos-tx-guardrail/SKILL.md \\\n      --read ~/pharos-skills/pharos-rwa-yield-router/SKILL.md",
-    note: "Pin them via .aider.conf.yml for an entire project session."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for aider",
+    detail: "# Clones + appends read: entries to ~/.aider.conf.yml — active in every session",
+    note: "Clones skills and pins them via ~/.aider.conf.yml so they load in every Aider session automatically."
   },
   {
-    key: "chatgpt",
-    name: "ChatGPT (Custom GPT)",
-    badge: "File upload",
+    key: "codex",
+    name: "OpenAI Codex CLI",
+    badge: "Instructions",
     badgeKind: "ctx",
     logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-    cmd: "# 1. Create a new Custom GPT\n# 2. Knowledge → upload both SKILL.md + references/\n# 3. Instructions:\n\"On any Pharos-related question, consult the uploaded SKILL.md files first.\"",
-    note: "Or paste the raw GitHub URLs into chat — GPT-5 with browsing follows them."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for codex",
+    detail: "# Clones + appends both SKILL.md to ~/.codex/instructions.md",
+    note: "Clones skills and appends both SKILL.md to ~/.codex/instructions.md — Codex CLI picks it up on next run."
   },
   {
     key: "gemini",
@@ -95,8 +104,19 @@ window.AGENTS = [
     badge: "Extensions",
     badgeKind: "ctx",
     logo: "https://cdn.simpleicons.org/googlegemini",
-    cmd: "git clone https://github.com/hosein-ul/pharos-skills ~/.gemini/extensions/pharos-skills",
-    note: "Gemini CLI auto-loads everything in ~/.gemini/extensions/."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for gemini",
+    detail: "# Clones into ~/.gemini/extensions/pharos-skills — Gemini CLI auto-loads it",
+    note: "Clones into ~/.gemini/extensions/pharos-skills — Gemini CLI auto-loads every extension in that directory."
+  },
+  {
+    key: "hermes",
+    name: "Hermes / Local LLM",
+    badge: "Ollama system prompt",
+    badgeKind: "ctx",
+    logo: "https://www.google.com/s2/favicons?domain=ollama.com&sz=128",
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for hermes",
+    detail: "# Builds ~/.ollama/pharos-skills/system-prompt.md\n# Then: ollama run hermes3 --system \"$(cat ~/.ollama/pharos-skills/system-prompt.md)\"",
+    note: "Builds a ready-to-use system prompt at ~/.ollama/pharos-skills/system-prompt.md — works with Hermes 3, LLaMA, Mistral, or any Ollama model."
   },
   {
     key: "copilot",
@@ -104,14 +124,18 @@ window.AGENTS = [
     badge: ".github instructions",
     badgeKind: "ctx",
     logo: "https://cdn.simpleicons.org/githubcopilot",
-    cmd: "mkdir -p .github && \\\n  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-tx-guardrail/SKILL.md \\\n       > .github/copilot-instructions.md && \\\n  curl -L https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/pharos-rwa-yield-router/SKILL.md \\\n       >> .github/copilot-instructions.md",
-    note: "Copilot Chat reads .github/copilot-instructions.md as workspace context every prompt."
+    oneliner: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for copilot",
+    detail: "# Appends both SKILL.md to .github/copilot-instructions.md",
+    note: "Appends both SKILL.md files to .github/copilot-instructions.md — Copilot Chat reads it as workspace context on every prompt."
   }
 ];
 
-// Universal renderer — each design supplies its own template and target.
+// Renderer — each design supplies its own template
 window.renderAgents = function(targetId, template) {
   const host = document.getElementById(targetId);
   if (!host) return;
   host.innerHTML = window.AGENTS.map((a, i) => template(a, i)).join('');
 };
+
+// Universal one-liner (auto-detect)
+window.UNIVERSAL_CMD = "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash";

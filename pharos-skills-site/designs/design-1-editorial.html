@@ -419,8 +419,13 @@
 <section id="install">
   <div class="container">
     <div class="section-rule"><span>The Directory · Install</span></div>
-    <h2>Eleven agents, <em>one command each.</em></h2>
-    <p class="section-deck">A complete directory of supported AI agent runtimes. Native skill-engine support on the first three; the rest plug in as workspace context.</p>
+    <h2>Twelve agents, <em>one command each.</em></h2>
+    <p class="section-deck">Auto-detects which agents you have installed. Or target a specific one with <code>--for &lt;agent&gt;</code>.</p>
+
+    <div class="run" style="margin-bottom:32px;font-size:14px">
+      <span class="red">$ </span><span id="universal-cmd" style="color:#1a1812"></span>
+      <br><span style="color:#6b655c;font-size:12px"># auto-detects all installed agents. or: | bash -s -- --for cursor</span>
+    </div>
 
     <div id="agents-list"></div>
   </div>
@@ -487,6 +492,9 @@ cast --version</div>
 
 <script src="../assets/agents.js"></script>
 <script>
+  // universal one-liner banner
+  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
+
   renderAgents('agents-list', (a) => `
     <div class="agent-row">
       <div class="logo-box"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
@@ -495,7 +503,7 @@ cast --version</div>
         <div class="badge ${a.badgeKind}">${a.badge}</div>
         <div class="note">${a.note}</div>
       </div>
-      <pre class="cmd">${a.cmd}</pre>
+      <pre class="cmd">${a.isUrl ? a.detail : a.oneliner}</pre>
     </div>
   `);
 </script>

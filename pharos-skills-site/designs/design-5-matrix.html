@@ -450,9 +450,12 @@
 <section id="install">
   <div class="container">
     <div class="section-strip">02 — installation matrix</div>
-    <h2>// eleven runtimes.</h2>
-    <p class="section-lede">Native skill-engine on three. Drop-in workspace context for the rest. One command each.</p>
-
+    <h2>// twelve runtimes.</h2>
+    <p class="section-lede">Auto-detect all agents or target one. One command.</p>
+    <div style="border:1px solid var(--green);background:rgba(0,255,136,0.04);padding:14px 18px;margin-bottom:20px;font-family:var(--mono);font-size:13px;word-break:break-all">
+      <span style="color:var(--green)">$</span> <span id="universal-cmd" style="color:var(--white)"></span>
+      <div style="color:var(--green-mute);font-size:11px;margin-top:6px"># or: | bash -s -- --for hermes</div>
+    </div>
     <div id="agents-tty"></div>
   </div>
 </section>
@@ -534,11 +537,12 @@
 
 <script src="../assets/agents.js"></script>
 <script>
+  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
   renderAgents('agents-tty', (a, i) => `
     <div class="agent-tty-row">
       <div class="img-cell"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
       <div class="nm">[${String(i+1).padStart(2,'0')}] ${a.name}<span class="b">${a.badge}</span></div>
-      <pre>${a.cmd}</pre>
+      <pre>${a.isUrl ? a.detail : a.oneliner}</pre>
     </div>
   `);
 </script>

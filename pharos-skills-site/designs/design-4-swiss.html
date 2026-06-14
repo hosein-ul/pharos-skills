@@ -495,10 +495,13 @@
   <div class="container">
     <div class="section-band">
       <div class="num">02</div>
-      <div class="mid"><h2>INSTALL — ELEVEN AGENTS, ONE COMMAND EACH.</h2></div>
+      <div class="mid"><h2>INSTALL — TWELVE AGENTS, ONE COMMAND EACH.</h2></div>
       <div class="tag">Section · Install</div>
     </div>
-
+    <div style="background:var(--ink);color:var(--yellow);padding:16px 20px;border:var(--rule);margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:12.5px;word-break:break-all">
+      <span style="color:var(--red)">$</span> <span id="universal-cmd"></span>
+      <span style="color:var(--ink-fade);font-size:11px;display:block;margin-top:4px"># auto-detect all agents — or: | bash -s -- --for cursor</span>
+    </div>
     <div id="agents-swiss"></div>
     <div id="agent-panel" class="agent-panel"></div>
   </div>
@@ -590,6 +593,7 @@ cast --version</pre>
 
 <script src="../assets/agents.js"></script>
 <script>
+  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
   // pill bar
   const pillBar = document.getElementById('agents-swiss');
   pillBar.innerHTML = window.AGENTS.map((a, i) => `
@@ -611,7 +615,7 @@ cast --version</pre>
       </div>
       <div class="mid">
         <h5>One-command install</h5>
-        <pre>${a.cmd}</pre>
+        <pre>${a.isUrl ? a.detail : a.oneliner}</pre>
       </div>
       <div class="right">
         <h5>How it works</h5>

@@ -530,14 +530,18 @@
       <div class="section-num">II</div>
       <div>
         <div class="kicker">— The Directory —</div>
-        <h2>Eleven agents, <em>each in its own voice.</em></h2>
+        <h2>Twelve agents, <em>each in its own voice.</em></h2>
       </div>
       <div style="text-align:right" class="kicker">Pages 08 — 23</div>
     </div>
 
+    <div style="background:var(--paper-deep);border-left:3px solid var(--ox);padding:16px 22px;margin-bottom:28px;font-family:var(--mono);font-size:13px;word-break:break-all">
+      <span style="color:var(--ox)">$</span> <span id="universal-cmd" style="color:var(--ink)"></span>
+      <div style="color:var(--ink-fade);font-size:11px;margin-top:6px;font-style:italic">auto-detects every installed agent — or add: | bash -s -- --for hermes</div>
+    </div>
     <div class="essay">
-      <p>The skills are written once, in the Pharos Skill Engine format. Where they are <em>read</em> from depends on the agent. Three runtimes — the Pharos Skill Engine itself, Anthropic's Claude Code, and Anvita Flow — host SKILL.md files natively and trigger them on intent. The remaining eight — Cursor, Windsurf, Cline, Continue.dev, Aider, ChatGPT, Gemini CLI, GitHub Copilot — accept SKILL.md as workspace context, custom commands, or uploaded knowledge.</p>
-      <p>Each entry in the directory below names the runtime, prints its mark, and lists exactly one command. No setup wizards. No build steps. Foundry's <code>cast</code> is the only binary either skill assumes on your PATH.</p>
+      <p>The skills are written once, in the Pharos Skill Engine format. Where they are <em>read</em> from depends on the agent. Three runtimes — the Pharos Skill Engine itself, Anthropic's Claude Code, and Anvita Flow — host SKILL.md files natively and trigger them on intent. The remaining nine — Cursor, Windsurf, Cline, Continue.dev, Aider, Codex CLI, Gemini CLI, GitHub Copilot, and Hermes/Ollama local models — accept SKILL.md as workspace context, custom commands, or system prompt.</p>
+      <p>Each entry in the directory below names the runtime, prints its official mark, and lists exactly one command. No build steps. Foundry's <code>cast</code> is the only binary either skill assumes on your PATH.</p>
     </div>
 
     <div id="agents-mag"></div>
@@ -623,6 +627,7 @@ cast --version</div>
 
 <script src="../assets/agents.js"></script>
 <script>
+  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
   renderAgents('agents-mag', (a) => `
     <div class="agent-mag">
       <div class="head">
@@ -630,7 +635,7 @@ cast --version</div>
         <div class="name">${a.name}<span class="sub">— ${a.badge}</span></div>
       </div>
       <p class="note">${a.note}</p>
-      <pre class="cmd">${a.cmd}</pre>
+      <pre class="cmd">${a.isUrl ? a.detail : a.oneliner}</pre>
     </div>
   `);
 </script>

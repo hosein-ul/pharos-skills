@@ -460,9 +460,12 @@
 <section id="install">
   <div class="container">
     <div class="eyebrow">Install</div>
-    <h2>Eleven agents, <em>warmly welcomed.</em></h2>
-    <p class="section-lede">Native skill engine on three runtimes. Drop-in context for every other major agent stack.</p>
-
+    <h2>Twelve agents, <em>warmly welcomed.</em></h2>
+    <p class="section-lede">One command auto-installs on all your agents. Or pick one below.</p>
+    <div style="background:white;border-radius:20px;padding:18px 22px;margin-bottom:32px;box-shadow:0 8px 28px rgba(74,47,41,0.07);font-family:'DM Mono',monospace;font-size:13px;word-break:break-all">
+      <span style="color:var(--accent)">$</span> <span id="universal-cmd" style="color:var(--ink)"></span>
+      <div style="color:var(--ink-fade);font-size:11px;margin-top:6px"># or: | bash -s -- --for cursor</div>
+    </div>
     <div id="agents-soft"></div>
   </div>
 </section>
@@ -554,6 +557,7 @@ foundryup</div>
 
 <script src="../assets/agents.js"></script>
 <script>
+  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
   renderAgents('agents-soft', (a) => `
     <div class="agent-soft">
       <div class="head">
@@ -561,7 +565,7 @@ foundryup</div>
         <div class="nm">${a.name}</div>
       </div>
       <span class="badge ${a.badgeKind}">${a.badge}</span>
-      <pre class="cmd">${a.cmd}</pre>
+      <pre class="cmd">${a.isUrl ? a.detail : a.oneliner}</pre>
       <p class="note">${a.note}</p>
     </div>
   `);
