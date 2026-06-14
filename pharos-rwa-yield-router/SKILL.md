@@ -1,22 +1,20 @@
 ---
 name: pharos-rwa-yield-router
 description: >
-  Scans all yield-bearing protocols on Pharos Pacific Mainnet (chain 1672) and returns a
-  risk-adjusted APY comparison ranked by suitability for the user's capital and risk tolerance.
-  Covers: Morpho Blue (P2P lending), TermMax (fixed-rate lending), AquaFlux (RWA structured
-  yield with tri-token tranching), Zona (Aave V3 fork for RWA collateral), R25 Axil Consumer
-  Credit Vaults (7-day and 6-month tokenized credit), Native PROS staking, and Faroo liquid
-  staking (when live on mainnet — currently testnet-only).
-  Reads live on-chain data via cast call — never executes transactions. Also reads live token
-  prices from Chainlink Push Engine oracles (PROS/USD, ETH/USD, BTC/USD, USDC/USD) to show
-  USD-denominated projected returns.
-  Invoke whenever a user asks: "where should I put my USDC on Pharos?", "which protocol has
-  the best yield?", "compare Morpho vs TermMax vs Zona", "what's the APY on Pharos?", "safest
-  yield on Pharos?", "best RWA yield on Pharos?", "fixed rate vs variable on Pharos?", "how
-  much would I earn in 90 days?", "Axil consumer credit", "AquaFlux tranches", or any question
-  about yield, APY, staking, or capital deployment on Pharos.
-  This skill is read-only and safe to call at any time.
-version: 0.3.0
+  Scans all yield-bearing protocols on Pharos Pacific Mainnet (chain 1672), ranks them by
+  risk-adjusted APY, and — when the user confirms — executes the deposit directly on-chain.
+  Covers: R25 Axil Consumer Credit Vaults (7-day and 6-month, ERC-4626), Zona USDC supply
+  (Aave V3 fork), Faroswap LP yield, Morpho Blue, TermMax, AquaFlux, Faroo liquid staking.
+  Two modes:
+    SCAN mode  — read-only APY scan + ranked recommendation (no wallet required).
+    EXECUTE mode — approve USDC + deposit into chosen vault + confirm position on-chain.
+  EXECUTE mode always runs pharos-tx-guardrail checks before any cast send.
+  Also reads live token prices from Chainlink Push Engine oracles.
+  Invoke for: "where should I put my USDC?", "best yield on Pharos?", "deposit 5000 USDC into
+  R25 Axil", "put my USDC into Zona", "what's the APY on Pharos?", "invest in R25 consumer
+  credit vault", "compare yield protocols", "how much would I earn in 90 days?", "execute
+  deposit into R25 Axil", "withdraw from Zona", or any capital deployment on Pharos.
+version: 0.4.0
 requires:
   anyBins:
     - cast
@@ -78,18 +76,21 @@ Full per-protocol detail in `assets/protocols.json`.
 
 ## Capability Index
 
-| User Need | Capability | Reference |
-|-----------|-----------|-----------|
-| Scan all yield protocols / "best APY" | Read all protocols, rank by risk-adjusted APY | → `references/yield-scan.md#full-scan` |
-| Get live token price in USD | Chainlink Push Engine `latestAnswer()` | → `references/yield-scan.md#price-lookup` |
-| Read Morpho Blue market APY | Iterate markets via `market(bytes32)` | → `references/yield-scan.md#morpho-apy` |
-| Read TermMax fixed-rate APY | `cast call MarketViewer` | → `references/yield-scan.md#termmax-apy` |
-| Read AquaFlux tranche yields | Per-token preview functions | → `references/yield-scan.md#aquaflux-apy` |
-| Read Zona supply APY | Aave V3 `getReserveData()` → liquidityRate | → `references/yield-scan.md#zona-apy` |
-| Read R25 Axil vault APY | ERC-4626 `previewRedeem()` snapshot diff | → `references/yield-scan.md#r25-apy` |
-| Compare RWA strategies for $X capital | Apply risk filter + min deposit + project return | → `references/yield-scan.md#full-scan` |
-| Filter by risk tolerance | conservative / balanced / aggressive | → `references/risk-model.md` |
-| Calculate projected return | Simple interest formula | → `references/yield-scan.md#projected-return` |
+| User Need | Mode | Capability | Reference |
+|-----------|------|-----------|-----------|
+| "Best APY on Pharos?" / scan | SCAN | Read all protocols, rank by risk-adjusted APY | → `references/yield-scan.md#full-scan` |
+| Get live token price in USD | SCAN | Chainlink Push Engine `latestAnswer()` | → `references/yield-scan.md#price-lookup` |
+| Read R25 Axil vault APY | SCAN | ERC-4626 `previewRedeem()` snapshot diff | → `references/yield-scan.md#r25-apy` |
+| Read Zona supply APY | SCAN | Aave V3 `getReserveData()` → liquidityRate | → `references/yield-scan.md#zona-apy` |
+| Compare RWA strategies for $X | SCAN | Apply risk filter + project return | → `references/yield-scan.md#full-scan` |
+| Read Morpho / TermMax APY | SCAN | When markets exist | → `references/yield-scan.md#morpho-apy` |
+| **Deposit USDC into R25 Axil** | **EXECUTE** | approve USDC + deposit ERC-4626 | → `references/execute.md#r25-deposit` |
+| **Withdraw from R25 Axil** | **EXECUTE** | redeem shares + claim after queue | → `references/execute.md#r25-withdraw` |
+| **Supply USDC to Zona** | **EXECUTE** | approve + Aave V3 supply() | → `references/execute.md#zona-supply` |
+| **Withdraw USDC from Zona** | **EXECUTE** | Aave V3 withdraw() | → `references/execute.md#zona-withdraw` |
+| **Swap tokens via Faroswap** | **EXECUTE** | approve + DODO sellBase/sellQuote | → `references/execute.md#faroswap-swap` |
+| **Multi-protocol allocation** | **EXECUTE** | Split capital across protocols | → `references/execute.md#multi-allocator` |
+| **Confirm portfolio positions** | **EXECUTE** | balanceOf + convertToAssets on each vault | → `references/execute.md#confirm-position` |
 
 ## Output Format
 
@@ -122,7 +123,8 @@ Data: block <BLOCK> | 4 protocols scanned | 5 not yet active
 
 ## Decision Flow
 
-1. Extract from user: **amount**, **asset** (USDC/PROS/USDT/WETH), **risk tolerance**, **time horizon**.
+### SCAN mode (read-only)
+1. Extract from user: **amount**, **asset**, **risk tolerance**, **time horizon**.
 2. Run the scan against mainnet (chain 1672).
 3. Apply risk filter:
    - `conservative` → investment_grade, native_staking only
@@ -131,20 +133,32 @@ Data: block <BLOCK> | 4 protocols scanned | 5 not yet active
 4. Filter by min deposit and lockup matching user's needs.
 5. Rank by risk-adjusted APY.
 6. Present the table + top recommendation + projected return.
-7. Offer next steps: deposit via `pharos-tx-guardrail` first, then execute.
+7. Ask: **"Do you want me to execute this deposit?"**
+
+### EXECUTE mode (on-chain write)
+1. User confirms deposit intent with amount and protocol.
+2. Disclose lockup terms — get explicit user acknowledgement.
+3. Check USDC balance — if insufficient, stop and advise bridge/buy.
+4. **Run `pharos-tx-guardrail` on approve calldata** → must score < 70.
+5. Execute approve with exact amount (NEVER MAX_UINT256).
+6. **Run `pharos-tx-guardrail` on deposit calldata** → must score < 70.
+7. Execute deposit.
+8. Confirm: read balanceOf + convertToAssets → report shares and USDC value.
 
 ## Critical Rules
 
-- This skill is **read-only**.
+- **EXECUTE mode requires explicit user confirmation before any cast send.**
+- Never approve MAX_UINT256 — always use exact deposit amount.
+- Always run `pharos-tx-guardrail` before every cast send; block if score ≥ 70.
 - If a protocol's read fails, mark "data unavailable" — never fabricate APY.
 - Always show block number for data freshness.
-- Native PROS staking has no ERC-20 contract — handle differently (validator delegation flow).
-- R25 vaults have lockup — always disclose to user before recommending.
-- Faroo on mainnet is "coming soon"; flag clearly if user asks about Faroo.
+- R25 vaults have lockup — disclose BEFORE asking for confirmation.
+- Faroo on mainnet is "coming soon"; do not attempt deposit.
 
 ## References
 
 - Full protocol catalog & status: `assets/protocols.json`
 - Complete Pharos ecosystem context: `assets/ecosystem.json`
 - Risk model methodology: `references/risk-model.md`
-- Per-protocol cast commands: `references/yield-scan.md`
+- Read commands (APY scan): `references/yield-scan.md`
+- Write commands (deposit/withdraw/swap): `references/execute.md`
