@@ -11,7 +11,9 @@
     --paper: #f5f1e8;
     --ink: #0a0a0a;
     --ink-soft: #2a2a2a;
-    --yellow: #ffe600;
+    --yellow: #ffe600;       /* kept for text accents (.y class, footer h4, etc.) */
+    --blue:   #0028e6;       /* Pharos brand blue — replaces yellow backgrounds */
+    --blue-soft: #1a4dff;
     --orange: #ff5b1f;
     --red: #ff003c;
     --rule: 4px solid var(--ink);
@@ -26,7 +28,7 @@
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
-  a:hover { background: var(--yellow); }
+  a:hover { background: var(--blue); color: white; }
 
   .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
@@ -40,7 +42,7 @@
   .brand { display: flex; align-items: center; gap: 12px; font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase; }
   .brand-mark {
     width: 36px; height: 36px;
-    background: var(--yellow);
+    background: var(--blue);
     border: 2px solid var(--paper);
     display: flex; align-items: center; justify-content: center;
     padding: 5px;
@@ -48,9 +50,9 @@
   .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
   .nav-links { display: flex; gap: 22px; font-family: 'Space Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
   .nav-links a { color: var(--paper); text-decoration: none; }
-  .nav-links a:hover { background: var(--yellow); color: var(--ink); padding: 2px 4px; }
+  .nav-links a:hover { background: var(--blue); color: white; padding: 2px 4px; }
   .nav-cta {
-    background: var(--yellow); color: var(--ink);
+    background: var(--blue); color: white;
     padding: 10px 16px; border: 2px solid var(--paper);
     font-family: 'Archivo Black', sans-serif; font-size: 13px;
     text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em;
@@ -79,7 +81,7 @@
   }
   .hero h1 .slash { color: var(--orange); }
   .hero h1 .hl {
-    background: var(--yellow);
+    background: var(--blue); color: white;
     box-shadow: 8px 8px 0 var(--ink);
     padding: 0 0.1em;
   }
@@ -127,6 +129,63 @@
   .marquee-track .r { color: var(--red); }
   @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+  /* LOGO MARQUEE — brutalist black strip */
+  .logo-marquee {
+    background: var(--ink); color: var(--paper);
+    border-bottom: var(--rule);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .logo-marquee .lm-label {
+    text-align: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 14px 0 8px;
+    color: var(--blue-soft);
+  }
+  .lm-track-wrap {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+    padding: 18px 0 26px;
+  }
+  .lm-track {
+    display: flex; gap: 0; align-items: center;
+    width: max-content;
+    animation: lm-scroll 30s linear infinite;
+  }
+  .lm-track:hover { animation-play-state: paused; }
+  @keyframes lm-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .lm-item {
+    flex-shrink: 0;
+    width: 96px; height: 96px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    margin-right: -3px;  /* overlap borders */
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px;
+    transition: background 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .lm-item img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: filter 0.2s;
+  }
+  .lm-item:hover { background: var(--blue); transform: translateY(-3px); z-index: 2; box-shadow: 4px 4px 0 var(--paper); }
+  .lm-item:hover img { filter: invert(1) brightness(1.2); }
+  .lm-item .lm-name {
+    position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--paper); white-space: nowrap;
+    opacity: 0; transition: opacity 0.2s;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .lm-item:hover .lm-name { opacity: 1; }
+
   /* SECTION */
   section { padding: 70px 0; border-bottom: var(--rule); }
   .section-head {
@@ -140,7 +199,7 @@
     text-transform: uppercase;
     max-width: 700px;
   }
-  .section-head h2 .hl { background: var(--yellow); padding: 0 0.1em; }
+  .section-head h2 .hl { background: var(--blue); color: white; padding: 0 0.1em; }
   .section-tag {
     background: var(--ink); color: var(--paper);
     padding: 10px 16px;
@@ -156,7 +215,9 @@
     border-right: 4px solid var(--ink);
     background: var(--paper);
   }
-  .skill-block:last-child { border-right: none; background: var(--yellow); }
+  .skill-block:last-child { border-right: none; background: var(--blue); color: white; }
+  .skill-block:last-child h3, .skill-block:last-child p { color: white; }
+  .skill-block:last-child .meta b { background: white; color: var(--blue); }
   .skill-num {
     font-family: 'Archivo Black', sans-serif;
     font-size: 88px; line-height: 0.8;
@@ -178,7 +239,7 @@
     white-space: pre-wrap;
     border: 3px solid var(--ink);
     margin: 18px 0;
-    box-shadow: 6px 6px 0 var(--yellow);
+    box-shadow: 6px 6px 0 var(--blue);
   }
   .skill-block:last-child .run { box-shadow: 6px 6px 0 var(--ink); background: var(--ink); }
   .skill-block .run .y { color: var(--yellow); }
@@ -253,7 +314,8 @@
     position: relative;
   }
   .step-cell:last-child { border-right: none; }
-  .step-cell:nth-child(1) { background: var(--yellow); }
+  .step-cell:nth-child(1) { background: var(--blue); color: white; }
+  .step-cell:nth-child(1) h3, .step-cell:nth-child(1) p { color: white; }
   .step-cell:nth-child(2) { background: var(--paper); }
   .step-cell:nth-child(3) { background: var(--orange); color: var(--paper); }
   .step-cell:nth-child(4) { background: var(--ink); color: var(--paper); }
@@ -284,7 +346,7 @@
   footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
   footer h4 { font-family: 'Archivo Black', sans-serif; font-size: 16px; margin-bottom: 14px; text-transform: uppercase; color: var(--yellow); }
   footer a { color: var(--paper); display: block; font-family: 'Space Mono', monospace; font-size: 13px; padding: 3px 0; }
-  footer a:hover { background: var(--yellow); color: var(--ink); }
+  footer a:hover { background: var(--blue); color: white; }
   .colophon {
     border-top: 3px solid var(--paper);
     padding-top: 20px; margin-top: 30px;
@@ -295,17 +357,17 @@
 
   .switcher {
     position: fixed; bottom: 18px; right: 18px; z-index: 100;
-    background: var(--yellow);
+    background: var(--blue);
     padding: 4px;
     border: 3px solid var(--ink);
     display: flex; gap: 0;
     font-family: 'Archivo Black', sans-serif; font-size: 12px;
     box-shadow: 6px 6px 0 var(--ink);
   }
-  .switcher a { padding: 7px 11px; color: var(--ink); text-decoration: none; border-right: 2px solid var(--ink); }
+  .switcher a { padding: 7px 11px; color: white; text-decoration: none; border-right: 2px solid var(--ink); }
   .switcher a:last-child { border-right: none; }
-  .switcher a:hover { background: var(--ink); color: var(--yellow); }
-  .switcher a.active { background: var(--ink); color: var(--yellow); }
+  .switcher a:hover { background: var(--ink); color: white; }
+  .switcher a.active { background: var(--ink); color: white; }
 
   @media (max-width: 880px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -351,10 +413,18 @@
 
   <div class="hero-marquee">
     <div class="marquee-track">
-      <span>★ TWO SKILLS</span><span class="y">★ ELEVEN AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span><span>★ TWO SKILLS</span><span class="y">★ ELEVEN AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span>
+      <span>★ TWO SKILLS</span><span class="y">★ TWELVE AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span><span>★ TWO SKILLS</span><span class="y">★ TWELVE AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span>
     </div>
   </div>
 </header>
+
+<!-- LOGO MARQUEE -->
+<div class="logo-marquee">
+  <div class="lm-label">— works with every major AI agent —</div>
+  <div class="lm-track-wrap">
+    <div class="lm-track" id="logo-track"></div>
+  </div>
+</div>
 
 <section id="skills">
   <div class="container">
@@ -502,6 +572,22 @@ cast --version</div>
 <script src="../assets/agents.js"></script>
 <script>
   document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
+
+  // logo marquee — duplicate for seamless infinite scroll
+  const track = document.getElementById('logo-track');
+  const dup = [...window.AGENTS, ...window.AGENTS];
+  track.innerHTML = dup.map(a => {
+    const short = a.name
+      .replace(' Code','').replace(' Agent','').replace(' Flow','')
+      .replace(' CLI','').replace('.dev','').replace('OpenAI ','')
+      .replace('GitHub ','');
+    return `
+      <div class="lm-item">
+        <img src="${a.logo}" alt="${a.name}" loading="lazy">
+        <span class="lm-name">${short}</span>
+      </div>`;
+  }).join('');
+
   renderAgents('agents-grid', (a) => `
     <div class="agent-cell">
       <div class="agent-head">

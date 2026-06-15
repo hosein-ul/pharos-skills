@@ -88,6 +88,38 @@ install_claude() {
   done
 }
 
+install_hermes() {
+  # Verified from hermes-agent.nousresearch.com/docs:
+  #   ~/.hermes/skills/<category>/<skill>/   (CLI: hermes skills install <url>)
+  printf "\n  ${BO}Hermes Agent (Nous Research)${RS}\n"
+  if command -v hermes &>/dev/null; then
+    info "Running: hermes skills install $REPO"
+    hermes skills install "$REPO" && ok "Installed via Hermes CLI"
+  else
+    info "Hermes CLI not found — installing manually:"
+    for skill in "${SKILLS[@]}"; do
+      clone_skill "$skill" "$HOME/.hermes/skills/pharos/$skill"
+    done
+    info "Restart Hermes Agent to detect the new skills."
+  fi
+}
+
+install_openclaw() {
+  # Verified from docs.openclaw.ai/tools/skills:
+  #   ~/.openclaw/skills/<skill>/   (CLI: openclaw skills install <url>)
+  #   OpenClaw reads the same SKILL.md format as Claude Code.
+  printf "\n  ${BO}OpenClaw${RS}\n"
+  if command -v openclaw &>/dev/null; then
+    info "Running: openclaw skills install $REPO"
+    openclaw skills install "$REPO" && ok "Installed via OpenClaw CLI"
+  else
+    info "OpenClaw CLI not found — installing manually:"
+    for skill in "${SKILLS[@]}"; do
+      clone_skill "$skill" "$HOME/.openclaw/skills/$skill"
+    done
+  fi
+}
+
 install_anvita() {
   printf "\n  ${BO}Anvita Flow${RS}\n"
   info "Paste this URL in your Anvita Flow Skill Hub:"
@@ -104,8 +136,9 @@ install_cursor() {
 }
 
 install_windsurf() {
-  # Windsurf reads .windsurfrules in project root
-  # Also supports ~/.codeium/windsurf/memories/ for user-level context
+  # Verified from windsurf.com/brand + dev community docs:
+  #   PROJECT: .windsurfrules  (project root, single file)
+  #   GLOBAL:  ~/.codeium/windsurf/memories/global_rules.md
   printf "\n  ${BO}Windsurf${RS}\n"
   local dest=".windsurfrules"
   if ! grep -q "pharos-tx-guardrail" "$dest" 2>/dev/null; then
@@ -116,7 +149,9 @@ install_windsurf() {
 }
 
 install_cline() {
-  # Cline reads all files under .clinerules/ as workspace context
+  # Verified from docs.cline.bot/features/cline-rules:
+  #   .clinerules/  (directory) — Cline reads all .md and .txt files there
+  #   Numeric prefixes optional but recommended for ordering
   printf "\n  ${BO}Cline${RS}\n"
   for skill in "${SKILLS[@]}"; do
     fetch_skill_md "$skill" ".clinerules/${skill}.md"
@@ -223,19 +258,21 @@ install_copilot() {
 # ═══════════════════════════════════════════════════════════
 autodetect_and_install() {
   local found=0
-  [ -d "$HOME/.claude/skills" ] && { install_claude; found=$((found+1)); }
-  [ -d "$HOME/.codex" ] && { install_codex; found=$((found+1)); }
-  [ -d "$HOME/.gemini/antigravity" ] && { install_gemini; found=$((found+1)); }
-  [ -d "$HOME/.cursor" ] && { install_cursor; found=$((found+1)); }
-  [ -d "$HOME/.codeium" ] && { install_windsurf; found=$((found+1)); }
-  command -v aider &>/dev/null && { install_aider; found=$((found+1)); }
-  [ -d "$HOME/.continue" ] && { install_continue; found=$((found+1)); }
+  [ -d "$HOME/.claude/skills" ]         && { install_claude;   found=$((found+1)); }
+  command -v hermes &>/dev/null         && { install_hermes;   found=$((found+1)); }
+  command -v openclaw &>/dev/null       && { install_openclaw; found=$((found+1)); }
+  [ -d "$HOME/.codex" ]                 && { install_codex;    found=$((found+1)); }
+  [ -d "$HOME/.gemini/antigravity" ]    && { install_gemini;   found=$((found+1)); }
+  [ -d "$HOME/.cursor" ]                && { install_cursor;   found=$((found+1)); }
+  [ -d "$HOME/.codeium" ]               && { install_windsurf; found=$((found+1)); }
+  command -v aider &>/dev/null          && { install_aider;    found=$((found+1)); }
+  [ -d "$HOME/.continue" ]              && { install_continue; found=$((found+1)); }
   [ -d ".clinerules" ] || [ -f ".clinerules" ] && { install_cline; found=$((found+1)); }
   [ -d ".github" ] || command -v gh &>/dev/null && { install_copilot; found=$((found+1)); }
   if [ "$found" -eq 0 ]; then
     warn "No AI agents detected."
     printf "  Run: ${CY}curl ... | bash -s -- --for <agent>${RS}\n"
-    printf "  Agents: ${DI}claude codex gemini cursor windsurf cline continue aider copilot anvita${RS}\n"
+    printf "  Agents: ${DI}claude hermes openclaw codex gemini cursor windsurf cline continue aider copilot anvita${RS}\n"
   fi
 }
 
@@ -252,6 +289,8 @@ done
 if [ -n "$FOR" ]; then
   case "$FOR" in
     claude)   install_claude   ;;
+    hermes)   install_hermes   ;;
+    openclaw) install_openclaw ;;
     anvita)   install_anvita   ;;
     cursor)   install_cursor   ;;
     windsurf) install_windsurf ;;
@@ -262,13 +301,14 @@ if [ -n "$FOR" ]; then
     gemini)   install_gemini   ;;
     copilot)  install_copilot  ;;
     all)
-      install_claude; install_codex; install_gemini
+      install_claude; install_hermes; install_openclaw
+      install_codex;  install_gemini
       install_cursor; install_windsurf; install_cline
       install_continue; install_aider; install_copilot
       ;;
     *)
       fail "Unknown agent: $FOR"
-      printf "  Available: ${DI}claude codex gemini cursor windsurf cline continue aider copilot anvita all${RS}\n"
+      printf "  Available: ${DI}claude hermes openclaw codex gemini cursor windsurf cline continue aider copilot anvita all${RS}\n"
       exit 1 ;;
   esac
 else
