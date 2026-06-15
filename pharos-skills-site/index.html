@@ -3,290 +3,377 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pharos Skills — Pick a design</title>
+<title>PHAROS / SKILLS — BRUTALIST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf7f0;
-    --bg-soft: #f0ebde;
-    --ink: #1a1612;
-    --ink-soft: #4a4238;
-    --ink-fade: #807665;
-    --line: #d6cfba;
-    --accent: #6b1d24;
-    --gold: #b8965a;
+    --paper: #f5f1e8;
+    --ink: #0a0a0a;
+    --ink-soft: #2a2a2a;
+    --yellow: #ffe600;       /* kept for text accents (.y class, footer h4, etc.) */
+    --blue:   #0028e6;       /* Pharos brand blue — replaces yellow backgrounds */
+    --blue-soft: #1a4dff;
+    --orange: #ff5b1f;
+    --red: #ff003c;
+    --rule: 4px solid var(--ink);
   }
-  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+  html { scroll-behavior: smooth; }
   body {
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 15px; line-height: 1.6;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px; line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
+  a:hover { background: var(--blue); color: white; }
 
-  .container { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 
-  /* nav */
   nav {
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
+    background: var(--ink); color: var(--paper);
+    padding: 14px 0;
+    border-bottom: var(--rule);
     position: sticky; top: 0; z-index: 60;
-    backdrop-filter: blur(10px);
   }
-  nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .brand {
-    display: flex; align-items: center; gap: 12px;
-    font-family: 'Fraunces', serif; font-weight: 700;
-    font-size: 19px; letter-spacing: -0.01em;
+  nav .container { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: 'Archivo Black', sans-serif; font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase; }
+  .brand-mark {
+    width: 36px; height: 36px;
+    background: var(--blue);
+    border: 2px solid var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    padding: 5px;
   }
-  .brand img { width: 26px; height: 26px; }
-  .nav-info {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    color: var(--ink-fade); letter-spacing: 0.05em;
+  .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+  .nav-links { display: flex; gap: 22px; font-family: 'Space Mono', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .nav-links a { color: var(--paper); text-decoration: none; }
+  .nav-links a:hover { background: var(--blue); color: white; padding: 2px 4px; }
+  .nav-cta {
+    background: var(--blue); color: white;
+    padding: 10px 16px; border: 2px solid var(--paper);
+    font-family: 'Archivo Black', sans-serif; font-size: 13px;
+    text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em;
   }
+  .nav-cta:hover { background: var(--red); color: var(--paper); border-color: var(--paper); }
 
   /* HERO */
-  header.hero {
-    padding: 80px 0 60px;
-    text-align: center;
-    border-bottom: 1px solid var(--line);
+  .hero {
+    border-bottom: var(--rule);
+    padding: 60px 0 60px;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(10,10,10,0.04) 14px, rgba(10,10,10,0.04) 15px);
+    position: relative;
   }
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--accent);
-    letter-spacing: 0.2em; text-transform: uppercase;
-    margin-bottom: 22px;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 40px;
+    align-items: end;
   }
-  .eyebrow::before, .eyebrow::after {
-    content: ''; width: 28px; height: 1px; background: var(--accent);
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(56px, 10vw, 132px);
+    line-height: 0.92; letter-spacing: -0.04em;
+    text-transform: uppercase;
   }
-  h1 {
-    font-family: 'Fraunces', serif;
-    font-weight: 400; font-style: italic;
-    font-size: clamp(44px, 7vw, 84px);
-    line-height: 0.98; letter-spacing: -0.02em;
-    margin-bottom: 22px;
+  .hero h1 .slash { color: var(--orange); }
+  .hero h1 .hl {
+    background: var(--blue); color: white;
+    box-shadow: 8px 8px 0 var(--ink);
+    padding: 0 0.1em;
   }
-  h1 em {
-    font-style: normal; font-weight: 700;
-    color: var(--accent);
+  .hero-side {
+    border: var(--rule);
+    background: var(--paper);
+    padding: 24px;
+    transform: rotate(-1deg);
+    box-shadow: 10px 10px 0 var(--ink);
   }
-  header .lede {
-    font-size: 18px; color: var(--ink-soft);
-    max-width: 720px; margin: 0 auto 32px;
+  .hero-tag {
+    display: inline-block;
+    background: var(--ink); color: var(--yellow);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px; padding: 4px 10px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 14px;
   }
-  .pill-row {
-    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+  .hero-side p {
+    font-size: 16px; margin-bottom: 14px;
   }
-  .pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: white;
-    border: 1px solid var(--line);
-    padding: 7px 14px; border-radius: 100px;
-    font-family: 'JetBrains Mono', monospace; font-size: 12px;
-    color: var(--ink-soft);
+  .hero-side .stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    margin-top: 18px;
+    border-top: 2px solid var(--ink); padding-top: 14px;
+    font-family: 'Space Mono', monospace; font-size: 13px;
   }
-  .pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-  .pill.gold .dot { background: var(--gold); }
-  .pill.ok .dot { background: #4a9d6b; }
+  .hero-side .stats b { font-family: 'Archivo Black', sans-serif; font-size: 24px; display: block; }
 
-  /* MARQUEE */
-  .marquee-section {
-    padding: 0; border-bottom: 1px solid var(--line);
-    overflow: hidden; background: var(--bg);
-  }
-  .marquee-label {
-    text-align: center; font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; color: var(--ink-fade);
-    letter-spacing: 0.2em; text-transform: uppercase;
-    padding: 24px 0 16px;
-  }
-  .marquee-track-wrap {
-    overflow: hidden;
-    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
-    padding: 12px 0 28px;
+  .hero-marquee {
+    margin-top: 50px;
+    border-top: var(--rule); border-bottom: var(--rule);
+    background: var(--ink); color: var(--paper);
+    padding: 12px 0;
+    font-family: 'Archivo Black', sans-serif; font-size: 16px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    overflow: hidden; white-space: nowrap;
   }
   .marquee-track {
-    display: flex; gap: 48px; align-items: center;
-    width: max-content;
-    animation: marquee-scroll 28s linear infinite;
+    display: inline-block;
+    animation: scroll 24s linear infinite;
   }
-  .marquee-track:hover { animation-play-state: paused; }
-  @keyframes marquee-scroll {
+  .marquee-track span { padding: 0 28px; }
+  .marquee-track .y { color: var(--yellow); }
+  .marquee-track .r { color: var(--red); }
+  @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* LOGO MARQUEE — brutalist black strip */
+  .logo-marquee {
+    background: var(--ink); color: var(--paper);
+    border-bottom: var(--rule);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .logo-marquee .lm-label {
+    text-align: center;
+    font-family: 'Archivo Black', sans-serif; font-size: 14px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 14px 0 8px;
+    color: var(--blue-soft);
+  }
+  .lm-track-wrap {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+    padding: 18px 0 26px;
+  }
+  .lm-track {
+    display: flex; gap: 0; align-items: center;
+    width: max-content;
+    animation: lm-scroll 30s linear infinite;
+  }
+  .lm-track:hover { animation-play-state: paused; }
+  @keyframes lm-scroll {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-  .marquee-item {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 7px; flex-shrink: 0;
-  }
-  .marquee-item img {
-    width: 36px; height: 36px; object-fit: contain;
-    filter: grayscale(1) contrast(1.1) opacity(0.7);
-    transition: filter 0.25s, transform 0.25s;
-  }
-  .marquee-item:hover img {
-    filter: grayscale(0) opacity(1);
-    transform: translateY(-3px) scale(1.12);
-  }
-  .marquee-item span {
-    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
-    color: var(--ink-fade); letter-spacing: 0.06em;
-    text-transform: uppercase; white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .marquee-item:hover span { opacity: 1; }
-
-  /* MANUAL PROMPT */
-  .prompt-section {
-    padding: 60px 0; border-bottom: 1px solid var(--line);
-  }
-  .prompt-section h3 {
-    font-family: 'Fraunces', serif; font-weight: 700;
-    font-size: 26px; letter-spacing: -0.015em;
-    margin-bottom: 8px;
-  }
-  .prompt-section .sub {
-    font-size: 14px; color: var(--ink-soft); margin-bottom: 22px; max-width: 600px;
-  }
-  .prompt-box {
-    background: var(--ink);
-    color: #e8e8d8;
-    padding: 22px 24px;
-    font-family: 'JetBrains Mono', monospace; font-size: 13px;
-    line-height: 1.75;
-    white-space: pre-wrap;
-    border-left: 4px solid var(--gold);
+  .lm-item {
+    flex-shrink: 0;
+    width: 96px; height: 96px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    margin-right: -3px;  /* overlap borders */
+    display: flex; align-items: center; justify-content: center;
+    padding: 14px;
+    transition: background 0.2s, transform 0.2s;
     position: relative;
-    max-width: 720px;
   }
-  .prompt-copy {
-    position: absolute; top: 12px; right: 14px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #e8e8d8;
-    padding: 5px 12px; font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    cursor: pointer; letter-spacing: 0.08em;
-    transition: background 0.15s;
+  .lm-item img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: filter 0.2s;
   }
-  .prompt-copy:hover { background: rgba(255,255,255,0.16); }
-  .prompt-copy.copied { background: var(--accent); color: white; border-color: var(--accent); }
+  .lm-item:hover { background: var(--blue); transform: translateY(-3px); z-index: 2; box-shadow: 4px 4px 0 var(--paper); }
+  .lm-item:hover img { filter: invert(1) brightness(1.2); }
+  .lm-item .lm-name {
+    position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--paper); white-space: nowrap;
+    opacity: 0; transition: opacity 0.2s;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .lm-item:hover .lm-name { opacity: 1; }
 
-  /* DESIGNS GRID */
-  section.designs { padding: 80px 0; border-bottom: 1px solid var(--line); }
-  .designs-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+  /* SECTION */
+  section { padding: 70px 0; border-bottom: var(--rule); }
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+    margin-bottom: 40px; flex-wrap: wrap;
   }
-  .card {
-    background: white;
-    border: 1px solid var(--line);
-    transition: all 0.2s;
-    display: flex; flex-direction: column;
-    overflow: hidden;
+  .section-head h2 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 0.9; letter-spacing: -0.03em;
+    text-transform: uppercase;
+    max-width: 700px;
   }
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-    border-color: var(--accent);
+  .section-head h2 .hl { background: var(--blue); color: white; padding: 0 0.1em; }
+  .section-tag {
+    background: var(--ink); color: var(--paper);
+    padding: 10px 16px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    border: var(--rule);
   }
-  .card-preview {
-    height: 240px;
-    position: relative; overflow: hidden;
-    border-bottom: 1px solid var(--line);
-    background: var(--bg-soft);
+
+  /* SKILLS */
+  .skills-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: var(--rule); }
+  .skill-block {
+    padding: 32px;
+    border-right: 4px solid var(--ink);
+    background: var(--paper);
   }
-  .card-preview iframe {
-    width: 250%; height: 250%;
-    border: 0;
-    transform: scale(0.4);
-    transform-origin: 0 0;
-    pointer-events: none;
+  .skill-block:last-child { border-right: none; background: var(--blue); color: white; }
+  .skill-block:last-child h3, .skill-block:last-child p { color: white; }
+  .skill-block:last-child .meta b { background: white; color: var(--blue); }
+  .skill-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 88px; line-height: 0.8;
+    margin-bottom: 14px;
+    -webkit-text-stroke: 2px var(--ink); color: transparent;
   }
-  .card-preview .glass {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.04) 100%);
-    pointer-events: none;
+  .skill-block:last-child .skill-num { -webkit-text-stroke: 2px var(--ink); }
+  .skill-block h3 {
+    font-family: 'Space Mono', monospace; font-weight: 700;
+    font-size: 26px; margin-bottom: 12px;
+    text-transform: uppercase; letter-spacing: -0.01em;
   }
-  .card-body { padding: 22px 24px 26px; flex: 1; display: flex; flex-direction: column; }
-  .card-id {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px;
-    color: var(--accent); letter-spacing: 0.18em;
-    text-transform: uppercase; margin-bottom: 6px;
+  .skill-block p { font-size: 16px; margin-bottom: 18px; max-width: 460px; }
+  .skill-block .run {
+    background: var(--ink); color: var(--paper);
+    padding: 16px;
+    font-family: 'Space Mono', monospace; font-size: 12.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    border: 3px solid var(--ink);
+    margin: 18px 0;
+    box-shadow: 6px 6px 0 var(--blue);
   }
-  .card h2 {
-    font-family: 'Fraunces', serif; font-weight: 700;
-    font-size: 24px; letter-spacing: -0.015em;
-    margin-bottom: 6px;
+  .skill-block:last-child .run { box-shadow: 6px 6px 0 var(--ink); background: var(--ink); }
+  .skill-block .run .y { color: var(--yellow); }
+  .skill-block .run .r { color: var(--red); }
+  .skill-block .run .g { color: #4ade80; }
+  .skill-block .meta {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    font-family: 'Space Mono', monospace; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-top: 3px solid var(--ink); padding-top: 14px;
   }
-  .card .tagline {
-    font-style: italic; color: var(--ink-soft);
-    font-size: 14px; margin-bottom: 14px;
-    font-family: 'Fraunces', serif;
+  .skill-block .meta b { background: var(--ink); color: var(--paper); padding: 1px 6px; }
+
+  /* AGENTS */
+  #agents-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: var(--rule); }
+  .agent-cell {
+    border-right: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    padding: 24px;
+    background: var(--paper);
+    position: relative;
   }
-  .card p { color: var(--ink-soft); font-size: 13.5px; margin-bottom: 16px; flex: 1; }
-  .feats { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 18px; }
-  .feat {
-    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
-    padding: 3px 8px; background: var(--bg);
-    border: 1px solid var(--line);
-    color: var(--ink-soft);
-    text-transform: uppercase; letter-spacing: 0.05em;
+  .agent-cell:nth-child(2n) { border-right: none; }
+  .agent-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .agent-cell:nth-child(3n+1) { background: var(--paper); }
+  .agent-cell:nth-child(4n+2) { background: #ffe600; }
+  .agent-cell:nth-child(5n+3) { background: #ff5b1f; color: var(--paper); }
+  .agent-cell:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); z-index: 5; }
+  .agent-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .agent-logo-cell {
+    width: 56px; height: 56px;
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    padding: 7px; flex-shrink: 0;
   }
-  .card-cta {
-    display: flex; gap: 8px; align-items: stretch;
-  }
-  .card-cta a.primary {
+  .agent-logo-cell img { width: 100%; height: 100%; object-fit: contain; }
+  .agent-name {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 20px; text-transform: uppercase; letter-spacing: -0.01em;
     flex: 1;
-    background: var(--ink); color: white;
-    padding: 11px 16px; font-weight: 500;
-    text-align: center; font-size: 14px;
   }
-  .card-cta a.primary:hover { background: var(--accent); text-decoration: none; }
-  .card-cta a.ext {
-    background: white;
-    border: 1px solid var(--line);
-    padding: 11px 14px;
-    color: var(--ink);
+  .agent-badge {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    padding: 4px 8px; border: 2px solid var(--ink);
+    background: var(--paper); color: var(--ink);
+    display: inline-block; margin-bottom: 10px;
   }
-  .card-cta a.ext:hover { background: var(--bg); text-decoration: none; }
+  .agent-cell:nth-child(5n+3) .agent-badge { background: var(--ink); color: var(--paper); border-color: var(--paper); }
+  .agent-cmd {
+    background: var(--ink); color: var(--paper);
+    padding: 14px;
+    font-family: 'Space Mono', monospace; font-size: 11.5px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+  .agent-note {
+    font-size: 13.5px; margin-top: 10px;
+    font-family: 'Space Mono', monospace;
+  }
 
-  /* MONO REPO BANNER */
-  .repo {
-    padding: 60px 0; border-bottom: 1px solid var(--line);
-    background: var(--bg-soft);
+  /* ONBOARDING */
+  .steps-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: var(--rule); margin-bottom: 0;
   }
-  .repo .container {
-    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+  .step-cell {
+    padding: 24px;
+    border-right: 3px solid var(--ink);
+    position: relative;
   }
-  .repo h3 {
-    font-family: 'Fraunces', serif; font-weight: 700;
-    font-size: 30px; letter-spacing: -0.015em;
-    margin-bottom: 8px;
+  .step-cell:last-child { border-right: none; }
+  .step-cell:nth-child(1) { background: var(--blue); color: white; }
+  .step-cell:nth-child(1) h3, .step-cell:nth-child(1) p { color: white; }
+  .step-cell:nth-child(2) { background: var(--paper); }
+  .step-cell:nth-child(3) { background: var(--orange); color: var(--paper); }
+  .step-cell:nth-child(4) { background: var(--ink); color: var(--paper); }
+  .step-num {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 72px; line-height: 0.85;
+    margin-bottom: 10px;
   }
-  .repo p { color: var(--ink-soft); font-size: 15px; max-width: 560px; }
-  .repo .cmd {
-    background: var(--ink); color: var(--bg);
-    padding: 16px 22px;
-    font-family: 'JetBrains Mono', monospace; font-size: 13px;
-    border-left: 4px solid var(--accent);
+  .step-cell h3 {
+    font-family: 'Space Mono', monospace; font-weight: 700;
+    font-size: 18px; text-transform: uppercase;
+    margin-bottom: 10px;
   }
-  .repo .cmd .c { color: var(--gold); }
+  .step-cell p { font-size: 14.5px; margin-bottom: 14px; }
+  .step-cell .cmd {
+    background: rgba(0,0,0,0.85); color: var(--paper);
+    padding: 12px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    line-height: 1.6; white-space: pre-wrap; overflow-x: auto;
+    border: 2px solid var(--ink);
+  }
+  .step-cell:nth-child(4) .cmd { background: var(--paper); color: var(--ink); border-color: var(--paper); }
 
-  /* footer */
-  footer { padding: 36px 0; text-align: center; color: var(--ink-fade); font-size: 13px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+  footer {
+    background: var(--ink); color: var(--paper);
+    padding: 50px 0;
+  }
+  footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  footer h4 { font-family: 'Archivo Black', sans-serif; font-size: 16px; margin-bottom: 14px; text-transform: uppercase; color: var(--yellow); }
+  footer a { color: var(--paper); display: block; font-family: 'Space Mono', monospace; font-size: 13px; padding: 3px 0; }
+  footer a:hover { background: var(--blue); color: white; }
+  .colophon {
+    border-top: 3px solid var(--paper);
+    padding-top: 20px; margin-top: 30px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
 
-  @media (max-width: 1100px) { .designs-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 700px) {
-    .designs-grid { grid-template-columns: 1fr; }
-    .repo .container { grid-template-columns: 1fr; }
+  .switcher {
+    position: fixed; bottom: 18px; right: 18px; z-index: 100;
+    background: var(--blue);
+    padding: 4px;
+    border: 3px solid var(--ink);
+    display: flex; gap: 0;
+    font-family: 'Archivo Black', sans-serif; font-size: 12px;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .switcher a { padding: 7px 11px; color: white; text-decoration: none; border-right: 2px solid var(--ink); }
+  .switcher a:last-child { border-right: none; }
+  .switcher a:hover { background: var(--ink); color: white; }
+  .switcher a.active { background: var(--ink); color: white; }
+
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .skills-row, #agents-grid, .steps-strip { grid-template-columns: 1fr; }
+    .skill-block, .agent-cell, .step-cell { border-right: none; border-bottom: 3px solid var(--ink); }
+    .nav-links { display: none; }
   }
 </style>
 </head>
@@ -295,216 +382,223 @@
 <nav>
   <div class="container">
     <div class="brand">
-      <img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos">
-      Pharos Skills
+      <div class="brand-mark"><img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos"></div>
+      PHAROS / SKILLS
     </div>
-    <span class="nav-info">VOL. I · ISSUE 1 · 2026-06-14</span>
+    <div class="nav-links">
+      <a href="#skills">SKILLS</a>
+      <a href="#install">INSTALL</a>
+      <a href="#onboarding">ONBOARD</a>
+    </div>
+    <a class="nav-cta" href="https://github.com/hosein-ul/pharos-skills" target="_blank">GITHUB →</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="container">
-    <div class="eyebrow">Pick a design</div>
-    <h1>Six site variants.<br><em>Same content. Six aesthetics.</em></h1>
-    <p class="lede">Each design contains the full project — landing, both skills, an installation matrix for 11 different AI agents (with their real logos), and a 4-step onboarding flow. Pick the one that fits your taste.</p>
-    <div class="pill-row">
-      <span class="pill"><span class="dot"></span> Pharos AI Agent Carnival · Phase 1</span>
-      <span class="pill ok"><span class="dot"></span> 11 agent integrations</span>
-      <span class="pill gold"><span class="dot"></span> 2 production skills</span>
+    <div class="hero-grid">
+      <h1>SAFER<span class="slash">/</span><br>SMARTER<span class="slash">/</span><br><span class="hl">PHAROS.</span></h1>
+      <aside class="hero-side">
+        <span class="hero-tag">★ Phase 1 · Carnival</span>
+        <p><b>Two skills.</b> One repo. Every modern AI agent. Pre-execution safety guardrail + risk-adjusted RWA yield router.</p>
+        <div class="stats">
+          <div><b>2</b> SKILLS</div>
+          <div><b>11</b> AGENTS</div>
+          <div><b>$7.7M</b> TVL</div>
+          <div><b>v0.3</b> RELEASE</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="hero-marquee">
+    <div class="marquee-track">
+      <span>★ TWO SKILLS</span><span class="y">★ TWELVE AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span><span>★ TWO SKILLS</span><span class="y">★ TWELVE AGENTS</span><span>★ ZERO WRITES</span><span class="r">★ MAINNET 1672</span><span>★ READ-ONLY BY DEFAULT</span><span class="y">★ PHAROS CARNIVAL</span>
     </div>
   </div>
 </header>
 
-<div class="marquee-section">
-  <div class="marquee-label">— works with every major AI agent —</div>
-  <div class="marquee-track-wrap">
-    <div class="marquee-track" id="marquee"></div>
+<!-- LOGO MARQUEE -->
+<div class="logo-marquee">
+  <div class="lm-label">— works with every major AI agent —</div>
+  <div class="lm-track-wrap">
+    <div class="lm-track" id="logo-track"></div>
   </div>
 </div>
 
-<div class="prompt-section">
+<section id="skills">
   <div class="container">
-    <h3>Manual prompt</h3>
-    <p class="sub">No CLI? Copy this text and paste it into <strong>any AI agent</strong> — it will find and install the skills automatically.</p>
-    <div class="prompt-box" style="position:relative">
-      <div id="prompt-text">Read this GitHub repository and install/import all available skills from it:
-https://github.com/hosein-ul/pharos-skills
-
-Skills to load:
-  • pharos-tx-guardrail/SKILL.md      — pre-execution transaction safety guardrail
-  • pharos-rwa-yield-router/SKILL.md  — RWA yield intelligence + on-chain executor
-
-Clone the repo into your skills/rules/context directory, then load both SKILL.md files.
-Requires: cast (Foundry) on PATH → curl -L https://foundry.paradigm.xyz | bash</div>
-      <button class="prompt-copy" id="copy-btn" onclick="copyPrompt()">COPY</button>
+    <div class="section-head">
+      <h2>THE <span class="hl">BUNDLE.</span></h2>
+      <div class="section-tag">SECTION · 01</div>
     </div>
-  </div>
-</div>
 
-<section class="designs">
-  <div class="container">
-    <div class="designs-grid">
+    <div class="skills-row">
+      <div class="skill-block">
+        <div class="skill-num">01</div>
+        <h3>PHAROS-TX-GUARDRAIL</h3>
+        <p>Six read-only checks. Risk score 0–100. PROCEED / WARN / BLOCK. Runs before every <code>cast send</code>.</p>
+        <div class="run">→ simulation ........... <span class="g">PASS</span>
+→ contract_exists ..... <span class="g">PASS</span>  USDC, 1798 bytes
+→ selector ............ approve(address,uint256)
+→ unlimited_approval .. <span class="r">FAIL</span>  MAX_UINT256
+→ value_check ......... <span class="g">PASS</span>
+→ gas_estimate ........ <span class="g">PASS</span>  71,897 gas
+→ <span class="y">RISK 70/100</span> — <span class="r">HIGH</span> — <span class="r">BLOCK</span></div>
+        <div class="meta">
+          <span><b>6</b> CHECKS</span>
+          <span><b>0</b> WRITES</span>
+          <span><b>120ms</b> CALL</span>
+          <span><b>v0.2</b></span>
+        </div>
+      </div>
 
-      <a class="card" href="designs/design-1-editorial.html" style="text-decoration:none;color:inherit">
-        <div class="card-preview">
-          <iframe src="designs/design-1-editorial.html" loading="lazy" title="Editorial preview"></iframe>
-          <div class="glass"></div>
+      <div class="skill-block">
+        <div class="skill-num">02</div>
+        <h3>PHAROS-RWA-YIELD-ROUTER</h3>
+        <p>Read-only yield scanner. Live APY across 9 protocols. Asset-class risk multipliers 0.50 → 0.95. Ranked recommendation.</p>
+        <div class="run">→ scanning 9 protocols ...
+→ #1 R25 Axil 7-day     8.5%  × 0.60 = <span class="g">5.10%</span>
+→ #2 R25 Axil 6-month  11.2%  × 0.60 = <span class="g">6.72%</span>
+→ #3 Zona USDC supply   3.6%  × 0.80 = <span class="g">2.88%</span>
+→ <span class="r">⏳</span> Morpho · TermMax · AquaFlux · Faroo
+→ <span class="y">best @ $5K → R25 7d → ~$34.93/30d</span></div>
+        <div class="meta">
+          <span><b>9</b> PROTOCOLS</span>
+          <span><b>0</b> WRITES</span>
+          <span><b>$7.7M</b> TVL</span>
+          <span><b>v0.3</b></span>
         </div>
-        <div class="card-body">
-          <div class="card-id">— 01</div>
-          <h2>The Editorial</h2>
-          <div class="tagline">"The Pharos Skills Daily"</div>
-          <p>Newspaper aesthetic. Cream paper, black ink, red masthead. Playfair Display + EB Garamond. Drop caps, column rules, photo captions. Quiet, literate, unhurried.</p>
-          <div class="feats"><span class="feat">cream paper</span><span class="feat">drop cap</span><span class="feat">serif columns</span><span class="feat">red ink accent</span></div>
-          <div class="card-cta">
-            <span class="primary">Open Editorial →</span>
-            <span class="ext">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="designs/design-2-brutalist.html" style="text-decoration:none;color:inherit">
-        <div class="card-preview">
-          <iframe src="designs/design-2-brutalist.html" loading="lazy" title="Brutalist preview"></iframe>
-          <div class="glass"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-id">— 02</div>
-          <h2>The Brutalist</h2>
-          <div class="tagline">"PHAROS / SKILLS"</div>
-          <p>Raw, blocky, no rounded corners anywhere. Archivo Black + Space Mono. Yellow + orange + red on off-white, with thick 4px black borders and offset drop-shadows.</p>
-          <div class="feats"><span class="feat">archivo black</span><span class="feat">no border-radius</span><span class="feat">yellow accent</span><span class="feat">marquee</span></div>
-          <div class="card-cta">
-            <span class="primary">Open Brutalist →</span>
-            <span class="ext">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="designs/design-3-pastel.html" style="text-decoration:none;color:inherit">
-        <div class="card-preview">
-          <iframe src="designs/design-3-pastel.html" loading="lazy" title="Pastel preview"></iframe>
-          <div class="glass"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-id">— 03</div>
-          <h2>The Soft</h2>
-          <div class="tagline">"Warm, rounded, friendly"</div>
-          <p>Peach, rose, mint, butter. DM Serif Display + Nunito. Floating blobs, rounded everything, soft shadows. The cozy/Notion/Linear cousin — friendly but not childish.</p>
-          <div class="feats"><span class="feat">warm pastels</span><span class="feat">animated blobs</span><span class="feat">dm serif</span><span class="feat">soft shadows</span></div>
-          <div class="card-cta">
-            <span class="primary">Open Soft →</span>
-            <span class="ext">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="designs/design-4-swiss.html" style="text-decoration:none;color:inherit">
-        <div class="card-preview">
-          <iframe src="designs/design-4-swiss.html" loading="lazy" title="Bauhaus preview"></iframe>
-          <div class="glass"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-id">— 04</div>
-          <h2>The Bauhaus</h2>
-          <div class="tagline">"Geometric, primary, gridded"</div>
-          <p>Swiss-style grid. White + black, primary red + yellow + blue. Inter + JetBrains Mono. Asymmetric hero cells, geometric shapes, tab-based install picker.</p>
-          <div class="feats"><span class="feat">primary colors</span><span class="feat">grid bg</span><span class="feat">geometric</span><span class="feat">tab picker</span></div>
-          <div class="card-cta">
-            <span class="primary">Open Bauhaus →</span>
-            <span class="ext">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="designs/design-5-matrix.html" style="text-decoration:none;color:inherit">
-        <div class="card-preview">
-          <iframe src="designs/design-5-matrix.html" loading="lazy" title="Matrix preview"></iframe>
-          <div class="glass"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-id">— 05</div>
-          <h2>The Terminal</h2>
-          <div class="tagline">"TTY · phosphor green"</div>
-          <p>VT-100 phosphor green on pure black. CRT scanlines, vignette, blinking cursor. VT323 + IBM Plex Mono. ASCII-art hero, terminal session for the install matrix.</p>
-          <div class="feats"><span class="feat">crt scanlines</span><span class="feat">phosphor green</span><span class="feat">vt323</span><span class="feat">ascii hero</span></div>
-          <div class="card-cta">
-            <span class="primary">Open Terminal →</span>
-            <span class="ext">↗</span>
-          </div>
-        </div>
-      </a>
-
-      <a class="card" href="designs/design-6-magazine.html" style="text-decoration:none;color:inherit">
-        <div class="card-preview">
-          <iframe src="designs/design-6-magazine.html" loading="lazy" title="Magazine preview"></iframe>
-          <div class="glass"></div>
-        </div>
-        <div class="card-body">
-          <div class="card-id">— 06</div>
-          <h2>The Quarterly</h2>
-          <div class="tagline">"Magazine · oxblood &amp; gold"</div>
-          <p>Glossy magazine spread. Fraunces italics, oxblood + gold accents on warm off-white. Cover with TOC, two-column essay, gallery grid for agents. Print-feeling.</p>
-          <div class="feats"><span class="feat">fraunces italic</span><span class="feat">oxblood + gold</span><span class="feat">toc + cover</span><span class="feat">gallery grid</span></div>
-          <div class="card-cta">
-            <span class="primary">Open Quarterly →</span>
-            <span class="ext">↗</span>
-          </div>
-        </div>
-      </a>
-
+      </div>
     </div>
   </div>
 </section>
 
-<div class="repo">
+<section id="install">
   <div class="container">
-    <div>
-      <h3>One repository, both skills.</h3>
-      <p>pharos-tx-guardrail + pharos-rwa-yield-router consolidated under <a href="https://github.com/hosein-ul/pharos-skills" target="_blank">hosein-ul/pharos-skills</a>. Every design's install instructions point here — pick one, move it to repo root as <code>index.html</code>, and GitHub Pages will serve it.</p>
+    <div class="section-head">
+      <h2>INSTALL <span class="hl">EVERYWHERE.</span></h2>
+      <div class="section-tag">SECTION · 02</div>
     </div>
-    <div class="cmd"><span class="c">$</span> git clone https://github.com/hosein-ul/pharos-skills</div>
+    <div style="background:#0a0a0a;color:#ffe600;padding:18px 20px;border:4px solid #0a0a0a;font-family:'Space Mono',monospace;font-size:13px;margin-bottom:24px;box-shadow:8px 8px 0 #0a0a0a;word-break:break-all">
+      $ <span id="universal-cmd"></span><br>
+      <span style="color:#6b6b6b;font-size:11px"># auto-detects installed agents — or add: | bash -s -- --for cursor</span>
+    </div>
+    <div id="agents-grid"></div>
   </div>
-</div>
+</section>
+
+<section id="onboarding">
+  <div class="container">
+    <div class="section-head">
+      <h2>JUST <span class="hl">TALK.</span></h2>
+      <div class="section-tag">SECTION · 03</div>
+    </div>
+
+    <p style="font-family:'Space Mono',monospace;font-size:13px;color:var(--ink-soft);max-width:780px;margin-bottom:10px;line-height:1.7">
+      Once installed, your agent handles everything. No commands. No code. Just natural language.
+      The agent runs all on-chain reads silently in the background and replies in plain English.
+    </p>
+    <p style="font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);max-width:780px;margin-bottom:32px;line-height:1.6">
+      <strong>One-time setup for developers:</strong> install Foundry (<code>curl -L https://foundry.paradigm.xyz | bash</code>) so the agent has <code>cast</code> on PATH. That's it.
+    </p>
+
+    <div class="steps-strip">
+      <div class="step-cell">
+        <div class="step-num" style="font-size:48px;opacity:0.4">💬</div>
+        <h3>SAY WHAT YOU WANT</h3>
+        <p>Speak naturally to your AI agent. No commands needed.</p>
+        <div class="cmd">"Is it safe to approve
+unlimited USDC to
+this contract?"</div>
+      </div>
+      <div class="step-cell">
+        <div class="step-num" style="font-size:48px;opacity:0.4">⚙️</div>
+        <h3>AGENT RUNS THE CHECKS</h3>
+        <p>The skill runs 6 silent on-chain reads. You see nothing — it just works.</p>
+        <div class="cmd">→ simulation ....... PASS
+→ unlimited_approval FAIL
+→ RISK 70 — BLOCK</div>
+      </div>
+      <div class="step-cell">
+        <div class="step-num" style="font-size:48px;opacity:0.4">📊</div>
+        <h3>GET CLEAR ANSWERS</h3>
+        <p>The agent translates on-chain data into a plain-language reply.</p>
+        <div class="cmd">"Blocked. MAX_UINT256
+approval is dangerous.
+Use 500 USDC instead."</div>
+      </div>
+      <div class="step-cell">
+        <div class="step-num" style="font-size:48px;opacity:0.4">💰</div>
+        <h3>DEPLOY WITH CONFIDENCE</h3>
+        <p>Same for yield — ask, get ranked options, confirm, done.</p>
+        <div class="cmd">"Put 5000 USDC in
+best Pharos yield."
+→ R25 Axil 7d @ 5.10%</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
-  // pharos skills · 6 design variants · 2026-06-14 · MIT
+  <div class="container" style="flex-direction:column;align-items:stretch">
+    <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
+      <div>
+        <h4>SKILLS</h4>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">tx-guardrail</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">yield-router</a>
+      </div>
+      <div>
+        <h4>PHAROS</h4>
+        <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
+        <a href="https://atlantic.pharosscan.xyz" target="_blank">Explorer</a>
+        <a href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Carnival</a>
+      </div>
+      <div>
+        <h4>AUTHOR</h4>
+        <a href="https://github.com/hosein-ul" target="_blank">@hosein-ul</a>
+        <a href="https://github.com/hosein-ul/pharos-skills/issues" target="_blank">Issues</a>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>SET IN ARCHIVO BLACK + SPACE GROTESK + SPACE MONO</span>
+      <span>© 2026 · MIT · CARNIVAL PHASE 1</span>
+    </div>
+  </div>
 </footer>
+
+<!-- design switcher removed — this IS the main site -->
 
 <script src="assets/agents.js"></script>
 <script>
-// Build animated marquee — duplicate items for seamless loop
-const LOGOS = window.AGENTS.map(a => ({ logo: a.logo, name: a.name, key: a.key }));
-const track = document.getElementById('marquee');
-const items = [...LOGOS, ...LOGOS]; // duplicate for infinite scroll
-track.innerHTML = items.map(a => `
-  <div class="marquee-item">
-    <img src="${a.logo}" alt="${a.name}" loading="lazy">
-    <span>${a.name.replace(' Skill Engine','').replace(' Code','').replace(' Flow','').replace(' CLI','').replace(' / Ollama','').replace('OpenAI Codex ','').replace('GitHub ','')}</span>
-  </div>
-`).join('');
+  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
 
-// Copy prompt
-function copyPrompt() {
-  const text = document.getElementById('prompt-text').textContent.trim();
-  const btn = document.getElementById('copy-btn');
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'COPIED ✓';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
-  }).catch(() => {
-    // fallback for non-secure context
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    btn.textContent = 'COPIED ✓';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
-  });
-}
+  // logo marquee — duplicate for seamless infinite scroll
+  const track = document.getElementById('logo-track');
+  const dup = [...window.AGENTS, ...window.AGENTS];
+  track.innerHTML = dup.map(a => {
+    const short = a.name
+      .replace(' Code','').replace(' Agent','').replace(' Flow','')
+      .replace(' CLI','').replace('.dev','').replace('OpenAI ','')
+      .replace('GitHub ','');
+    return `
+      <div class="lm-item">
+        <img src="${a.logo}" alt="${a.name}" loading="lazy">
+        <span class="lm-name">${short}</span>
+      </div>`;
+  }).join('');
+
+  renderAgents('agents-grid', (a) => `
+    <div class="agent-cell">
+      <div class="agent-head">
+        <div class="agent-logo-cell"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
+        <div class="agent-name">${a.name}</div>
+      </div>
+      <span class="agent-badge">${a.badge}</span>
+      <pre class="agent-cmd">${a.shortCmd}</pre>
+      <p class="agent-note">${a.note}</p>
+    </div>
+  `);
 </script>
 
 </body>
