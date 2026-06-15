@@ -327,13 +327,15 @@
     <h3>Manual prompt</h3>
     <p class="sub">No CLI? Copy this text and paste it into <strong>any AI agent</strong> — it will find and install the skills automatically.</p>
     <div class="prompt-box" style="position:relative">
-      <div id="prompt-text">Install the Pharos Network skills from: https://github.com/hosein-ul/pharos-skills
+      <div id="prompt-text">Read this GitHub repository and install/import all available skills from it:
+https://github.com/hosein-ul/pharos-skills
 
-Clone the repo and load both SKILL.md files as active context:
-  • pharos-tx-guardrail/SKILL.md      — transaction safety guardrail (pre-execution)
-  • pharos-rwa-yield-router/SKILL.md  — RWA yield intelligence + executor
+Skills to load:
+  • pharos-tx-guardrail/SKILL.md      — pre-execution transaction safety guardrail
+  • pharos-rwa-yield-router/SKILL.md  — RWA yield intelligence + on-chain executor
 
-Requires: cast (Foundry) on PATH — install via: curl -L https://foundry.paradigm.xyz | bash</div>
+Clone the repo into your skills/rules/context directory, then load both SKILL.md files.
+Requires: cast (Foundry) on PATH → curl -L https://foundry.paradigm.xyz | bash</div>
       <button class="prompt-copy" id="copy-btn" onclick="copyPrompt()">COPY</button>
     </div>
   </div>

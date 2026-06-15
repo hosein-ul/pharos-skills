@@ -3,24 +3,25 @@ window.PHAROS_LOGO = "https://www.google.com/s2/favicons?domain=pharos.xyz&sz=12
 window.REPO_URL    = "https://github.com/hosein-ul/pharos-skills";
 
 // Manual prompt — paste into any AI agent
-window.MANUAL_PROMPT = `You have two Pharos Network skills available.
-Install from: https://github.com/hosein-ul/pharos-skills
+window.MANUAL_PROMPT = `Read this GitHub repository and install/import all available skills from it:
+https://github.com/hosein-ul/pharos-skills
 
-Load both SKILL.md files:
-- pharos-tx-guardrail/SKILL.md      ← transaction safety guardrail
-- pharos-rwa-yield-router/SKILL.md  ← RWA yield intelligence router
+Skills to load:
+  • pharos-tx-guardrail/SKILL.md      — pre-execution transaction safety guardrail
+  • pharos-rwa-yield-router/SKILL.md  — RWA yield intelligence + on-chain executor
 
-Requires: cast (Foundry) on PATH.`;
+Clone the repo into your skills/rules/context directory, then load both SKILL.md files.
+Requires: cast (Foundry) on PATH → curl -L https://foundry.paradigm.xyz | bash`;
 
 window.AGENTS = [
   {
     key: "pharos",
     name: "Pharos Skill Engine",
-    badge: "Official",
+    badge: "Native Platform",
     badgeKind: "official",
     logo: "https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128",
     shortCmd: "git clone https://github.com/hosein-ul/pharos-skills ~/.pharos/skills/pharos-skills",
-    note: "Auto-detects both SKILL.md entry points on startup."
+    note: "These skills follow the official Pharos Skill Engine format — auto-detected on startup."
   },
   {
     key: "claude",
