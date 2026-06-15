@@ -542,7 +542,7 @@
     <div class="agent-tty-row">
       <div class="img-cell"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
       <div class="nm">[${String(i+1).padStart(2,'0')}] ${a.name}<span class="b">${a.badge}</span></div>
-      <pre>${a.isUrl ? a.detail : a.oneliner}</pre>
+      <pre>${a.shortCmd}</pre>
     </div>
   `);
 </script>

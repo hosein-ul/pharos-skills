@@ -95,28 +95,90 @@
   .pill.gold .dot { background: var(--gold); }
   .pill.ok .dot { background: #4a9d6b; }
 
-  /* AGENT LOGO STRIP */
-  .strip {
-    padding: 30px 0; border-bottom: 1px solid var(--line);
-    overflow: hidden;
+  /* MARQUEE */
+  .marquee-section {
+    padding: 0; border-bottom: 1px solid var(--line);
+    overflow: hidden; background: var(--bg);
   }
-  .strip-label {
+  .marquee-label {
     text-align: center; font-family: 'JetBrains Mono', monospace;
     font-size: 11px; color: var(--ink-fade);
     letter-spacing: 0.2em; text-transform: uppercase;
-    margin-bottom: 18px;
+    padding: 24px 0 16px;
   }
-  .strip-logos {
-    display: flex; justify-content: center; gap: 36px; flex-wrap: wrap;
-    align-items: center;
-    opacity: 0.85;
+  .marquee-track-wrap {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+    padding: 12px 0 28px;
   }
-  .strip-logos img {
-    width: 32px; height: 32px; object-fit: contain;
-    filter: grayscale(1) contrast(1.1);
-    transition: filter 0.2s;
+  .marquee-track {
+    display: flex; gap: 48px; align-items: center;
+    width: max-content;
+    animation: marquee-scroll 28s linear infinite;
   }
-  .strip-logos img:hover { filter: grayscale(0); }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 7px; flex-shrink: 0;
+  }
+  .marquee-item img {
+    width: 36px; height: 36px; object-fit: contain;
+    filter: grayscale(1) contrast(1.1) opacity(0.7);
+    transition: filter 0.25s, transform 0.25s;
+  }
+  .marquee-item:hover img {
+    filter: grayscale(0) opacity(1);
+    transform: translateY(-3px) scale(1.12);
+  }
+  .marquee-item span {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    color: var(--ink-fade); letter-spacing: 0.06em;
+    text-transform: uppercase; white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .marquee-item:hover span { opacity: 1; }
+
+  /* MANUAL PROMPT */
+  .prompt-section {
+    padding: 60px 0; border-bottom: 1px solid var(--line);
+  }
+  .prompt-section h3 {
+    font-family: 'Fraunces', serif; font-weight: 700;
+    font-size: 26px; letter-spacing: -0.015em;
+    margin-bottom: 8px;
+  }
+  .prompt-section .sub {
+    font-size: 14px; color: var(--ink-soft); margin-bottom: 22px; max-width: 600px;
+  }
+  .prompt-box {
+    background: var(--ink);
+    color: #e8e8d8;
+    padding: 22px 24px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    line-height: 1.75;
+    white-space: pre-wrap;
+    border-left: 4px solid var(--gold);
+    position: relative;
+    max-width: 720px;
+  }
+  .prompt-copy {
+    position: absolute; top: 12px; right: 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e8e8d8;
+    padding: 5px 12px; font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer; letter-spacing: 0.08em;
+    transition: background 0.15s;
+  }
+  .prompt-copy:hover { background: rgba(255,255,255,0.16); }
+  .prompt-copy.copied { background: var(--accent); color: white; border-color: var(--accent); }
 
   /* DESIGNS GRID */
   section.designs { padding: 80px 0; border-bottom: 1px solid var(--line); }
@@ -253,21 +315,26 @@
   </div>
 </header>
 
-<div class="strip">
+<div class="marquee-section">
+  <div class="marquee-label">— works with every major AI agent —</div>
+  <div class="marquee-track-wrap">
+    <div class="marquee-track" id="marquee"></div>
+  </div>
+</div>
+
+<div class="prompt-section">
   <div class="container">
-    <div class="strip-label">— installation guides included for —</div>
-    <div class="strip-logos">
-      <img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos" title="Pharos Skill Engine">
-      <img src="https://cdn.simpleicons.org/anthropic" alt="Claude" title="Claude Code">
-      <img src="https://www.google.com/s2/favicons?domain=flow.anvita.xyz&sz=128" alt="Anvita" title="Anvita Flow">
-      <img src="https://cdn.simpleicons.org/cursor/000000" alt="Cursor" title="Cursor">
-      <img src="https://cdn.simpleicons.org/windsurf" alt="Windsurf" title="Windsurf">
-      <img src="https://cdn.simpleicons.org/cline" alt="Cline" title="Cline">
-      <img src="https://www.continue.dev/images/continue-logo-light.png" alt="Continue" title="Continue.dev">
-      <img src="https://aider.chat/assets/icons/android-chrome-192x192.png" alt="Aider" title="Aider">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" title="ChatGPT">
-      <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini" title="Gemini CLI">
-      <img src="https://cdn.simpleicons.org/githubcopilot" alt="Copilot" title="GitHub Copilot">
+    <h3>Manual prompt</h3>
+    <p class="sub">No CLI? Copy this text and paste it into <strong>any AI agent</strong> — it will find and install the skills automatically.</p>
+    <div class="prompt-box" style="position:relative">
+      <div id="prompt-text">Install the Pharos Network skills from: https://github.com/hosein-ul/pharos-skills
+
+Clone the repo and load both SKILL.md files as active context:
+  • pharos-tx-guardrail/SKILL.md      — transaction safety guardrail (pre-execution)
+  • pharos-rwa-yield-router/SKILL.md  — RWA yield intelligence + executor
+
+Requires: cast (Foundry) on PATH — install via: curl -L https://foundry.paradigm.xyz | bash</div>
+      <button class="prompt-copy" id="copy-btn" onclick="copyPrompt()">COPY</button>
     </div>
   </div>
 </div>
@@ -401,6 +468,42 @@
 <footer>
   // pharos skills · 6 design variants · 2026-06-14 · MIT
 </footer>
+
+<script src="assets/agents.js"></script>
+<script>
+// Build animated marquee — duplicate items for seamless loop
+const LOGOS = window.AGENTS.map(a => ({ logo: a.logo, name: a.name, key: a.key }));
+const track = document.getElementById('marquee');
+const items = [...LOGOS, ...LOGOS]; // duplicate for infinite scroll
+track.innerHTML = items.map(a => `
+  <div class="marquee-item">
+    <img src="${a.logo}" alt="${a.name}" loading="lazy">
+    <span>${a.name.replace(' Skill Engine','').replace(' Code','').replace(' Flow','').replace(' CLI','').replace(' / Ollama','').replace('OpenAI Codex ','').replace('GitHub ','')}</span>
+  </div>
+`).join('');
+
+// Copy prompt
+function copyPrompt() {
+  const text = document.getElementById('prompt-text').textContent.trim();
+  const btn = document.getElementById('copy-btn');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => {
+    // fallback for non-secure context
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'COPIED ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
 
 </body>
 </html>
