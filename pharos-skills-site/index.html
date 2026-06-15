@@ -253,6 +253,90 @@
   }
   .skill-block .meta b { background: var(--ink); color: var(--paper); padding: 1px 6px; }
 
+  /* MANUAL PROMPT */
+  .manual-prompt-block {
+    border: var(--rule); margin-bottom: 40px;
+    background: var(--ink);
+  }
+  .manual-prompt-label {
+    background: var(--blue); color: white;
+    font-family: 'Archivo Black', sans-serif; font-size: 13px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 10px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .manual-prompt-label .mp-copy {
+    background: white; color: var(--blue);
+    border: none; cursor: pointer;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    padding: 4px 12px; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.15s;
+  }
+  .manual-prompt-label .mp-copy:hover { background: var(--paper); }
+  .manual-prompt-label .mp-copy.copied { background: #4ade80; color: #0a0a0a; }
+  .manual-prompt-text {
+    color: #e2e2d4;
+    font-family: 'Space Mono', monospace; font-size: 12.5px;
+    line-height: 1.8; padding: 20px 22px;
+    white-space: pre-wrap;
+    border-top: 2px solid #333;
+  }
+  .manual-prompt-note {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    color: var(--ink-soft); padding: 4px 0 0;
+    letter-spacing: 0.04em;
+  }
+
+  /* USE CASES */
+  .uc-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0; border: var(--rule);
+  }
+  .uc-card {
+    padding: 28px 26px; border-right: 3px solid var(--ink);
+    position: relative;
+  }
+  .uc-card:last-child { border-right: none; }
+  .uc-skill-tag {
+    display: inline-block;
+    background: var(--ink); color: var(--yellow);
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    padding: 3px 9px; text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .uc-card h3 {
+    font-family: 'Archivo Black', sans-serif; font-size: 16px;
+    text-transform: uppercase; margin-bottom: 10px; line-height: 1.2;
+  }
+  .uc-desc { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.55; }
+  .uc-chat {
+    background: var(--ink-soft); padding: 0;
+    font-family: 'Space Mono', monospace; font-size: 11.5px;
+    line-height: 1.65;
+  }
+  .uc-msg {
+    padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .uc-msg:last-child { border-bottom: none; }
+  .uc-msg.user { background: #1e1e1e; color: #c9c9b8; }
+  .uc-msg.agent { background: #111; color: #e2e2d4; }
+  .uc-msg .who {
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 4px;
+    color: #555;
+  }
+  .uc-msg.user .who { color: var(--blue-soft); }
+  .uc-msg.agent .who { color: #4ade80; }
+  .uc-result {
+    margin-top: 12px; padding: 8px 12px;
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    border-left: 3px solid;
+  }
+  .uc-result.block { border-color: var(--red); background: rgba(255,0,60,0.06); color: var(--red); }
+  .uc-result.ok    { border-color: #4ade80; background: rgba(74,222,128,0.06); color: #4ade80; }
+  .uc-result.exec  { border-color: var(--blue-soft); background: rgba(26,77,255,0.08); color: var(--blue-soft); }
+
   /* AGENTS */
   #agents-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: var(--rule); }
   .agent-cell {
@@ -388,6 +472,7 @@
     <div class="nav-links">
       <a href="#skills">SKILLS</a>
       <a href="#install">INSTALL</a>
+      <a href="#usecases">EXAMPLES</a>
       <a href="#onboarding">ONBOARD</a>
     </div>
     <a class="nav-cta" href="https://github.com/hosein-ul/pharos-skills" target="_blank">GITHUB →</a>
@@ -403,8 +488,8 @@
         <p><b>Two skills.</b> One repo. Every modern AI agent. Pre-execution safety guardrail + risk-adjusted RWA yield router.</p>
         <div class="stats">
           <div><b>2</b> SKILLS</div>
-          <div><b>11</b> AGENTS</div>
-          <div><b>$7.7M</b> TVL</div>
+          <div><b>v0.4</b> RELEASE</div>
+          <div><b>12</b> AGENTS</div>
           <div><b>v0.3</b> RELEASE</div>
         </div>
       </aside>
@@ -466,7 +551,7 @@
         <div class="meta">
           <span><b>9</b> PROTOCOLS</span>
           <span><b>0</b> WRITES</span>
-          <span><b>$7.7M</b> TVL</span>
+          <span><b>v0.4</b></span>
           <span><b>v0.3</b></span>
         </div>
       </div>
@@ -480,6 +565,29 @@
       <h2>INSTALL <span class="hl">EVERYWHERE.</span></h2>
       <div class="section-tag">SECTION · 02</div>
     </div>
+
+    <!-- MANUAL PROMPT — PRIMARY METHOD -->
+    <div class="manual-prompt-block">
+      <div class="manual-prompt-label">
+        <span>★ Fastest: paste this into any AI agent</span>
+        <button class="mp-copy" id="mp-copy-btn" onclick="copyManualPrompt()">COPY</button>
+      </div>
+      <div class="manual-prompt-text" id="mp-text">Read this GitHub repository and install/import all available skills from it:
+https://github.com/hosein-ul/pharos-skills
+
+Skills to load:
+  • pharos-tx-guardrail/SKILL.md      — pre-execution transaction safety guardrail
+  • pharos-rwa-yield-router/SKILL.md  — RWA yield intelligence + on-chain executor
+
+Clone the repo into your skills/rules/context directory, then load both SKILL.md files.
+Requires: cast (Foundry) on PATH → curl -L https://foundry.paradigm.xyz | bash</div>
+    </div>
+
+    <p class="manual-prompt-note" style="margin-bottom:32px;margin-top:-30px">
+      — or use the one-liner installer for your specific agent below —
+    </p>
+
+    <!-- UNIVERSAL CURL CMD -->
     <div style="background:#0a0a0a;color:#ffe600;padding:18px 20px;border:4px solid #0a0a0a;font-family:'Space Mono',monospace;font-size:13px;margin-bottom:24px;box-shadow:8px 8px 0 #0a0a0a;word-break:break-all">
       $ <span id="universal-cmd"></span><br>
       <span style="color:#6b6b6b;font-size:11px"># auto-detects installed agents — or add: | bash -s -- --for cursor</span>
@@ -540,6 +648,98 @@ best Pharos yield."
   </div>
 </section>
 
+<!-- USE CASES -->
+<section id="usecases">
+  <div class="container">
+    <div class="section-head">
+      <h2>REAL <span class="hl">EXAMPLES.</span></h2>
+      <div class="section-tag">SECTION · 04</div>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);margin-bottom:32px;line-height:1.7">
+      Actual prompts → actual agent behavior. No setup beyond installing the skill.
+    </p>
+
+    <div class="uc-grid">
+
+      <!-- USE CASE 1: GUARDRAIL BLOCKS -->
+      <div class="uc-card">
+        <span class="uc-skill-tag">tx-guardrail</span>
+        <h3>Dangerous approval caught</h3>
+        <p class="uc-desc">User tries to approve a DEX router with no limit — guardrail intercepts before signing.</p>
+        <div class="uc-chat">
+          <div class="uc-msg user">
+            <div class="who">USER</div>
+            Approve the Faroswap router to spend my USDC. Target: 0xA5cA5Fbe...
+          </div>
+          <div class="uc-msg agent">
+            <div class="who">AGENT — tx-guardrail running</div>
+            → simulation ......... PASS<br>
+            → contract_exists .... PASS (Faroswap, 2.1KB)<br>
+            → selector ........... approve(address,uint256)<br>
+            → unlimited_approval . <span style="color:var(--red)">FAIL — MAX_UINT256</span><br>
+            → RISK 70/100 — <span style="color:var(--red)">BLOCK</span><br><br>
+            ✗ Blocked. Unlimited approval is dangerous.<br>Specify an exact amount instead:<br>"Approve 500 USDC to 0xA5cA5Fbe..."
+          </div>
+        </div>
+        <div class="uc-result block">🚫 BLOCKED — MAX_UINT256 approval prevented</div>
+      </div>
+
+      <!-- USE CASE 2: YIELD SCAN -->
+      <div class="uc-card">
+        <span class="uc-skill-tag">yield-router — scan</span>
+        <h3>Best yield for idle USDC</h3>
+        <p class="uc-desc">User asks where to park 5000 USDC. Agent scans all active Pharos protocols live.</p>
+        <div class="uc-chat">
+          <div class="uc-msg user">
+            <div class="who">USER</div>
+            I have 5000 USDC sitting idle. Where should I put it on Pharos?
+          </div>
+          <div class="uc-msg agent">
+            <div class="who">AGENT — yield-router scanning</div>
+            Scanning 9 protocols on mainnet 1672...<br><br>
+            #1 R25 Axil 7-day &nbsp; 8.5% × 0.60 = <span style="color:#4ade80">5.10%</span><br>
+            #2 R25 Axil 6-month 11.2% × 0.60 = <span style="color:#4ade80">6.72%</span><br>
+            #3 Zona USDC supply &nbsp;3.6% × 0.80 = <span style="color:#4ade80">2.88%</span><br>
+            ⏳ Morpho/TermMax — no markets yet<br><br>
+            Best pick: <span style="color:var(--yellow)">R25 Axil 7-day</span> @ 5.10% risk-adj<br>
+            Projected 30d return: ~$34.93 USDC<br>
+            ⚠ 7-day withdrawal queue applies.<br>
+            Want me to execute the deposit?
+          </div>
+        </div>
+        <div class="uc-result ok">✓ SCAN COMPLETE — ranked in &lt;2s, no wallet needed</div>
+      </div>
+
+      <!-- USE CASE 3: EXECUTE DEPOSIT -->
+      <div class="uc-card">
+        <span class="uc-skill-tag">yield-router — execute</span>
+        <h3>One-sentence deposit</h3>
+        <p class="uc-desc">User confirms deposit. Agent runs guardrail, approves exact amount, deposits, confirms shares.</p>
+        <div class="uc-chat">
+          <div class="uc-msg user">
+            <div class="who">USER</div>
+            Yes, go ahead — deposit 5000 USDC into R25 Axil 7-day.
+          </div>
+          <div class="uc-msg agent">
+            <div class="who">AGENT — execute mode</div>
+            ⚠ 7-day lockup confirmed. Proceeding...<br><br>
+            [guardrail] approve calldata → RISK 5/100 ✓<br>
+            ✓ approve(VAULT, 5000000000)<br>
+            [guardrail] deposit calldata → RISK 8/100 ✓<br>
+            ✓ deposit(5000000000, 0xYOUR...)<br><br>
+            Position confirmed:<br>
+            Shares: 4987.3 vault tokens<br>
+            Value: <span style="color:#4ade80">5000.00 USDC</span><br>
+            APY: 8.5% nominal · unlocks in 7d
+          </div>
+        </div>
+        <div class="uc-result exec">⬡ EXECUTED — guardrail passed, position confirmed on-chain</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="container" style="flex-direction:column;align-items:stretch">
     <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
@@ -572,6 +772,23 @@ best Pharos yield."
 <script src="assets/agents.js"></script>
 <script>
   document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
+
+  // manual prompt copy button
+  function copyManualPrompt() {
+    const text = document.getElementById('mp-text').textContent.trim();
+    const btn = document.getElementById('mp-copy-btn');
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'COPIED ✓'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2200);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = 'COPIED ✓'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2200);
+    });
+  }
+  window.copyManualPrompt = copyManualPrompt;
 
   // logo marquee — duplicate for seamless infinite scroll
   const track = document.getElementById('logo-track');
