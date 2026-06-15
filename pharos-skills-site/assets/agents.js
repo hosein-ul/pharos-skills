@@ -29,8 +29,8 @@ window.AGENTS = [
     badge: "Native",
     badgeKind: "official",
     logo: "https://cdn.simpleicons.org/anthropic",
-    shortCmd: "git clone https://github.com/hosein-ul/pharos-skills ~/.claude/skills/pharos-skills",
-    note: "Auto-triggers on any Pharos-related prompt."
+    shortCmd: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for claude",
+    note: "Installs each skill as a separate folder in ~/.claude/skills/ — auto-triggers on any Pharos prompt."
   },
   {
     key: "anvita",
@@ -90,29 +90,20 @@ window.AGENTS = [
   {
     key: "codex",
     name: "OpenAI Codex CLI",
-    badge: "Instructions",
+    badge: "Marketplace",
     badgeKind: "ctx",
     logo: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg",
-    shortCmd: "npx degit hosein-ul/pharos-skills ~/.codex/pharos-skills",
-    note: "Append both SKILL.md to ~/.codex/instructions.md."
+    shortCmd: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for codex",
+    note: "Adds pharos-skills as a marketplace in ~/.codex/config.toml — skills auto-install on next Codex launch."
   },
   {
     key: "gemini",
     name: "Gemini CLI",
-    badge: "Extension",
+    badge: "Skills",
     badgeKind: "ctx",
     logo: "https://cdn.simpleicons.org/googlegemini",
-    shortCmd: "npx degit hosein-ul/pharos-skills ~/.gemini/extensions/pharos-skills",
-    note: "Gemini CLI auto-loads every folder in ~/.gemini/extensions/."
-  },
-  {
-    key: "hermes",
-    name: "Hermes / Ollama",
-    badge: "System prompt",
-    badgeKind: "ctx",
-    logo: "https://www.google.com/s2/favicons?domain=ollama.com&sz=128",
-    shortCmd: "npx degit hosein-ul/pharos-skills ~/.ollama/pharos-skills",
-    note: "Use system-prompt.md with: ollama run hermes3 --system \"$(cat ...)\"."
+    shortCmd: "curl -fsSL https://raw.githubusercontent.com/hosein-ul/pharos-skills/main/install.sh | bash -s -- --for gemini",
+    note: "Clones each skill into ~/.gemini/antigravity/skills/ — the verified Gemini skill engine path."
   },
   {
     key: "copilot",
