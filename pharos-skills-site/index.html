@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PHAROS / SKILLS — BRUTALIST</title>
+<title>PHAROS / NEXUS — BRUTALIST</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -62,7 +62,7 @@
   /* HERO */
   .hero {
     border-bottom: var(--rule);
-    padding: 60px 0 60px;
+    padding: 24px 0 60px;
     background:
       repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(10,10,10,0.04) 14px, rgba(10,10,10,0.04) 15px);
     position: relative;
@@ -207,22 +207,26 @@
   }
 
   /* SKILLS */
-  .skills-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: var(--rule); }
+  .skills-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: var(--rule); }
   .skill-block {
     padding: 32px;
     border-right: 4px solid var(--ink);
     background: var(--paper);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .skill-block:last-child { border-right: none; background: var(--blue); color: white; }
-  .skill-block:last-child h3, .skill-block:last-child p { color: white; }
-  .skill-block:last-child .meta b { background: white; color: var(--blue); }
+  .skill-block:last-child { border-right: none; }
+  .skill-block.accent-red { border-top: 8px solid var(--red); }
+  .skill-block.accent-green { border-top: 8px solid #22c55e; }
+  .skill-block.accent-blue { border-top: 8px solid var(--blue); }
   .skill-num {
     font-family: 'Archivo Black', sans-serif;
     font-size: 88px; line-height: 0.8;
     margin-bottom: 14px;
     -webkit-text-stroke: 2px var(--ink); color: transparent;
   }
-  .skill-block:last-child .skill-num { -webkit-text-stroke: 2px var(--ink); }
   .skill-block h3 {
     font-family: 'Space Mono', monospace; font-weight: 700;
     font-size: 26px; margin-bottom: 12px;
@@ -451,6 +455,61 @@
   .switcher a:hover { background: var(--ink); color: white; }
   .switcher a.active { background: var(--ink); color: white; }
 
+  /* Animated tag/badge for Card 3 */
+  .badge-execute-animated {
+    display: inline-block;
+    padding: 6px 12px;
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 11px;
+    color: white;
+    background: linear-gradient(135deg, var(--blue) 0%, var(--orange) 100%);
+    background-size: 200% 200%;
+    border: 3px solid var(--ink);
+    box-shadow: 4px 4px 0 var(--ink);
+    animation: gradient-move 3s ease infinite;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    align-self: flex-start;
+  }
+  @keyframes gradient-move {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .terminal-cursor {
+    animation: blink 1s step-end infinite;
+    font-weight: 700;
+    color: var(--yellow);
+  }
+  @keyframes blink {
+    from, to { color: transparent }
+    50% { color: var(--yellow); }
+  }
+
+  .term-prompt { color: #888; }
+  .term-cmd { color: #a78bfa; font-weight: bold; }
+  .term-info { color: #e2e2d4; }
+  .term-text { color: #888; }
+  .term-success { color: #4ade80; }
+  .term-success-line { color: #4ade80; }
+  .term-recommend { color: #2dd4bf; font-weight: bold; }
+  .term-muted { color: #555; }
+  .term-recommend-bold { color: #2dd4bf; font-weight: 700; }
+
+  .typing-dot {
+    animation: typing-bounce 1.4s infinite both;
+    font-weight: bold;
+    display: inline-block;
+  }
+  .typing-dot:nth-child(2) { animation-delay: .2s; }
+  .typing-dot:nth-child(3) { animation-delay: .4s; }
+  @keyframes typing-bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.2; }
+    40% { transform: scale(1.2); opacity: 1; }
+  }
+
   @media (max-width: 880px) {
     .hero-grid { grid-template-columns: 1fr; }
     .skills-row, #agents-grid, .steps-strip { grid-template-columns: 1fr; }
@@ -465,15 +524,19 @@
   <div class="container">
     <div class="brand">
       <div class="brand-mark"><img src="https://www.google.com/s2/favicons?domain=pharos.xyz&sz=128" alt="Pharos"></div>
-      PHAROS / SKILLS
+      PHAROS / NEXUS
     </div>
     <div class="nav-links">
       <a href="#skills">SKILLS</a>
       <a href="#install">INSTALL</a>
       <a href="#usecases">EXAMPLES</a>
-      <a href="#onboarding">ONBOARD</a>
+      <a href="#route-ranking">ROUTING</a>
+      <a href="#agentic-chat-section">CHAT</a>
     </div>
-    <a class="nav-cta" href="https://github.com/hosein-ul/pharos-skills" target="_blank">GITHUB →</a>
+    <a href="https://x.com/andy1eth" target="_blank" style="display: flex; align-items: center; gap: 10px; background: var(--blue); color: white; padding: 8px 16px; border: 2px solid var(--paper); font-family: 'Space Mono', monospace; font-size: 15px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold;">
+      <img src="https://github.com/hosein-ul.png" alt="@andy1eth" style="width: 30px; height: 30px; border: 2px solid var(--paper); object-fit: cover;">
+      @andy1eth
+    </a>
   </div>
 </nav>
 
@@ -483,29 +546,45 @@
       <h1>SAFER<span class="slash">/</span><br>SMARTER<span class="slash">/</span><br><span class="hl">PHAROS.</span></h1>
       <aside class="hero-side">
         <span class="hero-tag">★ Phase 1 · Carnival</span>
-        <p><b>Two skills.</b> One repo. Every modern AI agent. Pre-execution safety guardrail + risk-adjusted RWA yield router.</p>
+        <p><b>Three skills.</b> Every modern AI agent. Pre-execution safety, live RWA yield, and omnichain intent routing.</p>
         <div class="stats">
-          <div><b>2</b> SKILLS</div>
+          <div><b>3</b> SKILLS</div>
           <div><b>v0.4</b> RELEASE</div>
           <div><b>12</b> AGENTS</div>
           <div><b>v0.3</b> RELEASE</div>
         </div>
       </aside>
     </div>
+
+    <!-- LOGO MARQUEE — inside hero (now above the yellow marquee, under the hero-grid) -->
+    <div class="hero-marquee" style="margin-top: 40px; margin-bottom: 50px; background:var(--ink); padding:0; border:var(--rule);">
+      <div class="lm-label" style="text-align: center; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 0 6px; color: var(--yellow); border-bottom: 2px dashed rgba(255,255,255,0.15); background: var(--ink);">★ Works with every AI Agent &amp; CLI ★</div>
+      <div class="lm-track-wrap" style="padding:14px 0 18px">
+        <div class="lm-track" id="logo-track"></div>
+      </div>
+    </div>
   </div>
 
-  <!-- LOGO MARQUEE — inside hero -->
-  <div class="hero-marquee" style="background:var(--ink);padding:0;border-top:var(--rule);border-bottom:none">
-    <div class="lm-track-wrap" style="padding:14px 0 18px">
-      <div class="lm-track" id="logo-track"></div>
+  <!-- Scroll ticker under the hero-grid — now at the bottom of the hero, spanning full width -->
+  <div style="border-top: var(--rule); background: var(--yellow); padding: 12px 0; overflow: hidden; white-space: nowrap;">
+    <div class="marquee-track" style="display:inline-block; font-family:'Space Mono', monospace; font-size: 13.5px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; animation: scroll 20s linear infinite;">
+      <span style="padding: 0 28px; color: var(--ink);">★ PROS → USDC on Base in 13 seconds</span>
+      <span style="padding: 0 28px; color: var(--ink);">★ USDC &amp; USDT bridge with $0 fee</span>
+      <span style="padding: 0 28px; color: var(--ink);">★ Risk score before every tx</span>
+      <span style="padding: 0 28px; color: var(--ink);">★ Live RWA APY ranked</span>
+      <!-- Duplicate for seamless scroll -->
+      <span style="padding: 0 28px; color: var(--ink);">★ PROS → USDC on Base in 13 seconds</span>
+      <span style="padding: 0 28px; color: var(--ink);">★ USDC &amp; USDT bridge with $0 fee</span>
+      <span style="padding: 0 28px; color: var(--ink);">★ Risk score before every tx</span>
+      <span style="padding: 0 28px; color: var(--ink);">★ Live RWA APY ranked</span>
     </div>
   </div>
 </header>
 
-<!-- TEXT MARQUEE — below hero -->
+<!-- TEXT MARQUEE — below hero (now moving scroll-rtl to be opposite to the yellow marquee above it) -->
 <div class="logo-marquee" style="background:var(--ink);border-bottom:var(--rule)">
-  <div class="marquee-track" style="display:inline-block;padding:13px 0;font-family:'Archivo Black',sans-serif;font-size:16px;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;animation:scroll 24s linear infinite">
-    <span style="padding:0 28px;color:var(--paper)">★ TWO SKILLS</span><span style="padding:0 28px;color:var(--yellow)">★ TWELVE AGENTS</span><span style="padding:0 28px;color:var(--paper)">★ ZERO WRITES</span><span style="padding:0 28px;color:var(--red)">★ MAINNET 1672</span><span style="padding:0 28px;color:var(--paper)">★ READ-ONLY BY DEFAULT</span><span style="padding:0 28px;color:var(--yellow)">★ PHAROS CARNIVAL</span><span style="padding:0 28px;color:var(--paper)">★ TWO SKILLS</span><span style="padding:0 28px;color:var(--yellow)">★ TWELVE AGENTS</span><span style="padding:0 28px;color:var(--paper)">★ ZERO WRITES</span><span style="padding:0 28px;color:var(--red)">★ MAINNET 1672</span><span style="padding:0 28px;color:var(--paper)">★ READ-ONLY BY DEFAULT</span><span style="padding:0 28px;color:var(--yellow)">★ PHAROS CARNIVAL</span>
+  <div class="marquee-track" style="display:inline-block;padding:13px 0;font-family:'Archivo Black',sans-serif;font-size:16px;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;animation:scroll-rtl 24s linear infinite">
+    <span style="padding:0 28px;color:var(--paper)">★ THREE SKILLS</span><span style="padding:0 28px;color:var(--yellow)">★ TWELVE AGENTS</span><span style="padding:0 28px;color:var(--paper)">★ ZERO WRITES</span><span style="padding:0 28px;color:var(--red)">★ MAINNET 1672</span><span style="padding:0 28px;color:var(--paper)">★ READ-ONLY BY DEFAULT</span><span style="padding:0 28px;color:var(--yellow)">★ PHAROS CARNIVAL</span><span style="padding:0 28px;color:var(--paper)">★ THREE SKILLS</span><span style="padding:0 28px;color:var(--yellow)">★ TWELVE AGENTS</span><span style="padding:0 28px;color:var(--paper)">★ ZERO WRITES</span><span style="padding:0 28px;color:var(--red)">★ MAINNET 1672</span><span style="padding:0 28px;color:var(--paper)">★ READ-ONLY BY DEFAULT</span><span style="padding:0 28px;color:var(--yellow)">★ PHAROS CARNIVAL</span>
   </div>
 </div>
 
@@ -517,10 +596,11 @@
     </div>
 
     <div class="skills-row">
-      <div class="skill-block">
+      <!-- Guardrail -->
+      <div class="skill-block accent-red">
         <div class="skill-num">01</div>
         <h3>PHAROS-TX-GUARDRAIL</h3>
-        <p>Six read-only checks. Risk score 0–100. PROCEED / WARN / BLOCK. Runs before every <code>cast send</code>.</p>
+        <p>Six read-only checks. Risk score 0–100. PROCEED / WARN / BLOCK. Runs before every transaction (USDC, USDT, PROS, ETH, etc.).</p>
         <div class="run">→ simulation ........... <span class="g">PASS</span>
 → contract_exists ..... <span class="g">PASS</span>  USDC, 1798 bytes
 → selector ............ approve(address,uint256)
@@ -536,10 +616,11 @@
         </div>
       </div>
 
-      <div class="skill-block">
+      <!-- Yield Router -->
+      <div class="skill-block accent-green">
         <div class="skill-num">02</div>
         <h3>PHAROS-RWA-YIELD-ROUTER</h3>
-        <p>Read-only yield scanner. Live APY across 9 protocols. Asset-class risk multipliers 0.50 → 0.95. Ranked recommendation.</p>
+        <p>Read-only yield scanner. Live APY across 9 protocols. Asset-class risk multipliers 0.50 → 0.95. Ranked recommendations for USDC, USDT, and stablecoins.</p>
         <div class="run">→ scanning 9 protocols ...
 → #1 R25 Axil 7-day     8.5%  × 0.60 = <span class="g">5.10%</span>
 → #2 R25 Axil 6-month  11.2%  × 0.60 = <span class="g">6.72%</span>
@@ -553,6 +634,25 @@
           <span><b>v0.3</b></span>
         </div>
       </div>
+
+      <!-- AI Router -->
+      <div class="skill-block accent-blue">
+        <span class="badge-execute-animated">EXECUTES TXS</span>
+        <div class="skill-num" style="margin-top: 10px;">03</div>
+        <h3>PHAROS-AI-ROUTER</h3>
+        <p>Conversational cross-chain layer. Quotes CCTP, LI.FI, and Faroswap. Supports USDC, USDT, USD0, PROS, ETH, POL, AVAX, etc. Ranks routes. The only skill in the set that actually signs.</p>
+        <div class="run">→ rank-routes pharos base USDC USDC 10
+→ option 1: LI.FI Intents (recommended)
+  13 sec · $0.04 fee · 9.960 USDC
+→ option 2: Circle CCTP Standard
+  10 min · $0.00 fee · 10.000 USDC
+→ <span class="y">EXECUTE option 1?</span> <span class="g">broadcasting...</span></div>
+        <div class="meta" style="margin-top: 18px;">
+          <span><b>3</b> CORRIDORS</span>
+          <span><b>EXECUTES TXS</b></span>
+          <span><b>v0.4.0</b></span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -560,30 +660,45 @@
 <section id="install">
   <div class="container">
     <div class="section-head">
-      <h2>INSTALL <span class="hl">EVERYWHERE.</span></h2>
+      <h2>INSTALL <span class="hl">ONCE.</span></h2>
       <div class="section-tag">SECTION · 02</div>
     </div>
 
     <!-- MANUAL PROMPT — PRIMARY METHOD -->
-    <div class="manual-prompt-block">
+    <div class="manual-prompt-block" style="margin-bottom: 24px;">
       <div class="manual-prompt-label">
-        <span>★ Fastest: paste this into any AI agent</span>
+        <span>★ Paste this prompt into any AI agent (Cursor, Claude Code, etc.)</span>
         <button class="mp-copy" id="mp-copy-btn" onclick="copyManualPrompt()">COPY</button>
       </div>
-      <div class="manual-prompt-text" id="mp-text">Read this GitHub repository and install all available skills from it:
-https://github.com/hosein-ul/pharos-skills</div>
+      <div class="manual-prompt-text" id="mp-text" style="white-space: pre-wrap;">Read these two GitHub repositories and install all available skills from them:
+1. https://github.com/hosein-ul/pharos-skills
+2. https://github.com/hosein-ul/pharos-ai-router
+
+Read each skill's SKILL.md and references/00-bootstrap.md to understand the capabilities and setup requirements. When you are ready, tell me in plain English what capabilities you now have. Wait for my explicit confirmation before broadcasting any transaction.</div>
     </div>
 
-    <p class="manual-prompt-note" style="margin-bottom:32px;margin-top:-30px">
-      — or use the one-liner installer for your specific agent below —
-    </p>
-
-    <!-- UNIVERSAL CURL CMD -->
-    <div style="background:#0a0a0a;color:#ffe600;padding:18px 20px;border:4px solid #0a0a0a;font-family:'Space Mono',monospace;font-size:13px;margin-bottom:24px;box-shadow:8px 8px 0 #0a0a0a;word-break:break-all">
-      $ <span id="universal-cmd"></span><br>
-      <span style="color:#6b6b6b;font-size:11px"># auto-detects installed agents — or add: | bash -s -- --for cursor</span>
+    <!-- Workflow Setup Visual Block -->
+    <div style="border: var(--rule); background: var(--paper); padding: 28px 24px; box-shadow: 8px 8px 0 var(--ink); margin-bottom: 40px;">
+      <h3 style="font-family: 'Archivo Black', sans-serif; font-size: 18px; text-transform: uppercase; margin-bottom: 20px; color: var(--blue);">Agent Installation &amp; Setup Workflow</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <div style="border: 2px solid var(--ink); padding: 16px; background: white;">
+          <div style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: bold; text-transform: uppercase; color: var(--orange); margin-bottom: 8px;">1. Clone Repos</div>
+          <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.45;">The agent clones both repositories into the platform's local skills directory (e.g. Cursor rules or Claude Code skills).</p>
+        </div>
+        <div style="border: 2px solid var(--ink); padding: 16px; background: white;">
+          <div style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: bold; text-transform: uppercase; color: var(--orange); margin-bottom: 8px;">2. Bootstrap</div>
+          <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.45;">Agent checks for <code>cast</code>, <code>python</code>, and <code>curl</code> on the system and installs cast quietly if missing.</p>
+        </div>
+        <div style="border: 2px solid var(--ink); padding: 16px; background: white;">
+          <div style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: bold; text-transform: uppercase; color: var(--orange); margin-bottom: 8px;">3. Hot Wallet</div>
+          <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.45;">If <code>AGENT_PRIVATE_KEY</code> is absent, agent generates a new wallet, stores it in <code>.env</code>, and asks you to fund it.</p>
+        </div>
+        <div style="border: 2px solid var(--ink); padding: 16px; background: white;">
+          <div style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: bold; text-transform: uppercase; color: var(--orange); margin-bottom: 8px;">4. Ready to Go</div>
+          <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.45;">Agent scans all 3 skills, presents capabilities in plain English, and waits for your confirmation to send transactions.</p>
+        </div>
+      </div>
     </div>
-    <div id="agents-grid"></div>
   </div>
 </section>
 
@@ -599,12 +714,12 @@ https://github.com/hosein-ul/pharos-skills</div>
       The agent runs all on-chain reads silently in the background and replies in plain English.
     </p>
     <p style="font-family:'Space Mono',monospace;font-size:12px;color:var(--ink-soft);max-width:780px;margin-bottom:32px;line-height:1.6">
-      <strong>One-time setup for developers:</strong> install Foundry (<code>curl -L https://foundry.paradigm.xyz | bash</code>) so the agent has <code>cast</code> on PATH. That's it.
+      <strong>Zero setup needed:</strong> The agent automatically self-bootstraps dependencies (Foundry, Python, curl) and configures a local hot wallet on first run. That's it.
     </p>
 
     <div class="steps-strip">
       <div class="step-cell">
-        <div class="step-num" style="font-size:48px;opacity:0.4">💬</div>
+        <div class="step-num">01</div>
         <h3>SAY WHAT YOU WANT</h3>
         <p>Speak naturally to your AI agent. No commands needed.</p>
         <div class="cmd">"Is it safe to approve
@@ -612,7 +727,7 @@ unlimited USDC to
 this contract?"</div>
       </div>
       <div class="step-cell">
-        <div class="step-num" style="font-size:48px;opacity:0.4">⚙️</div>
+        <div class="step-num">02</div>
         <h3>AGENT RUNS THE CHECKS</h3>
         <p>The skill runs 6 silent on-chain reads. You see nothing — it just works.</p>
         <div class="cmd">→ simulation ....... PASS
@@ -620,7 +735,7 @@ this contract?"</div>
 → RISK 70 — BLOCK</div>
       </div>
       <div class="step-cell">
-        <div class="step-num" style="font-size:48px;opacity:0.4">📊</div>
+        <div class="step-num">03</div>
         <h3>GET CLEAR ANSWERS</h3>
         <p>The agent translates on-chain data into a plain-language reply.</p>
         <div class="cmd">"Blocked. MAX_UINT256
@@ -628,15 +743,14 @@ approval is dangerous.
 Use 500 USDC instead."</div>
       </div>
       <div class="step-cell">
-        <div class="step-num" style="font-size:48px;opacity:0.4">💰</div>
+        <div class="step-num">04</div>
         <h3>DEPLOY WITH CONFIDENCE</h3>
         <p>Same for yield — ask, get ranked options, confirm, done.</p>
         <div class="cmd">"Put 5000 USDC in
 best Pharos yield."
 → R25 Axil 7d @ 5.10%</div>
       </div>
-    </div>
-  </div>
+    </div></div>
 </section>
 
 <!-- USE CASES -->
@@ -678,22 +792,22 @@ best Pharos yield."
       <!-- USE CASE 2: YIELD SCAN -->
       <div class="uc-card">
         <span class="uc-skill-tag">yield-router — scan</span>
-        <h3>Best yield for idle USDC</h3>
-        <p class="uc-desc">User asks where to park 5000 USDC. Agent scans all active Pharos protocols live.</p>
+        <h3>Best yield for idle stablecoins</h3>
+        <p class="uc-desc">User asks where to park 5000 USDT. Agent scans all active Pharos protocols live.</p>
         <div class="uc-chat">
           <div class="uc-msg user">
             <div class="who">USER</div>
-            I have 5000 USDC sitting idle. Where should I put it on Pharos?
+            I have 5000 USDT sitting idle. Where should I put it on Pharos?
           </div>
           <div class="uc-msg agent">
             <div class="who">AGENT — yield-router scanning</div>
             Scanning 9 protocols on mainnet 1672...<br><br>
             #1 R25 Axil 7-day &nbsp; 8.5% × 0.60 = <span style="color:#4ade80">5.10%</span><br>
             #2 R25 Axil 6-month 11.2% × 0.60 = <span style="color:#4ade80">6.72%</span><br>
-            #3 Zona USDC supply &nbsp;3.6% × 0.80 = <span style="color:#4ade80">2.88%</span><br>
+            #3 Zona USDT supply &nbsp;3.6% × 0.80 = <span style="color:#4ade80">2.88%</span><br>
             ⏳ Morpho/TermMax — no markets yet<br><br>
             Best pick: <span style="color:var(--yellow)">R25 Axil 7-day</span> @ 5.10% risk-adj<br>
-            Projected 30d return: ~$34.93 USDC<br>
+            Projected 30d return: ~$34.93 USDT<br>
             ⚠ 7-day withdrawal queue applies.<br>
             Want me to execute the deposit?
           </div>
@@ -709,7 +823,7 @@ best Pharos yield."
         <div class="uc-chat">
           <div class="uc-msg user">
             <div class="who">USER</div>
-            Yes, go ahead — deposit 5000 USDC into R25 Axil 7-day.
+            Yes, go ahead — deposit 5000 USDT into R25 Axil 7-day.
           </div>
           <div class="uc-msg agent">
             <div class="who">AGENT — execute mode</div>
@@ -720,11 +834,71 @@ best Pharos yield."
             ✓ deposit(5000000000, 0xYOUR...)<br><br>
             Position confirmed:<br>
             Shares: 4987.3 vault tokens<br>
-            Value: <span style="color:#4ade80">5000.00 USDC</span><br>
+            Value: <span style="color:#4ade80">5000.00 USDT</span><br>
             APY: 8.5% nominal · unlocks in 7d
           </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: LIVE ROUTE RANKING -->
+<section id="route-ranking">
+  <div class="container">
+    <div class="section-head">
+      <h2>LIVE <span class="hl">ROUTE RANKING.</span></h2>
+      <div class="section-tag">SECTION · 05</div>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:13px;color:var(--ink-soft);max-width:780px;margin-bottom:24px;line-height:1.7">
+      The AI Router quotes multiple bridging and swapping venues concurrently (USDC, USDT, USD0, PROS, ETH, POL, AVAX, etc.). Below is the live terminal simulation of the selection process.
+    </p>
+
+    <!-- Terminal Mockup -->
+    <div style="border: var(--rule); background: var(--ink); color: #fff; box-shadow: 10px 10px 0 var(--blue); margin-bottom: 30px;">
+      <div style="background: var(--ink-soft); border-bottom: 2px solid var(--ink); padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--paper);">
+        <span>rank-routes.sh — simulation</span>
+        <div style="display:flex; gap:6px;">
+          <div style="width:10px; height:10px; background:var(--red);"></div>
+          <div style="width:10px; height:10px; background:var(--yellow);"></div>
+          <div style="width:10px; height:10px; background:#4ade80;"></div>
         </div>
-        <div class="uc-result exec">⬡ EXECUTED — guardrail passed, position confirmed on-chain</div>
+      </div>
+      <pre style="font-family: 'Space Mono', monospace; font-size: 13.5px; line-height: 1.8; padding: 22px; color: #e2e2d4; min-height: 250px; overflow-x: auto; white-space: pre-wrap; margin: 0;"><span id="terminal-content"></span><span class="terminal-cursor">█</span></pre>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 40px;">
+      <a class="nav-cta" style="display:inline-block; border:var(--rule); background:var(--paper); color:var(--ink); font-family:'Archivo Black',sans-serif; text-decoration:none;" href="https://github.com/hosein-ul/pharos-ai-router/blob/main/references/10-route-selection.md" target="_blank">SEE DECISION LOGIC →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: AGENT INTERACTION -->
+<section id="agentic-chat-section">
+  <div class="container">
+    <div class="section-head">
+      <h2>AGENT <span class="hl">INTERACTION.</span></h2>
+      <div class="section-tag">SECTION · 06</div>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:13px;color:var(--ink-soft);max-width:780px;margin-bottom:32px;line-height:1.7">
+      How the agent communicates during safety auditing, yield scanning, and cross-chain routing.
+    </p>
+
+    <!-- Chat container -->
+    <div id="interactive-chat" style="border: var(--rule); background: var(--paper); padding: 32px; box-shadow: 10px 10px 0 var(--ink); display: flex; flex-direction: column; gap: 24px; max-width: 800px; margin: 0 auto 40px; min-height: 480px; max-height: 600px; overflow-y: auto;">
+      
+      <!-- Chat Scenario Header -->
+      <div id="chat-scenario-header" style="font-family:'Space Mono', monospace; font-size:12px; font-weight:bold; text-transform:uppercase; color:var(--blue-soft); border-bottom:2px solid var(--ink); padding-bottom:8px; margin-bottom:-8px;">
+        Scenario 1: Cross-Chain Intent Routing (PROS → USDT)
+      </div>
+      
+      <!-- Message container -->
+      <div id="chat-messages-container" style="display:flex; flex-direction:column; gap:20px; flex-grow:1;"></div>
+
+      <!-- Mock typing indicator -->
+      <div id="typing-indicator" style="display: none; flex-direction: column; align-items: flex-start; width: 100%;">
+        <div style="font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--blue-soft); margin-bottom: 6px; font-weight: bold;">PHAROS-AGENT</div>
+        <div style="background: white; color: var(--ink); border: 3px solid var(--ink); padding: 12px 18px; font-size: 14px; max-width: 85%; box-shadow: 4px 4px 0 var(--blue); font-family: 'Space Mono', monospace;">
+          <span class="typing-dot">.</span><span class="typing-dot">.</span><span class="typing-dot">.</span>
+        </div>
       </div>
 
     </div>
@@ -733,26 +907,46 @@ best Pharos yield."
 
 <footer>
   <div class="container" style="flex-direction:column;align-items:stretch">
-    <div style="display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
+    <!-- About & Repos Section -->
+    <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:40px; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 2px dashed rgba(255,255,255,0.15);">
       <div>
-        <h4>SKILLS</h4>
-        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-tx-guardrail">tx-guardrail</a>
-        <a href="https://github.com/hosein-ul/pharos-skills/tree/main/pharos-rwa-yield-router">yield-router</a>
+        <h4 style="color:var(--yellow); font-family:'Archivo Black', sans-serif; font-size:16px; margin-bottom:14px; text-transform:uppercase;">ABOUT PHAROS SKILLS</h4>
+        <p style="font-family:'Space Mono', monospace; font-size:13.5px; color:var(--paper); line-height:1.6; opacity:0.85; max-width:600px;">
+          Pharos Skills is a modular, decentralized AI Agent toolset built for the Pharos Network. It empowers autonomous agents to query yields, inspect transaction safety, and route assets across chains using natural language.
+        </p>
       </div>
       <div>
-        <h4>PHAROS</h4>
-        <a href="https://pharos.xyz" target="_blank">pharos.xyz</a>
-        <a href="https://atlantic.pharosscan.xyz" target="_blank">Explorer</a>
-        <a href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Carnival</a>
+        <h4 style="color:var(--yellow); font-family:'Archivo Black', sans-serif; font-size:16px; margin-bottom:14px; text-transform:uppercase;">REPOSITORIES</h4>
+        <a style="font-family:'Space Mono', monospace; font-size:13px; color:var(--paper); display:block; margin-bottom:8px;" href="https://github.com/hosein-ul/pharos-skills" target="_blank">pharos-skills (monorepo) ↗</a>
+        <a style="font-family:'Space Mono', monospace; font-size:13px; color:var(--paper); display:block;" href="https://github.com/hosein-ul/pharos-ai-router" target="_blank">pharos-ai-router (routing) ↗</a>
       </div>
       <div>
-        <h4>AUTHOR</h4>
-        <a href="https://github.com/hosein-ul" target="_blank">@hosein-ul</a>
-        <a href="https://github.com/hosein-ul/pharos-skills/issues" target="_blank">Issues</a>
+        <h4 style="color:var(--yellow); font-family:'Archivo Black', sans-serif; font-size:16px; margin-bottom:14px; text-transform:uppercase;">ECOSYSTEM</h4>
+        <a style="font-family:'Space Mono', monospace; font-size:13px; color:var(--paper); display:block; margin-bottom:8px;" href="https://pharos.xyz" target="_blank">Pharos Network ↗</a>
+        <a style="font-family:'Space Mono', monospace; font-size:13px; color:var(--paper); display:block; margin-bottom:8px;" href="https://atlantic.pharosscan.xyz" target="_blank">Atlantic Explorer ↗</a>
+        <a style="font-family:'Space Mono', monospace; font-size:13px; color:var(--paper); display:block;" href="https://dorahacks.io/hackathon/pharos-phase1/" target="_blank">Carnival Phase 1 ↗</a>
       </div>
     </div>
-    <div class="colophon">
-      <span>SET IN ARCHIVO BLACK + SPACE GROTESK + SPACE MONO</span>
+
+    <!-- Builder & Socials Section -->
+    <div style="display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:20px; padding-bottom: 20px;">
+      
+      <div style="display:flex; gap:12px;">
+        <!-- Twitter/X Link -->
+        <a href="https://x.com/andy1eth" target="_blank" style="display:inline-flex; align-items:center; gap:8px; border:2px solid var(--paper); background:var(--ink-soft); color:var(--paper); padding:10px 18px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; font-weight:bold;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          @andy1eth
+        </a>
+        <!-- Github Link -->
+        <a href="https://github.com/hosein-ul" target="_blank" style="display:inline-flex; align-items:center; gap:8px; border:2px solid var(--paper); background:var(--ink-soft); color:var(--paper); padding:10px 18px; font-family:'Space Mono', monospace; font-size:13px; text-decoration:none; font-weight:bold;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          @hosein-ul
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom Line -->
+    <div class="colophon" style="margin-top: 20px; border-top: 3px solid var(--paper); padding-top: 20px;">
       <span>© 2026 · MIT · CARNIVAL PHASE 1</span>
     </div>
   </div>
@@ -762,8 +956,6 @@ best Pharos yield."
 
 <script src="assets/agents.js"></script>
 <script>
-  document.getElementById('universal-cmd').textContent = window.UNIVERSAL_CMD;
-
   // manual prompt copy button
   function copyManualPrompt() {
     const text = document.getElementById('mp-text').textContent.trim();
@@ -783,7 +975,7 @@ best Pharos yield."
 
   // logo marquee — duplicate for seamless infinite scroll
   const track = document.getElementById('logo-track');
-  const dup = [...window.AGENTS, ...window.AGENTS];
+  const dup = [...window.AGENTS, ...window.AGENTS, ...window.AGENTS, ...window.AGENTS];
   track.innerHTML = dup.map(a => {
     const short = a.name
       .replace(' Code','').replace(' Agent','').replace(' Flow','')
@@ -796,17 +988,297 @@ best Pharos yield."
       </div>`;
   }).join('');
 
-  renderAgents('agents-grid', (a) => `
-    <div class="agent-cell">
-      <div class="agent-head">
-        <div class="agent-logo-cell"><img src="${a.logo}" alt="${a.name}" loading="lazy"></div>
-        <div class="agent-name">${a.name}</div>
-      </div>
-      <span class="agent-badge">${a.badge}</span>
-      <pre class="agent-cmd">${a.shortCmd}</pre>
-      <p class="agent-note">${a.note}</p>
-    </div>
-  `);
+
+
+  // terminal typing animation logic (cycling through 3 distinct scenarios)
+  const terminalScenarios = [
+    // Scenario 1: Routing (PROS -> USDT)
+    [
+      { text: 'hashe@hosein:~$ ', type: 'prompt' },
+      { text: '# Format: ./rank-routes.sh <from_chain> <to_chain> <from_token> <to_token> <amount>\n', type: 'muted' },
+      { text: 'hashe@hosein:~$ ', type: 'prompt' },
+      { text: './scripts/rank-routes.sh pharos base PROS USDT 10\n', type: 'cmd' },
+      { text: 'Quoting routes for 10 PROS (pharos) → USDT (base)...\n', type: 'info' },
+      { text: '  src token: 0x00000000...0000 (PROS)  ', type: 'text' },
+      { text: '✓ verified\n', type: 'success' },
+      { text: '  dst token: 0x50c57259...9f9c (USDT)  ', type: 'text' },
+      { text: '✓ verified\n', type: 'success' },
+      { text: '[LI.FI Intents]  Polymer        13 sec  $0.080 fee   5.540 USDT  ', type: 'success-line' },
+      { text: '← recommended (fastest)\n', type: 'recommend' },
+      { text: '[CCTP V2]        Standard       10 min  $0.000 fee   5.620 USDT\n', type: 'text' },
+      { text: '[Faroswap]       (skip — cross-chain)\n', type: 'muted' },
+      { text: '➜ option 1 (LI.FI) recommended.\n', type: 'recommend-bold' }
+    ],
+    // Scenario 2: Safety Audit simulation (tx-guardrail check on USDT)
+    [
+      { text: 'hashe@hosein:~$ ', type: 'prompt' },
+      { text: '# Format: ./audit-tx.sh --target <contract> --selector <func> --amount <val>\n', type: 'muted' },
+      { text: 'hashe@hosein:~$ ', type: 'prompt' },
+      { text: './scripts/audit-tx.sh --target 0x7a250... --selector "approve(address,uint256)" --amount max\n', type: 'cmd' },
+      { text: 'Running pre-execution security checks...\n', type: 'info' },
+      { text: '  • simulation ........... ', type: 'text' },
+      { text: 'PASS\n', type: 'success' },
+      { text: '  • contract_exists ..... ', type: 'text' },
+      { text: 'PASS (UniswapV2Router)\n', type: 'success' },
+      { text: '  • unlimited_approval .. ', type: 'text' },
+      { text: 'FAIL (MAX_UINT256)\n', type: 'error' },
+      { text: '⚠️  RISK SCORE: 70/100 — HIGH RISK — BLOCK\n', type: 'error' },
+      { text: '➜ recommendation: BLOCK unlimited approvals. Use exact amount.\n', type: 'error' }
+    ],
+    // Scenario 3: Yield Scan (scan USDT and stablecoins)
+    [
+      { text: 'hashe@hosein:~$ ', type: 'prompt' },
+      { text: './scripts/scan-yields.sh --asset USDT\n', type: 'cmd' },
+      { text: 'Scanning 9 yield protocols on mainnet 1672...\n', type: 'info' },
+      { text: '  [R25 Axil 6m]    nominal: 11.2%  risk-adj: 6.72%  (recommended)\n', type: 'success' },
+      { text: '  [R25 Axil 7d]    nominal: 8.5%   risk-adj: 5.10%\n', type: 'text' },
+      { text: '  [Zona USDT]      nominal: 3.6%   risk-adj: 2.88%\n', type: 'text' },
+      { text: '  [Morpho Blue]    (no active markets)\n', type: 'muted' },
+      { text: '➜ Best allocation: R25 Axil 6-month.\n', type: 'recommend-bold' }
+    ]
+  ];
+
+  let scenarioIdx = 0;
+  let lineIdx = 0;
+  let charIdx = 0;
+  const termContent = document.getElementById('terminal-content');
+
+  function typeTerminalChar() {
+    if (!termContent) return;
+    const currentScenario = terminalScenarios[scenarioIdx];
+    if (lineIdx >= currentScenario.length) {
+      setTimeout(() => {
+        termContent.innerHTML = '';
+        lineIdx = 0;
+        charIdx = 0;
+        scenarioIdx = (scenarioIdx + 1) % terminalScenarios.length;
+        typeTerminalChar();
+      }, 5000); // 5 seconds pause between scenarios
+      return;
+    }
+
+    const line = currentScenario[lineIdx];
+    if (charIdx === 0) {
+      const span = document.createElement('span');
+      span.className = 'term-' + line.type;
+      span.id = `term-span-${scenarioIdx}-${lineIdx}`;
+      termContent.appendChild(span);
+    }
+
+    const span = document.getElementById(`term-span-${scenarioIdx}-${lineIdx}`);
+    if (span) {
+      span.textContent += line.text[charIdx];
+    }
+    charIdx++;
+
+    if (charIdx >= line.text.length) {
+      lineIdx++;
+      charIdx = 0;
+      setTimeout(typeTerminalChar, 100 + Math.random() * 80);
+    } else {
+      let delay = 8 + Math.random() * 15;
+      if (line.type === 'cmd') delay = 30 + Math.random() * 30;
+      setTimeout(typeTerminalChar, delay);
+    }
+  }
+
+  // start terminal typing when section is in view or immediately
+  setTimeout(typeTerminalChar, 1000);
+
+  // Interactive Chat Typewriter Animation (cycling through 5 distinct scenarios)
+  const chatScenarios = [
+    // Scenario 1: Cross-chain Swap (PROS -> USDT)
+    [
+      { sender: 'user', text: 'where can I send my PROS?' },
+      { sender: 'agent', text: 'You can bridge PROS to <strong>7 chains</strong> via LI.FI:<br>• <strong>Base</strong> (widest liquidity)<br>• Ethereum, Polygon, Arbitrum, Optimism, HyperEVM, Ink<br>Which chain do you want to route to?' },
+      { sender: 'user', text: 'swap 5 PROS for USDT on Base' },
+      { sender: 'agent', text: 'I parsed the route via <strong>LI.FI Intents</strong>:<br>⚡ <strong>Atomic Swap + Bridge</strong> (13 seconds, ~$0.04 fee)<br>📥 You will receive: <strong>2.77 USDT</strong> on Base.<br>Please confirm if I should broadcast this transaction.' }
+    ],
+    // Scenario 2: Safety Audit Check (Guardrail)
+    [
+      { sender: 'user', text: 'is it safe to approve Uniswap router to spend my USDT?' },
+      { sender: 'agent', text: '🛡️ <strong>tx-guardrail score: 70/100</strong> → <span style="color:var(--red); font-weight:bold; background:var(--ink); padding:2px 6px;">BLOCK</span><br>• Target contract is verified on-chain.<br>• ⚠️ <strong>Unlimited approval (MAX_UINT256) detected.</strong><br>• This allows the contract to spend your entire balance at any time.<br>Please specify a limited amount: "Approve 500 USDT" instead.' }
+    ],
+    // Scenario 3: RWA Yield Scanner & Executor
+    [
+      { sender: 'user', text: 'where is the best yield for my USDT stablecoin?' },
+      { sender: 'agent', text: '🔍 <strong>Scanning RWA yield protocols:</strong><br>• <strong>#1 R25 Axil (6-month)</strong>: 11.2% nominal APY (risk-adjusted: <strong>6.72%</strong>)<br>• <strong>#2 R25 Axil (7-day)</strong>: 8.5% nominal APY (risk-adjusted: <strong>5.10%</strong>)<br>• <strong>#3 Zona USDT supply</strong>: 3.6% nominal APY (risk-adjusted: <strong>2.88%</strong>)<br><br>Would you like me to allocate to R25 Axil?' },
+      { sender: 'user', text: 'yes, deposit 1000 USDT into R25 Axil 6m' },
+      { sender: 'agent', text: '⚙️ <strong>Executing deposit...</strong><br>✓ Approved 1000 USDT to R25 Vault<br>✓ Deposited 1000 USDT into R25 Axil 6-month Vault<br>📥 Position confirmed: <strong>994.5 shares</strong> ($1,000 value).' }
+    ],
+    // Scenario 4: Cross-Chain Bridge (CCTP V2 zero-fee USDC)
+    [
+      { sender: 'user', text: 'bridge 100 USDC from Base to Pharos' },
+      { sender: 'agent', text: 'I found a zero-fee route via <strong>Circle CCTP V2</strong>:<br>🚢 <strong>Base → Pharos</strong> (10 minutes, <strong>$0.00 fee</strong>)<br>📥 You will receive exactly <strong>100.00 USDC</strong> on Pharos.<br>Should I execute this transfer?' },
+      { sender: 'user', text: 'yes, bridge it' },
+      { sender: 'agent', text: '🚀 <strong>CCTP Burn Broadcasted!</strong><br>✓ Burn tx: 0x8a92... on Base<br>⏳ Awaiting Circle attestation (~10 min). I will automatically claim and mint your 100 USDC on Pharos once ready.' }
+    ],
+    // Scenario 5: Multi-Hop Swap + Bridge (ETH on Pharos -> USD0 on Arbitrum)
+    [
+      { sender: 'user', text: 'convert 0.05 ETH on Pharos to USD0 on Arbitrum' },
+      { sender: 'agent', text: 'I calculated a multi-hop route via <strong>LI.FI</strong>:<br>🔄 <strong>Swap:</strong> ETH → USDC on Pharos (Faroswap)<br>🌉 <strong>Bridge:</strong> USDC (Pharos) → USD0 (Arbitrum) via Polymer<br>⏱️ Est. Time: <strong>18 min</strong> · Fee: <strong>~$0.20</strong><br>📥 You will receive: <strong>142.50 USD0</strong>.<br>Proceed with the swap + bridge?' }
+    ]
+  ];
+
+  function typeHtmlElement(element, speed, isUser, callback) {
+    const textNodes = [];
+    function findTextNodes(node) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        if (node.nodeValue.trim().length > 0) {
+          textNodes.push(node);
+        }
+      } else {
+        for (let child of node.childNodes) {
+          findTextNodes(child);
+        }
+      }
+    }
+    findTextNodes(element);
+
+    const originalTexts = textNodes.map(node => {
+      const val = node.nodeValue;
+      node.nodeValue = '';
+      return val;
+    });
+
+    let nodeIdx = 0;
+    let charIdx = 0;
+
+    function typeChar() {
+      if (nodeIdx >= textNodes.length) {
+        if (callback) callback();
+        return;
+      }
+
+      const node = textNodes[nodeIdx];
+      const fullText = originalTexts[nodeIdx];
+      const charTyped = fullText[charIdx];
+      node.nodeValue += charTyped;
+      charIdx++;
+
+      if (charIdx >= fullText.length) {
+        nodeIdx++;
+        charIdx = 0;
+        setTimeout(typeChar, speed * 2);
+      } else {
+        // Human-like typing delay for user, robotic/fast for agent
+        let delay = speed;
+        if (isUser) {
+          delay = 20 + Math.random() * 55;
+          // Punctuation pause
+          if (['.', ',', '?', '!'].includes(charTyped)) {
+            delay += 250;
+          }
+        } else {
+          delay = 8 + Math.random() * 10;
+        }
+        setTimeout(typeChar, delay);
+      }
+    }
+
+    typeChar();
+  }
+
+  const chatContainer = document.getElementById('chat-messages-container');
+  const typingIndicator = document.getElementById('typing-indicator');
+  const scenarioHeader = document.getElementById('chat-scenario-header');
+  const scenarioTitles = [
+    "Scenario 1: Cross-Chain Intent Routing (PROS → USDT)",
+    "Scenario 2: Safety Audit Check (PHAROS-TX-GUARDRAIL)",
+    "Scenario 3: RWA Yield Scanner & Executor (USDT)",
+    "Scenario 4: Zero-Fee USDC Bridge (Circle CCTP V2)",
+    "Scenario 5: Multi-Hop Swap + Bridge (ETH → USD0)"
+  ];
+  let chatScenarioIdx = 0;
+  let chatMsgIdx = 0;
+
+  function showNextChatMessage() {
+    if (!chatContainer) return;
+    const currentScenario = chatScenarios[chatScenarioIdx];
+    scenarioHeader.textContent = scenarioTitles[chatScenarioIdx];
+
+    if (chatMsgIdx >= currentScenario.length) {
+      // Loop back after a snappier pause (3 seconds)
+      setTimeout(() => {
+        chatContainer.innerHTML = '';
+        chatMsgIdx = 0;
+        chatScenarioIdx = (chatScenarioIdx + 1) % chatScenarios.length;
+        showNextChatMessage();
+      }, 3000);
+      return;
+    }
+
+    const msg = currentScenario[chatMsgIdx];
+    const isAgent = (msg.sender === 'agent');
+
+    // Create elements
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `chat-msg ${msg.sender}-msg`;
+    msgDiv.style.display = 'flex';
+    msgDiv.style.flexDirection = 'column';
+    msgDiv.style.alignItems = isAgent ? 'flex-start' : 'flex-end';
+    msgDiv.style.width = '100%';
+
+    const labelDiv = document.createElement('div');
+    labelDiv.style.fontFamily = "'Space Mono', monospace";
+    labelDiv.style.fontSize = '10px';
+    labelDiv.style.textTransform = 'uppercase';
+    labelDiv.style.color = isAgent ? 'var(--blue-soft)' : 'var(--ink-soft)';
+    labelDiv.style.marginBottom = '6px';
+    labelDiv.style.fontWeight = isAgent ? 'bold' : 'normal';
+    labelDiv.textContent = isAgent ? 'PHAROS-AGENT' : 'USER';
+
+    const bubbleDiv = document.createElement('div');
+    if (isAgent) {
+      bubbleDiv.style.background = 'white';
+      bubbleDiv.style.color = 'var(--ink)';
+      bubbleDiv.style.border = '3px solid var(--ink)';
+      bubbleDiv.style.padding = '16px 20px';
+      bubbleDiv.style.fontSize = '14px';
+      bubbleDiv.style.maxWidth = '85%';
+      bubbleDiv.style.boxShadow = '4px 4px 0 var(--blue)';
+    } else {
+      bubbleDiv.style.background = 'var(--ink)';
+      bubbleDiv.style.color = 'var(--paper)';
+      bubbleDiv.style.border = '2px solid var(--ink)';
+      bubbleDiv.style.padding = '14px 18px';
+      bubbleDiv.style.fontSize = '14px';
+      bubbleDiv.style.maxWidth = '85%';
+    }
+
+    bubbleDiv.innerHTML = msg.text;
+    msgDiv.appendChild(labelDiv);
+    msgDiv.appendChild(bubbleDiv);
+
+    if (isAgent) {
+      typingIndicator.style.display = 'flex';
+      const chatOuter = document.getElementById('interactive-chat');
+      chatOuter.scrollTop = chatOuter.scrollHeight;
+
+      setTimeout(() => {
+        typingIndicator.style.display = 'none';
+        chatContainer.appendChild(msgDiv);
+        chatOuter.scrollTop = chatOuter.scrollHeight;
+
+        typeHtmlElement(bubbleDiv, 12, false, () => {
+          chatMsgIdx++;
+          setTimeout(showNextChatMessage, 2200);
+        });
+      }, 1200);
+    } else {
+      chatContainer.appendChild(msgDiv);
+      const chatOuter = document.getElementById('interactive-chat');
+      chatOuter.scrollTop = chatOuter.scrollHeight;
+
+      typeHtmlElement(bubbleDiv, 15, true, () => {
+        chatMsgIdx++;
+        setTimeout(showNextChatMessage, 1000);
+      });
+    }
+  }
+
+  // Start chat animation when DOM is ready
+  setTimeout(showNextChatMessage, 1500);
 </script>
 
 </body>

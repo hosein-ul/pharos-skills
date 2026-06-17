@@ -31,9 +31,10 @@ ln -s ~/pharos-skills/pharos-rwa-yield-router    ~/.claude/skills/pharos-rwa-yie
 
 Or copy the individual skill folders into wherever your agent reads skills from. Each subdirectory is a self-contained Pharos Skill Engine package (`SKILL.md` + `assets/` + `references/` + `evals/`).
 
-**Per-agent installation instructions** — including one-command installs for 9 different AI agents — are on the project site: **[pharos-skills site](https://hosein-ul.github.io/pharos-skills/)**.
+**Universal prompt install instructions and workflow are available on the project site: [pharos-skills site](https://hosein-ul.github.io/pharos-skills/).**
 
-**Prerequisite — Foundry:**
+**Tooling & Dependencies:**
+The agent automatically self-bootstraps its required dependencies (like Foundry's `cast`, Python, and curl) and sets up a local hot wallet if needed on first run. If you prefer to manually pre-install Foundry, use:
 
 ```bash
 curl -L https://foundry.paradigm.xyz | bash && foundryup
